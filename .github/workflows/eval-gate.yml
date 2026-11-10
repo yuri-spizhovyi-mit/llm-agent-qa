@@ -1,0 +1,102 @@
+name: eval-gate
+
+# Live evals plus the regression gate (learning guide 07, GATE-D2). It costs money, so it runs
+# only on demand, or when a PR changes what the model sees: the prompts or the tool definitions.
+# The API key comes only from the repository secret ANTHROPIC_API_KEY. Without it the job
+# reports "skipped" and passes; M8 makes this a required check once the key and baseline exist.
+on:
+  workflow_dispatch:
+    inputs:
+      trials:
+        description: "Trials per task"
+        default: "3"
+      prompt:
+        description: "Prompt version (src/agentqa/prompts/<name>.md)"
+        default: "system_v1"
+  pull_request:
+    paths:
+      - "src/agentqa/prompts/**"
+      - "src/agentqa/tools.py"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eval-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    name: eval gate (live)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TRIALS: ${{ inputs.trials || '3' }}
+      PROMPT: ${{ inputs.prompt || 'system_v1' }}
+      PYTHONPATH: src
+    steps:
+      - name: Is an API key configured?
+        id: key
+        env:
+          HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        run: |
+          echo "present=$HAS_KEY" >> "$GITHUB_OUTPUT"
+          if [ "$HAS_KEY" != "true" ]; then
+            echo "::notice::eval gate skipped: no ANTHROPIC_API_KEY repository secret (see docs/plan.md, M8)"
+          fi
+
+      - uses: actions/checkout@v5
+        if: steps.key.outputs.present == 'true'
+        with:
+          submodules: recursive
+
+      - uses: foundry-rs/foundry-toolchain@v1
+        if: steps.key.outputs.present == 'true'
+        with:
+          version: v1.8.7
+
+      - uses: actions/setup-python@v5
+        if: steps.key.outputs.present == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install and build
+        if: steps.key.outputs.present == 'true'
+        run: |
+          pip install -r requirements.txt
+          (cd vendor/settlement/contracts && forge build)
+
+      - name: Golden evals (live)
+        if: steps.key.outputs.present == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces || true
+
+      - name: Red team (live)
+        if: steps.key.outputs.present == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" || true
+
+      # The evals above report; this step decides. It needs the stored baseline (M8 records it).
+      - name: Regression gate
+        if: steps.key.outputs.present == 'true'
+        run: |
+          if [ ! -f evals/baseline/golden.json ]; then
+            echo "::warning::no baseline yet in evals/baseline/: this run's results can become it (M8)"
+            exit 0
+          fi
+          python -m agentqa.evals.gate \
+            --baseline evals/baseline/golden.json --candidate reports/golden/results.json \
+            --redteam-baseline evals/baseline/redteam.json --redteam reports/redteam/results.json \
+            --out reports/gate.md
+          cat reports/gate.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.key.outputs.present == 'true'
+        with:
+          name: eval-reports
+          path: reports/
+          retention-days: 30

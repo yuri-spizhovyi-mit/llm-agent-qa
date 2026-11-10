@@ -13,6 +13,7 @@ entry gives the evidence and the outcome.
 | F-05 | mutation check of the calibration gates | the fallback-verdict gate could be deleted with every test green | Fixed in M5 |
 | F-06 | red team, gullible model (RED-02) | **real hole:** a re-issued duplicate invoice (new number) was paid twice | Fixed in M6: policy rule `possible_duplicate` |
 | F-07 | red-team positive control (RED-04) | payee swaps are stopped by two layers, not one; the scorer's `executed` side was untested | Documented; positive controls added |
+| F-08 | review of the gate's own tests | the latency test used one duration for every trial, so it could not tell p95 from a mean or a max | Fixed in M7 before merge |
 
 ## F-01: the worst-case model's first version tested only two of six rules
 
@@ -153,3 +154,22 @@ Before this control, every red-team test ran with the policy on, where nothing e
 
 **Lesson:** "zero breaches" is evidence only if the instrument can show a breach. Run it once
 against a system you know is broken.
+
+
+## F-08: a latency test that could not tell a percentile from an average
+
+**Found by:** reviewing `tests/test_gate.py` before the mutation run.
+
+**Evidence:** `test_cost_and_latency_budgets` gave every trial the same duration. With all values
+equal, the p95, the mean and the max are the same number. A gate that blocked on the mean, which
+hides a slow tail, or on the max, which blocks on one straggler, would have passed it. The test
+checked that a budget exists, not which statistic enforces it.
+
+**Fix:** `tests/test_gate.py::test_the_latency_budget_is_a_95th_percentile_not_a_mean_or_a_max`.
+- 10% of trials slow must block, which a mean would hide.
+- 2% slow must pass, where a max would block.
+
+Both mutants ("p95 is a mean", "p95 is a max") now fail. All 9 gate mutants are killed.
+
+**Lesson:** test data with no variation can't test a statistic. Choose inputs where the right
+statistic and the plausible wrong ones disagree.

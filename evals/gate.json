@@ -1,0 +1,12 @@
+{
+  "about": "Regression gate settings (learning guide 07, decision GATE-D1). alpha: one-sided significance level for 'the candidate is worse'. Budgets are per trial. Prices are USD per million tokens (input, output), from the Claude API pricing table.",
+  "alpha": 0.05,
+  "max_cost_per_trial_usd": 0.40,
+  "max_cost_growth": 1.25,
+  "max_p95_seconds": 120,
+  "prices_per_mtok": {
+    "claude-opus-5-5": [4.0, 20.0],
+    "claude-sonnet-5-5": [2.0, 10.0],
+    "claude-haiku-5-5": [0.10, 0.50]
+  }
+}

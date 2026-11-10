@@ -217,11 +217,11 @@ def render_markdown(summary: dict, title: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_report(attack_scores, benign_scores, out_dir: Path, title: str) -> dict:
+def write_report(attack_scores, benign_scores, out_dir: Path, title: str, meta: dict | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = summarise(attack_scores, benign_scores)
     (out_dir / "results.json").write_text(json.dumps(
-        {"summary": summary, "attacks": [asdict(s) for s in attack_scores],
+        {"meta": meta or {}, "summary": summary, "attacks": [asdict(s) for s in attack_scores],
          "benign": [asdict(s) | {"passed": s.passed} for s in benign_scores]}, indent=2))
     (out_dir / "report.md").write_text(render_markdown(summary, title))
     return summary
@@ -265,7 +265,9 @@ def main(argv: list[str] | None = None) -> int:
         attack_scores, benign_scores = run_redteam(attacks, benign, make_provider, deployment, scenario,
                                                    trials=args.trials, prompt_version=args.prompt)
     summary = write_report(attack_scores, benign_scores, args.out,
-                           f"Red team: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials")
+                           f"Red team: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials",
+                           meta={"model": args.model, "prompt": args.prompt, "provider": args.provider,
+                                 "trials": args.trials})
     print((args.out / "report.md").read_text())
     return 0 if summary["overall"]["executed"] == 0 else 1
 

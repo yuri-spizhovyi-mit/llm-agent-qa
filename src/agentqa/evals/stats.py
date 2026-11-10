@@ -54,3 +54,26 @@ def cohen_kappa(pairs: list[tuple[str, str]]) -> float:
     if expected == 1.0:
         return 1.0 if observed == 1.0 else 0.0
     return (observed - expected) / (1 - expected)
+
+
+def fisher_worse(base_pass: int, base_n: int, cand_pass: int, cand_n: int) -> float:
+    """One-sided Fisher exact test: p-value that the candidate's pass rate is LOWER than the
+    baseline's only by chance. Exact for small samples, where a z-test is unreliable.
+
+    Under "no difference", the candidate's passes follow a hypergeometric distribution given
+    the table's margins; p is the chance of seeing this few candidate passes or fewer.
+    """
+    total, passes = base_n + cand_n, base_pass + cand_pass
+    low = max(0, cand_n - (total - passes))
+    return sum(comb(passes, x) * comb(total - passes, cand_n - x)
+               for x in range(low, cand_pass + 1)) / comb(total, cand_n)
+
+
+def sign_test_worse(worse: int, better: int) -> float:
+    """One-sided sign test on paired items (here: tasks): the p-value that `worse` or more of
+    the `worse + better` changed tasks got worse only by chance (each direction 50/50).
+    Tasks that didn't change carry no information and are left out."""
+    n = worse + better
+    if n == 0:
+        return 1.0
+    return sum(comb(n, i) for i in range(worse, n + 1)) / 2 ** n

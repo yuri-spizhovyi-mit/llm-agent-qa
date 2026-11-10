@@ -69,6 +69,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--prompt", default="system_v1")
     parser.add_argument("--cassettes", type=Path, default=ROOT / "evals" / "cassettes" / "golden")
     parser.add_argument("--out", type=Path, default=ROOT / "reports" / "golden")
+    parser.add_argument("--traces", type=Path, default=None, help="write one JSON trace per trial here")
     parser.add_argument("--judge", action="store_true")
     parser.add_argument("--judge-calibration", type=Path, default=ROOT / "reports" / "judge" / "calibration.json")
     parser.add_argument("--judge-cassettes", type=Path, default=ROOT / "evals" / "cassettes" / "judge-golden")
@@ -116,9 +117,12 @@ def main(argv: list[str] | None = None) -> int:
 
     with started_world(scenario) as deployment:
         scores = runner.run_suite(tasks, make_provider, deployment, scenario,
-                                  trials=args.trials, prompt_version=args.prompt, make_judge=make_judge)
+                                  trials=args.trials, prompt_version=args.prompt, make_judge=make_judge,
+                                  trace_dir=args.traces)
     title = f"Golden-task eval: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials"
-    summary = runner.write_report(scores, args.out, title)
+    summary = runner.write_report(scores, args.out, title, meta={
+        "model": args.model, "prompt": args.prompt, "provider": args.provider, "trials": args.trials,
+        "judge": bool(args.judge)})
     print((args.out / "report.md").read_text())
     return 0 if summary["overall"]["passed"] == summary["overall"]["trials"] else 1
 
