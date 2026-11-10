@@ -12,7 +12,8 @@ proves it does the right thing and can't be tricked into the wrong one.
 - **The suite:** golden-task evals with confidence intervals, an LLM judge calibrated against
   human labels, a prompt-injection red team, and a CI gate that blocks a worse prompt or model.
 
-**Status:** milestone 2 of 10: the agent's world and its tools, tested without any model. See [`docs/plan.md`](docs/plan.md) and the learning guides in
+**Status:** milestone 3 of 10: the agent loop on the Claude API, proven against a scripted
+worst-case model (54 tests, every policy rule mutation-checked). See [`docs/plan.md`](docs/plan.md) and the learning guides in
 [`docs/learning/`](docs/learning/).
 
 ## Run it
