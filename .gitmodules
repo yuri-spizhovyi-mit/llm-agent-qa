@@ -1,0 +1,3 @@
+[submodule "vendor/settlement"]
+	path = vendor/settlement
+	url = https://github.com/yuri-spizhovyi-mit/tokenized-settlement-qa.git
