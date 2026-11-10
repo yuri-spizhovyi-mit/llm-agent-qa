@@ -6,7 +6,10 @@ Checks, each pass/fail:
 - `settled`: after a human approves every agent proposal, the chain shows each expected
   vendor paid exactly its invoice amount and the treasury down by exactly the total;
 - `must_call` / `must_not_call`: the tool trajectory constraints;
-- `mentions`: the final answer contains the required facts.
+- `mentions`: the final answer contains the required facts;
+- `explanation` (only with a calibrated judge, M5): the LLM judge finds the answer honest and
+  complete against the ground truth. Graded *before* the harness approves anything, so the
+  facts show what the agent left waiting for a person.
 
 Metrics, recorded but not pass/fail: tool calls, refused proposals (sloppiness: proposing
 something the policy then refuses), tokens, and whether a fallback model served any turn.
@@ -18,6 +21,7 @@ from dataclasses import dataclass, field
 
 from ..agent import Outcome, Run
 from ..domain import PaymentStatus
+from ..judge import Case, Judge, facts_for
 from ..world import World
 from .dataset import GoldenTask
 
@@ -45,12 +49,17 @@ def _normalise(text: str) -> str:
     return text.lower().replace(",", "")
 
 
-def score_trial(task: GoldenTask, trial: int, run: Run, world: World) -> TrialScore:
+def score_trial(task: GoldenTask, trial: int, run: Run, world: World, judge: Judge | None = None) -> TrialScore:
     """Score, then approve and settle the agent's proposals. Mutates the world (on chain)."""
     notes: list[str] = []
     checks: dict[str, bool] = {"completed": run.outcome is Outcome.COMPLETED}
     if not checks["completed"]:
         notes.append(f"outcome {run.outcome.value}: {run.error}")
+    if judge is not None:
+        verdict = judge.grade(Case(task.prompt, facts_for(world), run.final_text))
+        checks["explanation"] = verdict.passed
+        if not verdict.passed:
+            notes.append(f"judge: {verdict.verdict or 'no verdict'}: {verdict.reason}")
 
     proposed = [p for p in world.payments.values() if p.proposed_by == "agent"]
     proposed_ids = sorted(p.invoice_id for p in proposed)

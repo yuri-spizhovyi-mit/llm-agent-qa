@@ -3,6 +3,9 @@
     --provider live     the real Claude API (needs ANTHROPIC_API_KEY; costs money; M8)
     --provider record   live, and save every response as a cassette under --cassettes
     --provider replay   replay saved cassettes (free; fails on any request not recorded)
+    --judge             also grade each answer with the LLM judge, using the same provider mode.
+                        Refused unless reports/judge/calibration.json says the judge is trusted
+                        for this judge prompt and model (JDG-D2).
 
 Starts its own Anvil, deploys the world, runs tasks × trials in isolation, and writes
 `report.md` and `results.json` to --out. CI never runs this with a live provider (ENV-D2).
@@ -23,10 +26,12 @@ from lib import artifacts  # noqa: E402
 from lib.anvil import Anvil  # noqa: E402
 from lib.chain import Chain  # noqa: E402
 
+from ..judge import JUDGE_PROMPT, Judge, LiveJudgeProvider  # noqa: E402
 from ..providers import DEFAULT_MODEL, Cassette, LiveProvider, RecordingProvider, ReplayProvider  # noqa: E402
 from ..scenarios import base_scenario  # noqa: E402
 from ..world import Deployment  # noqa: E402
 from . import dataset, runner  # noqa: E402
+from .calibrate import require_trusted  # noqa: E402
 
 
 class _SavingRecorder(RecordingProvider):
@@ -51,6 +56,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--prompt", default="system_v1")
     parser.add_argument("--cassettes", type=Path, default=ROOT / "evals" / "cassettes" / "golden")
     parser.add_argument("--out", type=Path, default=ROOT / "reports" / "golden")
+    parser.add_argument("--judge", action="store_true")
+    parser.add_argument("--judge-calibration", type=Path, default=ROOT / "reports" / "judge" / "calibration.json")
+    parser.add_argument("--judge-cassettes", type=Path, default=ROOT / "evals" / "cassettes" / "judge-golden")
     args = parser.parse_args(argv)
 
     tasks = dataset.load_tasks()
@@ -61,10 +69,11 @@ def main(argv: list[str] | None = None) -> int:
     dataset.validate(tasks, {i.invoice_id for i in scenario.invoices}, {v.vendor_id for v in scenario.vendors})
 
     if args.provider == "replay":
-        missing = [f"{t.id}-{i}.json" for t in tasks for i in range(args.trials)
-                   if not (args.cassettes / f"{t.id}-{i}.json").exists()]
+        dirs = [args.cassettes] + ([args.judge_cassettes] if args.judge else [])
+        missing = [str(d / f"{t.id}-{i}.json") for d in dirs for t in tasks for i in range(args.trials)
+                   if not (d / f"{t.id}-{i}.json").exists()]
         if missing:
-            print(f"no cassette for {len(missing)} trial(s) in {args.cassettes}: {', '.join(missing[:5])}"
+            print(f"no cassette for {len(missing)} trial(s): {', '.join(missing[:5])}"
                   f"{' ...' if len(missing) > 5 else ''}. Record them with --provider record.", file=sys.stderr)
             return 2
 
@@ -78,13 +87,27 @@ def main(argv: list[str] | None = None) -> int:
             return _SavingRecorder(live, Cassette(model=args.model), path)
         return ReplayProvider(Cassette.load(path))
 
+    make_judge = None
+    if args.judge:
+        require_trusted(args.judge_calibration, judge_prompt=JUDGE_PROMPT, model=args.model)
+        live_judge = LiveJudgeProvider(model=args.model) if args.provider in ("live", "record") else None
+
+        def judge_for(task, trial):
+            path = args.judge_cassettes / f"{task.id}-{trial}.json"
+            if args.provider == "live":
+                return Judge(live_judge)
+            if args.provider == "record":
+                return Judge(_SavingRecorder(live_judge, Cassette(model=args.model), path))
+            return Judge(ReplayProvider(Cassette.load(path)))
+        make_judge = judge_for
+
     artifacts.ensure_built()
     node = Anvil.start()
     try:
         chain = Chain(Web3(Web3.HTTPProvider(node.url, request_kwargs={"timeout": 30})))
         deployment = Deployment.deploy(chain, scenario)
         scores = runner.run_suite(tasks, make_provider, deployment, scenario,
-                                  trials=args.trials, prompt_version=args.prompt)
+                                  trials=args.trials, prompt_version=args.prompt, make_judge=make_judge)
     finally:
         node.stop()
     title = f"Golden-task eval: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials"

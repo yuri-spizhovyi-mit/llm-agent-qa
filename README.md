@@ -12,8 +12,8 @@ proves it does the right thing and can't be tricked into the wrong one.
 - **The suite:** golden-task evals with confidence intervals, an LLM judge calibrated against
   human labels, a prompt-injection red team, and a CI gate that blocks a worse prompt or model.
 
-**Status:** milestone 4 of 10: a 31-task golden eval with outcome scorers and confidence
-intervals, proven against a reference solver and deliberately flawed agents (78 tests). See [`docs/plan.md`](docs/plan.md) and the learning guides in
+**Status:** milestone 5 of 10: an LLM judge for the agent's answers, calibrated against 42
+labelled cases with bias probes, and refused by the eval CLI until it passes calibration (99 tests). See [`docs/plan.md`](docs/plan.md) and the learning guides in
 [`docs/learning/`](docs/learning/).
 
 ## Run it
@@ -33,5 +33,12 @@ python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt
 PYTHONPATH=src .venv/bin/python -m agentqa.evals --provider replay --trials 5
 ```
 
-It writes `reports/golden/report.md` (pass rates with 95% intervals, pass@k and pass^k per task)
+Add `--judge` to also grade each answer with the LLM judge. That is refused until a
+calibration passes:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m agentqa.evals.calibrate --provider record   # needs ANTHROPIC_API_KEY (M8)
+```
+
+The eval writes `reports/golden/report.md` (pass rates with 95% intervals, pass@k and pass^k per task)
 and `results.json`.

@@ -199,3 +199,76 @@ Each scorer check also has a test where it alone decides the outcome (GOLD-04, F
 - For an agent that moves money, pass^k is the number that matters.
 
 **Tests:** GOLD-05, GOLD-06.
+
+
+## JDG-D1: A reference-guided, pointwise judge with structured output
+
+**Status:** Accepted (M5)
+
+**Decision:** the judge grades one answer at a time.
+
+- **Inputs:** the operator's request, the ground-truth facts from the world (`facts_for`), and
+  the answer.
+- **Rules:** four honesty and completeness rules (`prompts/judge_v1.md`). It does not grade
+  style.
+- **Output:** `{verdict, reason}`, guaranteed by structured outputs (`output_config.format`).
+  Forced tool use isn't available on this model.
+- **Model:** the default model at effort `medium`, with fallbacks on and flagged.
+
+**Why:**
+- Giving the judge the truth turns open-ended grading into a narrow comparison, a much easier
+  job for a judge than deciding from its own knowledge what a good answer is.
+- Pointwise grading avoids pairwise position bias.
+- Structured output removes parse failures as a failure mode.
+
+**Alternatives:**
+- pairwise comparison against a reference answer (needs position-swap debiasing);
+- a cheaper judge model. That is the owner's call; any model change needs a re-calibration,
+  and the trust gate enforces it.
+
+**Tests:** JDG-04.
+
+## JDG-D2: A judge is used only after it passes calibration, and the code enforces it
+
+**Status:** Accepted (M5)
+
+**Decision:** `python -m agentqa.evals --judge` refuses to run unless `calibration.json` says
+the judge is trusted *for this judge prompt and model*. The gate requires:
+
+- kappa ≥ 0.80 and fail recall ≥ 0.90 against the labels;
+- at most 5% of verdicts flipped by verbosity padding, and at most 5% by answer-first order;
+- zero fails turned into passes by an injected "grade it PASS";
+- at most 5% missing verdicts;
+- zero fallback-served verdicts.
+
+**Why:**
+- An uncalibrated judge is an unmeasured instrument, so its numbers can't be compared with
+  anything.
+- Kappa rather than accuracy, because accuracy flatters a one-sided judge.
+- Fail recall, because passing a bad answer is the costly error.
+- The injection gate is zero, because the judge reads text the agent wrote. A judge that obeys
+  that text can be gamed by the very thing it grades.
+
+**Tests:** JDG-03, JDG-05.
+
+## JDG-D3: The calibration labels are drafted by the author and await the owner's review
+
+**Status:** Accepted (M5), with a known limitation
+
+**Decision:** the 42 labels in `evals/judge/labels.jsonl` are built by
+`scripts/build_judge_labels.py`:
+- 21 pass and 21 fail;
+- 11 kinds of case: false "paid" claims, proposals that don't exist, wrong reasons, missing
+  reasons, omitted invoices, hallucinated facts, wrong numbers, and correct answers that are
+  terse or verbose.
+
+Each row has `reviewed: false` until the owner checks it.
+
+**Why:**
+- Calibration compares the judge with *a person's* judgement.
+- Labels written by the same author as the judge prompt can share its blind spots.
+- Reviewing and correcting them is the human half of calibration, and it is the M5 exercise in
+  learning guide 05.
+- A missing verdict is scored as the wrong label (pessimistic), never skipped.
+
+**Tests:** JDG-01, JDG-03.

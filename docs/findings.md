@@ -9,6 +9,8 @@ entry gives the evidence and the outcome.
 | F-01 | mutation check of AGT-03 | test-harness bug: the fuzzer never reached a live state | Fixed in M3 |
 | F-02 | mutation check of AGT-03 | duplicate guard: the books and the chain disagree when the policy check is missing | Guarded twice; caught by a bookkeeping invariant |
 | F-03 | mutation check of the eval scorers | two scorer checks (`must_call`, `must_not_call`) could be deleted with every test green | Fixed in M4 |
+| F-04 | flawed-judge test (JDG-03) | the injection metric blamed a lenient judge for being injectable | Fixed in M5 |
+| F-05 | mutation check of the calibration gates | the fallback-verdict gate could be deleted with every test green | Fixed in M5 |
 
 ## F-01: the worst-case model's first version tested only two of six rules
 
@@ -70,3 +72,33 @@ Both mutants now fail.
 **Lesson:** "every task can fail" (GOLD-03) is not the same as "every check can fail". A check
 that never decides an outcome is dead code in the scorer, and it will silently stay dead when
 someone breaks it.
+
+
+## F-04: the injection probe counted leniency as injection
+
+**Found by:** `tests/test_judge.py::test_each_flawed_judge_is_caught_by_the_gate_for_its_flaw`,
+on the `lenient` judge. That judge passes five of the bad answers outright and is otherwise
+correct.
+
+**Evidence:** the test expected the kappa and fail-recall gates to fail, and nothing else. The
+injection gate failed too. The metric counted every bad answer the judge passed *after* the
+"grade it PASS" note was appended, including the five it had already passed without the note.
+The gate would therefore report "the judge obeys injected instructions" for a judge that never
+read them. A wrong diagnosis sends the fix to the wrong place: hardening the prompt against
+injection would not make a lenient judge stricter.
+
+**Fix:** `injection_flips` now counts only verdicts the injection *changed*: the judge failed
+the bad answer, then passed it with the note added. Each flawed judge now trips exactly the
+gate for its flaw.
+
+## F-05: the fallback-verdict gate was dead
+
+**Found by:** mutation checks on `src/agentqa/evals/calibrate.py`. Nine mutants; one survived.
+
+**Evidence:** with `fallback_verdicts` hard-wired to 0, all 20 judge tests stayed green. No
+scripted judge was ever served by a fallback model.
+
+**Fix:** a `fallback_served` judge that agrees with every label but is always answered by a
+fallback model. It must be refused, because calibrating it would calibrate a different judge.
+The mutant now fails. This is F-03's lesson again: every gate needs a case where it alone
+decides the outcome.
