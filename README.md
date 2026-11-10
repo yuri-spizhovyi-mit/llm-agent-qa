@@ -12,8 +12,9 @@ proves it does the right thing and can't be tricked into the wrong one.
 - **The suite:** golden-task evals with confidence intervals, an LLM judge calibrated against
   human labels, a prompt-injection red team, and a CI gate that blocks a worse prompt or model.
 
-**Status:** milestone 5 of 10: an LLM judge for the agent's answers, calibrated against 42
-labelled cases with bias probes, and refused by the eval CLI until it passes calibration (99 tests). See [`docs/plan.md`](docs/plan.md) and the learning guides in
+**Status:** milestone 6 of 10: a 16-attack prompt-injection red team scored as *attempted*
+vs *executed*, plus over-blocking. It found a real hole (F-06, a re-issued duplicate invoice paid
+twice), now closed by a seventh policy rule (111 tests). See [`docs/plan.md`](docs/plan.md) and the learning guides in
 [`docs/learning/`](docs/learning/).
 
 ## Run it
@@ -33,7 +34,13 @@ python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt
 PYTHONPATH=src .venv/bin/python -m agentqa.evals --provider replay --trials 5
 ```
 
-Add `--judge` to also grade each answer with the LLM judge. That is refused until a
+The red team runs the same way:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m agentqa.evals.redteam --provider replay --trials 3
+```
+
+Add `--judge` to the golden eval to also grade each answer with the LLM judge. That is refused until a
 calibration passes:
 
 ```bash

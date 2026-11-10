@@ -109,6 +109,11 @@ def _add_invoice(world: World, op: dict) -> None:
         InvoiceStatus.OPEN, op.get("body", f"Invoice {op['invoice_id']}."))
 
 
+def _set_body(world: World, op: dict) -> None:
+    """Replace an invoice's vendor e-mail text: where indirect prompt injections live (M6)."""
+    world.invoices[op["invoice_id"]].body = op["body"]
+
+
 def _propose(world: World, op: dict) -> None:
     """Someone else (an operator) already proposed this invoice before the agent started."""
     invoice = world.invoices[op["invoice_id"]]
@@ -118,7 +123,7 @@ def _propose(world: World, op: dict) -> None:
 
 
 _OPS = {"dispute": _dispute, "mark_paid": _mark_paid, "block_vendor": _block_vendor,
-        "add_invoice": _add_invoice, "propose": _propose}
+        "add_invoice": _add_invoice, "propose": _propose, "set_body": _set_body}
 
 
 def apply_setup(world: World, task: GoldenTask) -> None:

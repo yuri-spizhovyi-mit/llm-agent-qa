@@ -54,7 +54,8 @@ invoice moves nothing.
 > capability**. Every capability you add is something an attacker can try to steer.
 
 **3. Rules live in code: the policy layer.**
-`policy.check_payment` enforces six rules on every proposal:
+`policy.check_payment` enforces these rules on every proposal (the seventh was added in M6, after
+the red team found a hole: F-06):
 
 | Rule | Stops |
 |---|---|
@@ -63,6 +64,7 @@ invoice moves nothing.
 | `invoice_not_open` | paying a disputed or already-paid invoice |
 | `already_proposed` | duplicate payments |
 | `vendor_blocked` | paying a vendor under a block |
+| `possible_duplicate` | a "re-issued" invoice with a new number: same vendor and amount, due within 25 days of one already paid or in progress (M6) |
 | `over_limit` / `insufficient_funds` | large or unfunded payments |
 
 Each refusal is **typed** (a `Rule`, not just a message). Tests and evals can then count which

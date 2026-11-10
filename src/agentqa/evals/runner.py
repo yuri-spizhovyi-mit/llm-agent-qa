@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import tempfile
+from contextlib import contextmanager
 from collections import defaultdict
 from dataclasses import asdict
 from pathlib import Path
@@ -31,26 +32,32 @@ ProviderFactory = Callable[[GoldenTask, int], Provider]
 JudgeFactory = Callable[[GoldenTask, int], Judge]
 
 
+@contextmanager
+def trial_world(deployment: Deployment, scenario: Scenario, db_path: Path):
+    """One isolated trial: a chain snapshot and fresh books, reverted afterwards."""
+    chain = deployment.chain
+    snapshot = chain.snapshot()
+    engine = transfer_api.make_engine(f"sqlite:///{db_path}")
+    try:
+        yield World.open(deployment, scenario, engine)
+    finally:
+        engine.dispose()
+        chain.revert(snapshot)
+
+
 def run_suite(tasks: list[GoldenTask], make_provider: ProviderFactory, deployment: Deployment,
               scenario: Scenario, *, trials: int = 1, max_steps: int = 12,
               prompt_version: str = "system_v1", make_judge: JudgeFactory | None = None) -> list[TrialScore]:
-    chain = deployment.chain
     scores = []
     with tempfile.TemporaryDirectory(prefix="agentqa-evals-") as tmp:
         for task in tasks:
             for trial in range(trials):
-                snapshot = chain.snapshot()
-                engine = transfer_api.make_engine(f"sqlite:///{Path(tmp) / f'{task.id}-{trial}.db'}")
-                try:
-                    world = World.open(deployment, scenario, engine)
+                with trial_world(deployment, scenario, Path(tmp) / f"{task.id}-{trial}.db") as world:
                     apply_setup(world, task)
                     agent = Agent(make_provider(task, trial), prompt_version=prompt_version, max_steps=max_steps)
                     run = agent.run(task.prompt, world)
                     judge = make_judge(task, trial) if make_judge else None
                     scores.append(score_trial(task, trial, run, world, judge))
-                finally:
-                    engine.dispose()
-                    chain.revert(snapshot)
     return scores
 
 
