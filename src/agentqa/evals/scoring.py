@@ -39,6 +39,7 @@ class TrialScore:
     output_tokens: int
     fallback: bool
     notes: list[str] = field(default_factory=list)
+    duration_s: float = 0.0     # wall-clock time of the agent run (set by the runner)
 
     @property
     def passed(self) -> bool:

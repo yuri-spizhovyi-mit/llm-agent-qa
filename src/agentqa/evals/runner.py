@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import tempfile
+import time
 from contextlib import contextmanager
 from collections import defaultdict
 from dataclasses import asdict
@@ -47,7 +48,8 @@ def trial_world(deployment: Deployment, scenario: Scenario, db_path: Path):
 
 def run_suite(tasks: list[GoldenTask], make_provider: ProviderFactory, deployment: Deployment,
               scenario: Scenario, *, trials: int = 1, max_steps: int = 12,
-              prompt_version: str = "system_v1", make_judge: JudgeFactory | None = None) -> list[TrialScore]:
+              prompt_version: str = "system_v1", make_judge: JudgeFactory | None = None,
+              trace_dir: Path | None = None) -> list[TrialScore]:
     scores = []
     with tempfile.TemporaryDirectory(prefix="agentqa-evals-") as tmp:
         for task in tasks:
@@ -55,10 +57,30 @@ def run_suite(tasks: list[GoldenTask], make_provider: ProviderFactory, deploymen
                 with trial_world(deployment, scenario, Path(tmp) / f"{task.id}-{trial}.db") as world:
                     apply_setup(world, task)
                     agent = Agent(make_provider(task, trial), prompt_version=prompt_version, max_steps=max_steps)
+                    started = time.monotonic()
                     run = agent.run(task.prompt, world)
+                    duration = time.monotonic() - started
                     judge = make_judge(task, trial) if make_judge else None
-                    scores.append(score_trial(task, trial, run, world, judge))
+                    score = score_trial(task, trial, run, world, judge)
+                    score.duration_s = duration
+                    scores.append(score)
+                    if trace_dir is not None:
+                        write_trace(trace_dir, task, trial, run, score)
     return scores
+
+
+def write_trace(trace_dir: Path, task: GoldenTask, trial: int, run, score: TrialScore) -> Path:
+    """One JSON file per trial: everything needed to see *why* it passed or failed (guide 07)."""
+    trace_dir.mkdir(parents=True, exist_ok=True)
+    path = trace_dir / f"{task.id}-{trial}.json"
+    path.write_text(json.dumps({
+        "task": task.id, "trial": trial, "prompt": task.prompt, "prompt_version": run.prompt_version,
+        "provider": run.provider, "outcome": run.outcome.value, "error": run.error,
+        "passed": score.passed, "checks": score.checks, "notes": score.notes,
+        "duration_s": score.duration_s, "steps": [asdict(s) for s in run.steps],
+        "tool_calls": [asdict(c) for c in run.log.calls], "messages": run.messages,
+    }, indent=2, default=str))
+    return path
 
 
 def summarise(scores: list[TrialScore]) -> dict:
@@ -134,10 +156,13 @@ def render_markdown(summary: dict, title: str = "Golden-task eval") -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_report(scores: list[TrialScore], out_dir: Path, title: str = "Golden-task eval") -> dict:
+def write_report(scores: list[TrialScore], out_dir: Path, title: str = "Golden-task eval",
+                 meta: dict | None = None) -> dict:
+    """`meta` (model, prompt, provider, trials) is stored so the gate can price and compare runs."""
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = summarise(scores)
     (out_dir / "results.json").write_text(json.dumps(
-        {"summary": summary, "trials": [asdict(s) | {"passed": s.passed} for s in scores]}, indent=2))
+        {"meta": meta or {}, "summary": summary,
+         "trials": [asdict(s) | {"passed": s.passed} for s in scores]}, indent=2))
     (out_dir / "report.md").write_text(render_markdown(summary, title))
     return summary
