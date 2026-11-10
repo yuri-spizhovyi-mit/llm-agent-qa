@@ -41,3 +41,55 @@ Live evaluation runs only in an on-demand workflow with a repository secret (M8)
 - A test that fails because the model was having a different day teaches people to ignore
   CI. Model behaviour is measured where it can be measured properly: in evals, over
   repeated runs, with confidence intervals.
+
+---
+
+## AQ-D1: The attacker's address is allowlisted on the token
+
+**Status:** Accepted (M2)
+
+**Decision:** the synthetic attacker address (`scenarios.ATTACKER`) is on the settlement
+token's allowlist, as if it had been onboarded elsewhere.
+
+**Why:** the token refuses transfers to unlisted addresses. If the attacker weren't listed, a
+payee-swap attack would be stopped by the token, and no test could show whether *this* repo's
+policy layer works. With the attacker listed, every refusal of a payee swap is the policy
+layer's.
+
+**Tests:** TOOL-03 (`test_attacker_address_is_allowlisted_so_only_the_policy_stops_it`, and
+the payee-swap case).
+
+---
+
+## AQ-D2: Approval is not a tool; the policy runs at proposal and again at approval
+
+**Status:** Accepted (M2)
+
+**Decision:** the model can only *propose* payments. Approving is `World.approve`, called by a
+person (or a test), and no tool exposes it. Every policy rule runs when a payment is proposed
+and again when it's approved. Payments over 50,000 USDC are refused outright, not routed to a
+second approver: that path is for a human process, not the agent.
+
+**Why:**
+- The safest capability is the one the agent doesn't have.
+- Re-checking at approval closes the gap between check and use: a vendor blocked or an
+  invoice disputed after the proposal must not be paid.
+
+**Tests:** TOOL-02, TOOL-04, TOOL-05, TOOL-06. Mutation checks in learning guide 02: removing
+the re-check fails TOOL-06.
+
+---
+
+## AQ-D3: Approved payments go through the settlement transfer API, keyed by invoice
+
+**Status:** Accepted (M2)
+
+**Decision:** an approved payment is submitted to `tokenized-settlement-qa`'s transfer API with
+idempotency key `invoice-<id>`, and confirmed by its worker.
+
+**Why:**
+- It reuses a payment path whose exactly-once behaviour is already proven (TAPI-05..11 in that
+  repository).
+- The invoice-based key adds a second, independent duplicate guard below the policy layer.
+
+**Tests:** TOOL-05.
