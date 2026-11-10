@@ -35,3 +35,22 @@ def pass_hat_k(n: int, c: int, k: int) -> float:
     if not 0 < k <= n or not 0 <= c <= n:
         raise ValueError(f"need 0 < k <= n and 0 <= c <= n (n={n}, c={c}, k={k})")
     return comb(c, k) / comb(n, k)
+
+
+def cohen_kappa(pairs: list[tuple[str, str]]) -> float:
+    """Agreement between two raters beyond what chance alone would give.
+
+    `pairs` are (rater_a, rater_b) labels. 1.0 is perfect agreement; 0.0 is no better than
+    two raters labelling at random with the same label frequencies; negative is worse than
+    chance. Accuracy alone hides that: on a set that is 90% "pass", a judge that always says
+    "pass" scores 90% accuracy and kappa 0.
+    """
+    n = len(pairs)
+    if n == 0:
+        raise ValueError("no pairs")
+    labels = {label for pair in pairs for label in pair}
+    observed = sum(a == b for a, b in pairs) / n
+    expected = sum((sum(a == c for a, _ in pairs) / n) * (sum(b == c for _, b in pairs) / n) for c in labels)
+    if expected == 1.0:
+        return 1.0 if observed == 1.0 else 0.0
+    return (observed - expected) / (1 - expected)

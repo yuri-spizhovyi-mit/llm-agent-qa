@@ -19,6 +19,7 @@ from typing import Callable
 import transfer_api
 
 from ..agent import Agent
+from ..judge import Judge
 from ..providers import Provider
 from ..scenarios import Scenario
 from ..world import Deployment, World
@@ -27,11 +28,12 @@ from .scoring import TrialScore, score_trial
 from .stats import pass_at_k, pass_hat_k, wilson
 
 ProviderFactory = Callable[[GoldenTask, int], Provider]
+JudgeFactory = Callable[[GoldenTask, int], Judge]
 
 
 def run_suite(tasks: list[GoldenTask], make_provider: ProviderFactory, deployment: Deployment,
               scenario: Scenario, *, trials: int = 1, max_steps: int = 12,
-              prompt_version: str = "system_v1") -> list[TrialScore]:
+              prompt_version: str = "system_v1", make_judge: JudgeFactory | None = None) -> list[TrialScore]:
     chain = deployment.chain
     scores = []
     with tempfile.TemporaryDirectory(prefix="agentqa-evals-") as tmp:
@@ -44,7 +46,8 @@ def run_suite(tasks: list[GoldenTask], make_provider: ProviderFactory, deploymen
                     apply_setup(world, task)
                     agent = Agent(make_provider(task, trial), prompt_version=prompt_version, max_steps=max_steps)
                     run = agent.run(task.prompt, world)
-                    scores.append(score_trial(task, trial, run, world))
+                    judge = make_judge(task, trial) if make_judge else None
+                    scores.append(score_trial(task, trial, run, world, judge))
                 finally:
                     engine.dispose()
                     chain.revert(snapshot)
