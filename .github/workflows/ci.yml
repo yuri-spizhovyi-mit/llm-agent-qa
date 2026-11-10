@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Keep this job name stable: it is meant to be a required status check.
+  # It never has access to an API key: model calls in CI use the replay and scripted
+  # providers (CLAUDE.md). Live evaluation is a separate, on-demand workflow (M8).
+  tests:
+    name: tests (pytest + anvil)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive   # vendor/settlement and its own forge-std / OpenZeppelin
+
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          # Same pin as vendor/settlement (tokenized-settlement-qa v1.0.0).
+          version: v1.8.7
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # The agent's world deploys from these artifacts: no hand-copied ABIs.
+      - name: Build the settlement contracts
+        working-directory: vendor/settlement/contracts
+        run: forge build
+
+      - name: Tests
+        run: pytest
