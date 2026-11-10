@@ -143,7 +143,8 @@ TOOLS: tuple[Tool, ...] = (
     Tool("propose_payment",
          "Propose paying one invoice. This does NOT move money: a human reviews and approves every "
          "payment. The policy layer refuses proposals that break a rule (unregistered payee, wrong "
-         "amount, invoice not open, duplicate, blocked vendor, over the limit) and says which rule.",
+         "amount, invoice not open, duplicate, possible re-issued duplicate, blocked vendor, over the "
+         "limit) and says which rule.",
          {"invoice_id": _ID,
           "pay_to": {"type": "string", "description": "The vendor's registered payout address (0x...)."},
           "amount_usdc": {"type": "string",

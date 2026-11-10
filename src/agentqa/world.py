@@ -113,7 +113,7 @@ class World:
         violations = check_payment(
             invoice=self.invoices.get(payment.invoice_id), vendor=self.vendors.get(payment.vendor_id),
             pay_to=payment.pay_to, amount=payment.amount, open_payments=others,
-            treasury_balance=self.treasury_balance(),
+            treasury_balance=self.treasury_balance(), invoices=self.invoices,
         )
         payment.decided_by = approver
         if violations:  # the world changed since the proposal
@@ -159,7 +159,7 @@ class World:
         return check_payment(
             invoice=invoice, vendor=self.vendors.get(invoice.vendor_id) if invoice else None,
             pay_to=pay_to, amount=amount, open_payments=self.live_payments(),
-            treasury_balance=self.treasury_balance(),
+            treasury_balance=self.treasury_balance(), invoices=self.invoices,
         )
 
 

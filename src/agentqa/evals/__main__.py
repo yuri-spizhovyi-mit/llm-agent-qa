@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -45,6 +46,18 @@ class _SavingRecorder(RecordingProvider):
         response = super().create(**kwargs)
         self.cassette.save(self.path)
         return response
+
+
+@contextmanager
+def started_world(scenario):
+    """Its own Anvil plus a deployment of the world; the node stops afterwards."""
+    artifacts.ensure_built()
+    node = Anvil.start()
+    try:
+        chain = Chain(Web3(Web3.HTTPProvider(node.url, request_kwargs={"timeout": 30})))
+        yield Deployment.deploy(chain, scenario)
+    finally:
+        node.stop()
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -101,15 +114,9 @@ def main(argv: list[str] | None = None) -> int:
             return Judge(ReplayProvider(Cassette.load(path)))
         make_judge = judge_for
 
-    artifacts.ensure_built()
-    node = Anvil.start()
-    try:
-        chain = Chain(Web3(Web3.HTTPProvider(node.url, request_kwargs={"timeout": 30})))
-        deployment = Deployment.deploy(chain, scenario)
+    with started_world(scenario) as deployment:
         scores = runner.run_suite(tasks, make_provider, deployment, scenario,
                                   trials=args.trials, prompt_version=args.prompt, make_judge=make_judge)
-    finally:
-        node.stop()
     title = f"Golden-task eval: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials"
     summary = runner.write_report(scores, args.out, title)
     print((args.out / "report.md").read_text())
