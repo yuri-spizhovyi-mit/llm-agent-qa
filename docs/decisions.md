@@ -143,3 +143,59 @@ answered) and `fallback`.
 reason about. It's a one-line change in `providers.py` if preferred.
 
 **Tests:** AGT-05.
+
+
+## GOLD-D1: Score outcomes, not words
+
+**Status:** Accepted (M4)
+
+**Decision:** a golden task passes on what happened:
+- exactly the expected proposals;
+- the chain after approval;
+- the tool trajectory;
+- a run that completed.
+
+The answer text is checked only for a few unavoidable facts (ids, names, status words) with
+case and commas ignored.
+
+**Why:**
+- Many wordings are correct, and a strict text match fails good answers.
+- Whether an *explanation* is good is graded by the LLM judge in M5, and only after it is
+  calibrated against human labels.
+
+**Tests:** GOLD-04.
+
+## GOLD-D2: Every task must be passable and every task must be failable
+
+**Status:** Accepted (M4)
+
+**Decision:** CI runs the dataset against:
+- a reference solver, which must pass every task (GOLD-02);
+- three flawed agents (does nothing, over-eager, mute), and every task must be failed by at
+  least one of them (GOLD-03).
+
+Each scorer check also has a test where it alone decides the outcome (GOLD-04, F-03).
+
+**Why:**
+- A task nobody can pass reads as "the model is bad".
+- A task everybody passes reads as "the model is good".
+- Both are harness bugs, and they cost real money in M8.
+
+**Tests:** GOLD-02, GOLD-03, GOLD-04.
+
+## GOLD-D3: Rates are per trial with Wilson intervals; reliability is pass^k per task
+
+**Status:** Accepted (M4)
+
+**Decision:**
+- The report gives category and overall pass rates over trials, with 95% Wilson intervals.
+- Per task, it gives pass@k (it can do it) and pass^k (it does it every time).
+- Fallback-served trials are excluded and counted (AGT-D3).
+
+**Why:**
+- Wilson stays inside [0, 1] and is honest at 0/n and n/n.
+- Trials of one task are correlated, so the per-trial interval is optimistic; the report says
+  so. A task-clustered interval is a candidate for M7, where baseline comparisons need it.
+- For an agent that moves money, pass^k is the number that matters.
+
+**Tests:** GOLD-05, GOLD-06.

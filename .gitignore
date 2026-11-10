@@ -8,3 +8,4 @@ __pycache__/
 .env.*
 eval-results/
 test-results/
+reports/
