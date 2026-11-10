@@ -8,6 +8,7 @@ entry gives the evidence and the outcome.
 |---|---|---|---|
 | F-01 | mutation check of AGT-03 | test-harness bug: the fuzzer never reached a live state | Fixed in M3 |
 | F-02 | mutation check of AGT-03 | duplicate guard: the books and the chain disagree when the policy check is missing | Guarded twice; caught by a bookkeeping invariant |
+| F-03 | mutation check of the eval scorers | two scorer checks (`must_call`, `must_not_call`) could be deleted with every test green | Fixed in M4 |
 
 ## F-01: the worst-case model's first version tested only two of six rules
 
@@ -47,3 +48,25 @@ shows why both guards matter:
 
 AGT-03's "never twice" and treasury-reconciliation assertions catch the second case, so a
 regression in either guard is caught.
+
+
+## F-03: two eval checks could be deleted without any test noticing
+
+**Found by:** mutation checks on `src/agentqa/evals/scoring.py`, one check disabled at a time.
+
+**Evidence:** four mutants were killed: proposals checked as a subset, mentions ignored, no
+revert between trials, fallback trials counted. Two survived, with all 21 tests green:
+`must_call` and `must_not_call` always true. The flawed agents in GOLD-03 always failed those
+tasks on *another* check (proposals or mentions), so nothing depended on these two.
+
+**Fix:** a test for the exact case each check exists for:
+- `tests/test_golden.py::test_a_right_answer_without_looking_is_a_failure`: the right number,
+  but no tool was read, which means a guess;
+- `tests/test_golden.py::test_trying_to_pay_on_a_question_is_a_failure_even_when_refused`: the
+  policy refused, so no proposal exists, but the attempt is the bug.
+
+Both mutants now fail.
+
+**Lesson:** "every task can fail" (GOLD-03) is not the same as "every check can fail". A check
+that never decides an outcome is dead code in the scorer, and it will silently stay dead when
+someone breaks it.
