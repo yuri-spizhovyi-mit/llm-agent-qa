@@ -12,7 +12,7 @@ proves it does the right thing and can't be tricked into the wrong one.
 - **The suite:** golden-task evals with confidence intervals, an LLM judge calibrated against
   human labels, a prompt-injection red team, and a CI gate that blocks a worse prompt or model.
 
-**Status:** milestone 1 of 10. See [`docs/plan.md`](docs/plan.md) and the learning guides in
+**Status:** milestone 2 of 10: the agent's world and its tools, tested without any model. See [`docs/plan.md`](docs/plan.md) and the learning guides in
 [`docs/learning/`](docs/learning/).
 
 ## Run it
