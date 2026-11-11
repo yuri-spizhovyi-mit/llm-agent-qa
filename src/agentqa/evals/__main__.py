@@ -18,8 +18,11 @@ import sys
 from contextlib import contextmanager
 from pathlib import Path
 
+from .. import vendor
+
+vendor.ensure_on_path()  # before `lib` below (F-09)
+
 ROOT = Path(__file__).resolve().parents[3]
-sys.path[:0] = [str(ROOT / "vendor/settlement/tests"), str(ROOT / "vendor/settlement/services")]
 
 from web3 import Web3  # noqa: E402
 

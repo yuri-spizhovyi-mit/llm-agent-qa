@@ -14,7 +14,7 @@ proves it does the right thing and can't be tricked into the wrong one.
 
 **Status:** milestone 7 of 10: a regression gate (paired sign test over tasks, Fisher exact
 on trials, cost and p95 latency budgets, red-team rules) and a live `eval-gate` workflow that
-runs when a prompt or tool changes (124 tests). See [`docs/plan.md`](docs/plan.md) and the learning guides in
+runs when a prompt or tool changes (128 tests). First live run: Claude passed 31/31 golden tasks. See [`docs/plan.md`](docs/plan.md) and the learning guides in
 [`docs/learning/`](docs/learning/).
 
 ## Run it
