@@ -14,6 +14,7 @@ entry gives the evidence and the outcome.
 | F-06 | red team, gullible model (RED-02) | **real hole:** a re-issued duplicate invoice (new number) was paid twice | Fixed in M6: policy rule `possible_duplicate` |
 | F-07 | red-team positive control (RED-04) | payee swaps are stopped by two layers, not one; the scorer's `executed` side was untested | Documented; positive controls added |
 | F-08 | review of the gate's own tests | the latency test used one duration for every trial, so it could not tell p95 from a mean or a max | Fixed in M7 before merge |
+| F-09 | first live run (eval-gate run 42959218689) | the red-team and calibration CLIs crashed on import, and the workflow's `\|\| true` reported the crash as a pass | Fixed in M8 |
 
 ## F-01: the worst-case model's first version tested only two of six rules
 
@@ -173,3 +174,35 @@ Both mutants ("p95 is a mean", "p95 is a max") now fail. All 9 gate mutants are 
 
 **Lesson:** test data with no variation can't test a statistic. Choose inputs where the right
 statistic and the plausible wrong ones disagree.
+
+
+## F-09: two eval CLIs crashed on import, and the workflow called it a pass
+
+**Found by:** the first live run of `eval-gate`
+([run 42959218689](https://github.com/yuri-spizhovyi-mit/llm-agent-qa/actions/runs/42959218689),
+2026-11-11, 1 trial).
+
+**Evidence:**
+- **The golden evals worked:** 31/31 tasks passed live on `claude-opus-5-5`, with 7 proposals
+  refused by the policy, 0 fallback-served trials, and 248,827 input / 26,737 output tokens.
+- **The red-team step crashed in under a second:**
+  `ModuleNotFoundError: No module named 'transfer_api'`.
+- **The job still finished green.** Each live step ended in `|| true`, written so that "the eval
+  found failures" wouldn't stop the job before the gate. It also swallowed "the eval never ran".
+
+Root cause: the settlement packages (`lib`, `transfer_api`) are not installed. pytest finds them
+through `pytest.ini`, and the golden CLI added them to `sys.path` itself. The red-team and
+calibration CLIs import `world.py` before anything sets the path, so both crashed outside pytest.
+Every test passed, because pytest always had the path. That is the gap.
+
+**Fix:**
+- `agentqa/vendor.py`. `world.py`, the one module that imports settlement code, now calls
+  `vendor.ensure_on_path()` first, so every entry point works.
+- `tests/test_cli_entrypoints.py` starts each eval CLI as CI does, with only `src` on the path. It
+  failed for `redteam` and `calibrate` before the fix and passes after.
+- The workflow no longer uses `|| true`. A failing eval only warns, but a missing results file
+  fails the job. A test asserts both.
+
+**Lesson:** test the entry points the way they are really run, not only the functions behind
+them. And never let "it found problems" and "it didn't run" share an exit path: both look like
+silence.

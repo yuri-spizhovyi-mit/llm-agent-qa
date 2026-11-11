@@ -187,6 +187,9 @@ def test_the_eval_gate_workflow_is_manual_or_prompt_triggered_and_keeps_the_key_
     assert "${{ secrets.ANTHROPIC_API_KEY }}" in text and "permissions:\n  contents: read" in text
     assert "echo $ANTHROPIC_API_KEY" not in text and "set -x" not in text
     assert "python -m agentqa.evals.gate" in text
+    # F-09: a crashed eval must fail the job, not pass as "no findings".
+    assert "|| true" not in text
+    assert "test -f reports/golden/results.json" in text and "test -f reports/redteam/results.json" in text
 
 
 @pytest.mark.req("GATE-03")

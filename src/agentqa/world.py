@@ -19,12 +19,16 @@ from dataclasses import dataclass, field
 from eth_account.signers.local import LocalAccount
 from sqlalchemy import Engine
 
-import transfer_api
-from lib import artifacts
-from lib.accounts import Accounts
-from lib.chain import Chain
-from lib.clients import TokenClient
-from lib.transfers import wait_for_attempts
+from . import vendor
+
+vendor.ensure_on_path()  # the settlement packages below are not installed (F-09)
+
+import transfer_api  # noqa: E402
+from lib import artifacts  # noqa: E402
+from lib.accounts import Accounts  # noqa: E402
+from lib.chain import Chain  # noqa: E402
+from lib.clients import TokenClient  # noqa: E402
+from lib.transfers import wait_for_attempts  # noqa: E402
 
 from .domain import Invoice, InvoiceStatus, Payment, PaymentStatus, Vendor
 from .policy import LIVE_STATES, Violation, check_payment

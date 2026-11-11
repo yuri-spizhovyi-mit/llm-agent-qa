@@ -71,8 +71,8 @@ interview questions with answers.
 | 4 | golden | ~30 golden tasks; scorers on chain state and tool trajectory; repeated runs; pass rate with confidence intervals | a report gives a pass rate ± interval per task category | 04: evals 101; non-determinism; pass@k vs pass^k; confidence intervals | Merged: #4 |
 | 5 | judge | LLM-as-judge for explanation tasks; ~40 human-labelled examples; agreement and Cohen's kappa; bias checks (position, length) | the judge's agreement with your labels is measured and documented before it is used | 05: LLM-as-judge; calibrating graders; when not to trust them | Merged: #5 |
 | 6 | redteam | prompt-injection corpus: direct, indirect via invoices, payee swap, fake approval, urgency, obfuscated, multi-step; false-refusal checks on legitimate tasks | attack success rate reported at two levels: *attempted* by the model and *executed* (must be 0); over-blocking measured | 06: prompt injection; red-teaming; security vs usefulness | Merged: #6 |
-| 7 | gate | stored baseline; CI compares a candidate against it with a statistical test; cost, latency and token budgets; per-run traces | a deliberately worse candidate is blocked; a neutral change passes (proven with scripted candidates here; with real prompt variants once live runs exist, M8) | 07: regression testing for AI; cost and latency budgets; observability | In progress |
-| 8 | live | `workflow_dispatch` live-eval workflow using an `ANTHROPIC_API_KEY` repository secret; first real results; findings | real numbers in `docs/eval-report.md`, each finding with evidence | 08: running evals for real; reading results honestly |  |
+| 7 | gate | stored baseline; CI compares a candidate against it with a statistical test; cost, latency and token budgets; per-run traces | a deliberately worse candidate is blocked; a neutral change passes (proven with scripted candidates here; with real prompt variants once live runs exist, M8) | 07: regression testing for AI; cost and latency budgets; observability | Merged: #7 |
+| 8 | live | `workflow_dispatch` live-eval workflow using an `ANTHROPIC_API_KEY` repository secret; first real results; findings | real numbers in `docs/eval-report.md`, each finding with evidence | 08: running evals for real; reading results honestly | In progress |
 | 9 | harden | fix the top findings (prompt, tool descriptions, policy); before/after measured; model comparison (quality vs cost) | each fix shows a measured improvement, or is reverted | 09: improving an agent with evals: hill-climbing without overfitting |  |
 | 10 | release | README story, requirements traceability matrix, evidence pack, v1.0.0 | a reviewer gets the story in 2 minutes; the release carries its evidence | 10: how to present AI-QA work |  |
 
@@ -117,9 +117,10 @@ docs/               plan, decisions, findings, learning guides, eval reports
   is a comparison in M9, your decision, never a silent downgrade.
 - **API key:** stored only as the GitHub repository secret `ANTHROPIC_API_KEY`, used only by
   the on-demand live-eval workflow. Never in code, chat or logs.
-- **Cost:** a full live run is about 30 golden tasks + ~40 attacks, each run 5 times, at
-  roughly 10–20k tokens per run. That's on the order of **$10–30 per full run** at Opus
-  prices, cheaper with smaller samples. Each live run is triggered by you.
+- **Cost, measured:** the first live run (2026-11-11, 31 golden tasks × 1 trial) used 248,827
+  input and 26,737 output tokens: about **$1.53**, roughly $0.05 per task. The earlier
+  estimate of $10–30 per full run was 5–10× too high. A full pass (golden + red team +
+  calibration, 3 trials) should cost about $5–10. Each live run is triggered by you.
 
 ## Done means
 

@@ -72,13 +72,20 @@ jobs:
         if: steps.key.outputs.present == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces || true
+        # Failing tasks are a result (the gate judges them); no results file means a crash (F-09).
+        run: |
+          python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces \
+            || echo "::warning::golden evals reported failing tasks; the gate decides"
+          test -f reports/golden/results.json || { echo "::error::golden evals produced no results: the run crashed"; exit 1; }
 
       - name: Red team (live)
         if: steps.key.outputs.present == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" || true
+        run: |
+          python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" \
+            || echo "::warning::the red team reported executed attacks; the gate decides"
+          test -f reports/redteam/results.json || { echo "::error::the red team produced no results: the run crashed"; exit 1; }
 
       # The evals above report; this step decides. It needs the stored baseline (M8 records it).
       - name: Regression gate
