@@ -91,6 +91,25 @@ def test_a_candidate_that_skips_tasks_is_blocked(baseline):
     assert "coverage" in failed(gate.compare_golden(baseline, candidate, CONFIG))
 
 
+@pytest.mark.req("GATE-02")
+def test_runs_graded_by_different_judges_are_not_compared(baseline):
+    """GATE-D4. A judge adds an `explanation` check to every trial, so a judged candidate looks
+    worse than an unjudged baseline (and the reverse looks better) for reasons that have nothing
+    to do with the agent. The pass rates here are identical: only the grader differs."""
+    judged = copy.deepcopy(baseline)
+    judged["meta"]["judge"] = {"prompt": "judge_v1", "model": "claude-opus-5-5"}
+    for b, c in [(baseline, judged), (judged, baseline)]:
+        checks = gate.compare_golden(b, c, CONFIG)
+        assert failed(checks) == {"comparable"} and "re-run with the same grader" in checks[0].detail
+    regraded = copy.deepcopy(judged)
+    regraded["meta"]["judge"]["model"] = "claude-sonnet-5-5"     # another judge, same agent
+    assert failed(gate.compare_golden(judged, regraded, CONFIG)) == {"comparable"}
+    assert failed(gate.compare_golden(judged, copy.deepcopy(judged), CONFIG)) == set()
+    legacy = copy.deepcopy(baseline)
+    legacy["meta"]["judge"] = False                              # how results said "no judge" before M8
+    assert failed(gate.compare_golden(baseline, legacy, CONFIG)) == set()
+
+
 # ---- GATE-03: budgets ---------------------------------------------------------------------------
 
 def _with_usage(results: dict, input_tokens: int, output_tokens: int, seconds: float) -> dict:
@@ -190,6 +209,11 @@ def test_the_eval_gate_workflow_is_manual_or_prompt_triggered_and_keeps_the_key_
     # F-09: a crashed eval must fail the job, not pass as "no findings".
     assert "|| true" not in text
     assert "test -f reports/golden/results.json" in text and "test -f reports/redteam/results.json" in text
+    # The judge is calibrated live in the same run, and grades the golden evals only if it passed.
+    assert "python -m agentqa.evals.calibrate --provider live" in text
+    assert "test -f reports/judge/calibration.json" in text
+    assert "steps.judge.outputs.trusted == 'true' && '--judge'" in text
+    assert text.index("agentqa.evals.calibrate") < text.index("python -m agentqa.evals --provider live")
 
 
 @pytest.mark.req("GATE-03")

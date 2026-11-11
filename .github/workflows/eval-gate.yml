@@ -68,13 +68,31 @@ jobs:
           pip install -r requirements.txt
           (cd vendor/settlement/contracts && forge build)
 
+      # The judge is measured before it grades anything (JDG-D2), once per run: it doesn't depend
+      # on the agent's prompt or the trial count. An untrusted judge is a result, not a crash: the
+      # golden evals then run without it, and the gate refuses to compare runs graded by different
+      # judges (GATE-D4). No calibration file means the step crashed (F-09).
+      - name: Judge calibration (live)
+        id: judge
+        if: steps.key.outputs.present == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m agentqa.evals.calibrate --provider live \
+            || echo "::warning::the judge failed calibration: the golden evals run without it"
+          test -f reports/judge/calibration.json || { echo "::error::judge calibration produced no results: the run crashed"; exit 1; }
+          cat reports/judge/calibration.md >> "$GITHUB_STEP_SUMMARY"
+          trusted=$(python -c "import json; print(str(json.load(open('reports/judge/calibration.json')).get('trusted') is True).lower())")
+          echo "trusted=$trusted" >> "$GITHUB_OUTPUT"
+
       - name: Golden evals (live)
         if: steps.key.outputs.present == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          JUDGE: ${{ steps.judge.outputs.trusted == 'true' && '--judge' || '' }}
         # Failing tasks are a result (the gate judges them); no results file means a crash (F-09).
         run: |
-          python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces \
+          python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces $JUDGE \
             || echo "::warning::golden evals reported failing tasks; the gate decides"
           test -f reports/golden/results.json || { echo "::error::golden evals produced no results: the run crashed"; exit 1; }
 

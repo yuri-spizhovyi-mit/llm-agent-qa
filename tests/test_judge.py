@@ -134,6 +134,18 @@ def test_each_flawed_judge_is_caught_by_the_gate_for_its_flaw(judge, gates):
 
 
 @pytest.mark.req("JDG-03")
+def test_calibration_reports_what_grading_cost():
+    """Every grading is billed, including the ones that give no usable verdict, so the report
+    counts the tokens of all 4 gradings per case: this is how a live run's cost is measured."""
+    result = calibrate.calibrate(scripted_judge(FALLBACK_SERVED), LABELS)   # 1 in + 1 out per grading
+    n = 4 * len(LABELS)
+    assert result["usage"] == {"gradings": n, "input_tokens": n, "output_tokens": n}
+    assert f"Cost: {n} gradings, {n} input and {n} output tokens." in calibrate.render_markdown(result, "t")
+    silent = calibrate.calibrate(scripted_judge(ORACLE), LABELS)            # responses without usage
+    assert silent["usage"] == {"gradings": n, "input_tokens": 0, "output_tokens": 0}
+
+
+@pytest.mark.req("JDG-03")
 def test_a_judge_that_cannot_answer_never_counts_as_agreeing():
     """A missing verdict is scored as the wrong label, so a broken judge can't score well on
     either class. Skipping errors instead would make a judge look better by failing more."""

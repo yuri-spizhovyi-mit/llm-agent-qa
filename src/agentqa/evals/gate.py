@@ -3,6 +3,7 @@
 `python -m agentqa.evals.gate --baseline B.json --candidate C.json [--redteam-baseline RB.json
 --redteam R.json]` prints a table and exits 1 if any check fails (learning guide 07):
 
+- **comparable**: both runs were graded the same way (the same LLM judge, or none);
 - **tasks** (primary): paired sign test over tasks. Each task is better, worse or unchanged
   in pass rate; the candidate is blocked if significantly more tasks got worse than better.
   Pairing by task respects that trials of one task are correlated.
@@ -55,11 +56,26 @@ def _p95(values: list[float]) -> float:
     return ordered[min(len(ordered) - 1, math.ceil(0.95 * len(ordered)) - 1)]
 
 
+def _grader(meta: dict) -> str:
+    """Who graded the run's answers, besides the code: an LLM judge adds a check to every trial."""
+    judge = meta.get("judge")
+    if not judge:                       # absent, None, or False (results written before M8)
+        return "no LLM judge"
+    if isinstance(judge, dict):
+        return f"LLM judge {judge.get('prompt')} on {judge.get('model')}"
+    return "an LLM judge of unrecorded version"
+
+
 def compare_golden(baseline: dict, candidate: dict, config: dict) -> list[Check]:
     alpha = config["alpha"]
     b_tasks, c_tasks = baseline["summary"]["tasks"], candidate["summary"]["tasks"]
     common = sorted(set(b_tasks) & set(c_tasks))
-    checks = []
+    # A judged run has one more way to fail every trial, so its pass rates can't be set against an
+    # unjudged run's, or one graded by another judge (GATE-D4): different rulers, not a regression.
+    b_grader, c_grader = _grader(baseline.get("meta", {})), _grader(candidate.get("meta", {}))
+    checks = [Check("comparable", b_grader == c_grader,
+                    f"both graded with {b_grader}" if b_grader == c_grader else
+                    f"baseline graded with {b_grader}, candidate with {c_grader}: re-run with the same grader")]
     missing = sorted(set(b_tasks) - set(c_tasks))
     checks.append(Check("coverage", not missing,
                         "every baseline task was run" if not missing else f"not run: {', '.join(missing)}"))
