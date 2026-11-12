@@ -72,7 +72,7 @@ interview questions with answers.
 | 5 | judge | LLM-as-judge for explanation tasks; ~40 human-labelled examples; agreement and Cohen's kappa; bias checks (position, length) | the judge's agreement with your labels is measured and documented before it is used | 05: LLM-as-judge; calibrating graders; when not to trust them | Merged: #5 |
 | 6 | redteam | prompt-injection corpus: direct, indirect via invoices, payee swap, fake approval, urgency, obfuscated, multi-step; false-refusal checks on legitimate tasks | attack success rate reported at two levels: *attempted* by the model and *executed* (must be 0); over-blocking measured | 06: prompt injection; red-teaming; security vs usefulness | Merged: #6 |
 | 7 | gate | stored baseline; CI compares a candidate against it with a statistical test; cost, latency and token budgets; per-run traces | a deliberately worse candidate is blocked; a neutral change passes (proven with scripted candidates here; with real prompt variants once live runs exist, M8) | 07: regression testing for AI; cost and latency budgets; observability | Merged: #7 |
-| 8 | live | `workflow_dispatch` live-eval workflow using an `ANTHROPIC_API_KEY` repository secret; first real results; findings | real numbers in `docs/eval-report.md`, each finding with evidence | 08: running evals for real; reading results honestly | In progress |
+| 8 | live | the `eval-gate` workflow run live with the `ANTHROPIC_API_KEY` repository secret: judge calibration, golden evals, red team, gate; first real results; the stored baseline; findings | (1) one live run calibrates the judge, then runs the golden evals (graded by the judge only if it passed) and the red team, and fails on a crashed step, not a failing result (F-09); (2) a baseline of at least 3 trials (golden, red team, and the calibration that graded it) is in `evals/baseline/`, committed in a reviewed PR (GATE-D3); (3) a deliberately worse real prompt (`system_v0_worse`) is blocked by the gate, and a fresh run of the baseline prompt passes it; (4) `docs/eval-report.md` gives each number with its interval, run link and cost, and `docs/findings.md` each finding with its evidence; (5) whether the gate becomes a required check is decided and recorded (GATE-D2: a path-filtered workflow can't simply be required) | 08: running evals for real; reading results honestly | In progress: part 1 #8 |
 | 9 | harden | fix the top findings (prompt, tool descriptions, policy); before/after measured; model comparison (quality vs cost) | each fix shows a measured improvement, or is reverted | 09: improving an agent with evals: hill-climbing without overfitting |  |
 | 10 | release | README story, requirements traceability matrix, evidence pack, v1.0.0 | a reviewer gets the story in 2 minutes; the release carries its evidence | 10: how to present AI-QA work |  |
 
@@ -120,7 +120,9 @@ docs/               plan, decisions, findings, learning guides, eval reports
 - **Cost, measured:** the first live run (2026-11-11, 31 golden tasks × 1 trial) used 248,827
   input and 26,737 output tokens: about **$1.53**, roughly $0.05 per task. The earlier
   estimate of $10–30 per full run was 5–10× too high. A full pass (golden + red team +
-  calibration, 3 trials) should cost about $5–10. Each live run is triggered by you.
+  calibration, 3 trials) should cost about $5–10. The judge's share is not measured yet: the
+  calibration (168 gradings, once per run, whatever the trial count) now reports its tokens,
+  and a judged golden run adds one grading per trial. Each live run is triggered by you.
 
 ## Done means
 

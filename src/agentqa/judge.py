@@ -105,6 +105,8 @@ class Judge:
         self.provider = provider
         self.prompt_version = prompt_version
         self.system = load_prompt(prompt_version)
+        self.input_tokens = 0     # what grading cost, verdict or not: every response is billed
+        self.output_tokens = 0
 
     def grade(self, case: Case, *, answer_first: bool = False) -> Verdict:
         messages = [{"role": "user", "content": render(case, answer_first=answer_first)}]
@@ -112,9 +114,11 @@ class Judge:
             response = self.provider.create(system=self.system, messages=messages, tools=[])
         except Exception as exc:  # no verdict, which is never a pass
             return Verdict(None, f"judge error: {type(exc).__name__}: {exc}")
+        usage = response.get("usage") or {}
+        self.input_tokens += usage.get("input_tokens") or 0
+        self.output_tokens += usage.get("output_tokens") or 0
         served_by = response.get("model")
-        fallback = any(i.get("type") == "fallback_message"
-                       for i in (response.get("usage") or {}).get("iterations") or [])
+        fallback = any(i.get("type") == "fallback_message" for i in usage.get("iterations") or [])
         stop = response.get("stop_reason")
         if stop != "end_turn":
             return Verdict(None, f"judge stopped with {stop!r}", served_by, fallback)

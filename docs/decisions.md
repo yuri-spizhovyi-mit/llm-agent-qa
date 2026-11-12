@@ -364,14 +364,15 @@ Also, independent of statistics:
 - **When:** `workflow_dispatch`, and PRs that change `src/agentqa/prompts/**` or
   `src/agentqa/tools.py` (what the model sees).
 - **Key:** the API key is read only from the `ANTHROPIC_API_KEY` repository secret, and only in
-  the two live steps.
+  the live steps (judge calibration, golden evals, red team; GATE-D4).
 - **No key:** the job reports "skipped" and passes.
 
 The regular `ci` workflow never has a key (ENV-D2).
 
 **Why:**
-- Live runs cost money ($10–30 each, plan): running them on every PR wastes it, and running
-  them on none lets a prompt change merge unmeasured.
+- Live runs cost money (a few dollars each, measured in the plan; first estimated at $10–30):
+  running them on every PR wastes it, and running them on none lets a prompt change merge
+  unmeasured.
 - Fork PRs get no secrets, so they also skip.
 - M8 makes the gate a required check once a key and a baseline exist.
 
@@ -390,3 +391,43 @@ run. A new baseline is committed in a PR, together with the gate report that jus
 - Changing the bar should be a visible decision.
 
 **Tests:** n/a (process; `evals/baseline/README.md`).
+
+## GATE-D4: Each live run calibrates the judge first, and the gate compares only runs graded by the same judge
+
+**Status:** Accepted (M8)
+
+**Decision:**
+- **Calibrate first:** every live `eval-gate` run calibrates the judge
+  (`python -m agentqa.evals.calibrate --provider live`) before the golden evals, and puts the
+  report in the run's summary.
+- **Judge only if trusted:** the golden evals get `--judge` only if that calibration passed
+  (JDG-D2). If it failed, they run without the judge and the step warns. A missing calibration
+  file fails the job (F-09).
+- **Record the grader:** a golden results file says which judge graded it: `meta.judge` is
+  `{prompt, model}`, or `null` for none.
+- **Compare like with like:** the gate's first check, `comparable`, blocks when the baseline and
+  the candidate were graded differently: one judged and the other not, or by a different judge
+  prompt or model.
+- **Evidence:** a baseline is committed with the calibration report from its own run (GATE-D3).
+
+**Why:**
+- The judge adds an `explanation` check to every trial. A judged run therefore has one more way
+  to fail than an unjudged one. Comparing the two measures the ruler, not the agent.
+- The judge is calibrated in every run, not once, because it is a model too: its agreement is a
+  measurement that can drift. The cost doesn't grow with the trial count (42 labelled cases × 4
+  gradings), and the report now counts its tokens.
+- The gate fails closed. If the baseline was judged but the judge fails calibration on a
+  candidate's run, the gate says "not comparable" instead of passing a run it can't compare.
+  Re-run, or fix the judge.
+
+**Known limits:**
+- The judge runs on the agent's model (`--model` sets both). A model comparison (M9) changes the
+  judge too, so the gate will refuse it as not comparable until the judge's model can be set on
+  its own.
+- Judge tokens are not in the golden trials' token counts, so the gate's cost budget covers the
+  agent only.
+- The labels are still unreviewed (JDG-D3), so "trusted" means agreement with the author's
+  labels, not yet the owner's.
+
+**Tests:** GATE-02 (`test_runs_graded_by_different_judges_are_not_compared`), GATE-05 (the
+workflow), JDG-03 (`test_calibration_reports_what_grading_cost`).

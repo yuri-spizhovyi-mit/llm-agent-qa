@@ -109,7 +109,9 @@ def calibrate(judge: Judge, cases: list[Labelled]) -> dict:
                    if not r["base"].error and not r[p].error and r[p].verdict != r["base"].verdict]
     return {"judge_prompt": judge.prompt_version, "metrics": metrics, "confusion": confusion, "gate": gate,
             "trusted": all(g["ok"] for g in gate.values()), "disagreements": disagreements,
-            "probe_flips": probe_flips}
+            "probe_flips": probe_flips,
+            "usage": {"gradings": len(verdicts), "input_tokens": judge.input_tokens,
+                      "output_tokens": judge.output_tokens}}
 
 
 def render_markdown(result: dict, title: str) -> str:
@@ -126,6 +128,10 @@ def render_markdown(result: dict, title: str) -> str:
         op = "≥" if name in ("kappa", "fail_recall") else "≤"
         lines.append(f"| {name} | {value} | {op} {g['bound']} | {'yes' if g['ok'] else '**no**'} |")
     lines.append(f"\nAccuracy {m['accuracy']:.2f} (kappa is the gate: accuracy flatters a judge on a skewed set).")
+    if "usage" in result:
+        u = result["usage"]
+        lines.append(f"\nCost: {u['gradings']} gradings, {u['input_tokens']:,} input and {u['output_tokens']:,} "
+                     f"output tokens.")
     if result["disagreements"]:
         lines += ["", "## Disagreements with the labels", ""]
         lines += [f"- **{d['id']}** ({d['kind']}): label {d['label']}, judge {d['judge']}. {d['reason']}"

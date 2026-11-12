@@ -94,7 +94,7 @@ because it read 'annual licence' as urgent". The live workflow uploads them as a
 | Trigger | Runs |
 |---|---|
 | every PR (`ci`) | pytest with scripted and replay providers: free, deterministic, no key |
-| a PR that changes `prompts/**` or `tools.py` (`eval-gate`) | live golden + red team + gate (only if the key secret exists) |
+| a PR that changes `prompts/**` or `tools.py` (`eval-gate`) | live judge calibration + golden (judged only if calibration passed) + red team + gate (only if the key secret exists; GATE-D4) |
 | manual (`workflow_dispatch`) | the same, with a chosen prompt version and trial count |
 
 The baseline changes only through a reviewed commit (GATE-D3). Otherwise slow regressions slip

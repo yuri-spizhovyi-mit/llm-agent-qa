@@ -123,9 +123,12 @@ def main(argv: list[str] | None = None) -> int:
                                   trials=args.trials, prompt_version=args.prompt, make_judge=make_judge,
                                   trace_dir=args.traces)
     title = f"Golden-task eval: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials"
+    # Which judge graded the run, not just whether one did: the gate compares only runs graded
+    # by the same judge (GATE-D4).
+    judge = {"prompt": JUDGE_PROMPT, "model": args.model} if args.judge else None
     summary = runner.write_report(scores, args.out, title, meta={
         "model": args.model, "prompt": args.prompt, "provider": args.provider, "trials": args.trials,
-        "judge": bool(args.judge)})
+        "judge": judge})
     print((args.out / "report.md").read_text())
     return 0 if summary["overall"]["passed"] == summary["overall"]["trials"] else 1
 
