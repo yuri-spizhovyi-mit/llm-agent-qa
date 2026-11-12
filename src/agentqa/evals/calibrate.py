@@ -49,7 +49,7 @@ class Labelled:
 
 def load_labels(path: Path = LABELS) -> list[Labelled]:
     out = []
-    for line in Path(path).read_text().splitlines():
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
         if line.strip():
             row = json.loads(line)
             out.append(Labelled(row["id"], Case(row["request"], row["facts"], row["answer"]), row["label"], row["kind"]))

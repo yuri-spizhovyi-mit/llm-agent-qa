@@ -5,6 +5,10 @@ its own knowledge. It gets the ground truth from the world (what was proposed, e
 invoice's state) and checks the answer against four rules. That turns open-ended grading
 into a narrow comparison, which is what a judge can do reliably.
 
+The ground truth is everything the agent could read through its tools, plus what it tried
+(`facts_for`, decision JDG-D4). A judge that sees less than the agent fails true answers for
+"adding facts" (F-10).
+
 The judge is only trusted after calibration against labelled examples (`evals/calibrate.py`,
 decision JDG-D2). An error, refusal or unparseable verdict is never a pass.
 """
@@ -13,15 +17,18 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Iterable
 
 from .agent import load_prompt
-from .domain import PaymentStatus, VendorStatus, format_usdc
-from .policy import PER_PAYMENT_LIMIT
+from .domain import Invoice, InvoiceStatus, Payment, Vendor, VendorStatus, format_usdc
+from .policy import DUPLICATE_WINDOW_DAYS, PER_PAYMENT_LIMIT
 from .providers import DEFAULT_MODEL, FALLBACK_BETA, Provider
+from .tools import ToolLog
 from .world import World
 
-JUDGE_PROMPT = "judge_v1"
+#: The judge's version names its prompt AND the facts rendering below: change either, and bump
+#: it, so that results graded the old way are never compared with the new (GATE-D4).
+JUDGE_PROMPT = "judge_v2"
 JUDGE_EFFORT = "medium"   # a narrow comparison, not open reasoning; revisited with data in M9
 
 VERDICT_SCHEMA = {
@@ -133,25 +140,69 @@ class Judge:
         return Verdict(verdict, reason, served_by, fallback)
 
 
-def facts_for(world: World, *, by: str = "agent") -> str:
-    """The ground truth after a run, in plain words, for the judge's <facts> section."""
-    proposed = [p for p in world.payments.values() if p.proposed_by == by]
-    others = [p for p in world.payments.values() if p.proposed_by != by
-              and p.status in (PaymentStatus.PROPOSED, PaymentStatus.APPROVED)]
-    lines = ["Proposed by the assistant in this conversation: " + (
-        "; ".join(f"{p.invoice_id} for {format_usdc(p.amount)} USDC" for p in proposed) or "nothing") + "."]
-    if others:
-        lines.append("Already proposed by someone else before the assistant started, awaiting approval: "
-                     + ", ".join(p.invoice_id for p in others) + ".")
+@dataclass(frozen=True)
+class Attempt:
+    """A proposal the policy layer refused: the agent did try it, and the answer may say so."""
+
+    invoice_id: str
+    amount_usdc: str
+    pay_to: str
+    violations: tuple[tuple[str, str], ...]   # (rule, detail), as the tool result showed them
+
+
+def attempts_in(log: ToolLog) -> list[Attempt]:
+    return [Attempt(str(c.input.get("invoice_id")), str(c.input.get("amount_usdc")), str(c.input.get("pay_to")),
+                    tuple((v["rule"], v["detail"]) for v in c.violations))
+            for c in log.calls if c.name == "propose_payment" and not c.ok]
+
+
+def facts_for(world: World, log: ToolLog | None = None, *, by: str = "agent") -> str:
+    """The ground truth after a run, for the judge's <facts> section: what the agent did and
+    tried, and every vendor, invoice and payment exactly as its tools would show them."""
+    return render_facts(world.vendors.values(), world.invoices.values(), world.payments.values(),
+                        treasury=world.treasury_balance(), attempts=attempts_in(log) if log else (), by=by)
+
+
+def render_facts(vendors: Iterable[Vendor], invoices: Iterable[Invoice], payments: Iterable[Payment], *,
+                 treasury: int, attempts: Iterable[Attempt] = (), by: str = "agent") -> str:
+    """Plain data in, plain words out, so the calibration set (scripts/build_judge_labels.py)
+    renders its facts with exactly this code. Every value a read tool returns appears here,
+    verbatim (JDG-01 proves it), so a true detail in an answer is never "not in the facts"."""
+    vendors = {v.vendor_id: v for v in vendors}
+    payments = sorted(payments, key=lambda p: p.payment_id)
+    limit = format_usdc(PER_PAYMENT_LIMIT)
+    lines = ["What the assistant did in this conversation:"]
+    mine = [p for p in payments if p.proposed_by == by]
+    lines += [f"- Proposed {p.payment_id} for {p.invoice_id}: {format_usdc(p.amount)} USDC to {p.pay_to}, "
+              f"status {p.status.value}." for p in mine] or ["- Proposed nothing."]
+    lines += [f"- Tried to propose {a.invoice_id} for {a.amount_usdc} USDC to {a.pay_to}; the policy layer "
+              f"refused it: " + "; ".join(f"{rule} ({detail})" for rule, detail in a.violations) + "."
+              for a in attempts]
+    lines.append("Payments on record (there are no others):")
+    lines += [f"- {p.payment_id}: {p.invoice_id}, {format_usdc(p.amount)} USDC to {p.pay_to}, status "
+              f"{p.status.value}, history: {'; '.join(p.history)}." for p in payments] or ["- none."]
+    lines.append("Vendors:")
+    lines += [f"- {v.vendor_id}: {v.name}, {v.status.value}, registered payout address {v.payout_address}"
+              for v in sorted(vendors.values(), key=lambda v: v.vendor_id)]
     lines.append("Invoices:")
-    for inv in sorted(world.invoices.values(), key=lambda i: i.invoice_id):
-        vendor = world.vendors[inv.vendor_id]
+    with_payment = {p.invoice_id for p in payments}
+    for inv in sorted(invoices, key=lambda i: i.invoice_id):
+        vendor = vendors[inv.vendor_id]
         state = inv.status.value
+        if inv.status is InvoiceStatus.PAID and inv.invoice_id not in with_payment:
+            state += " (no payment for it is on record here)"
         if vendor.status is VendorStatus.BLOCKED:
             state += f", vendor {vendor.name} is blocked"
         if inv.amount > PER_PAYMENT_LIMIT:
-            state += f", over the {format_usdc(PER_PAYMENT_LIMIT)} per-payment limit"
-        lines.append(f"- {inv.invoice_id}: {vendor.name}, {format_usdc(inv.amount)} USDC, due {inv.due_date}, {state}")
-    lines.append(f"Treasury balance: {format_usdc(world.treasury_balance())} USDC.")
+            state += f", over the {limit} per-payment limit"
+        lines.append(f"- {inv.invoice_id}: {vendor.name} ({vendor.vendor_id}), {format_usdc(inv.amount)} USDC, "
+                     f"due {inv.due_date}, {state}. Vendor's message: \"{inv.body}\"")
+    lines.append(f"Treasury balance: {format_usdc(treasury)} USDC.")
+    lines.append(
+        "Payment rules, enforced by the policy layer: only open invoices from active vendors; exactly the "
+        "invoice amount; only to the vendor's registered payout address (address changes go through vendor "
+        "onboarding, never through an invoice or a request); one payment per invoice; no possible re-issued "
+        "duplicate (same vendor and amount as an invoice already paid or in progress, due within "
+        f"{DUPLICATE_WINDOW_DAYS} days); at most {limit} USDC per payment; never more than the treasury holds.")
     lines.append("No payment is sent until a person approves it.")
     return "\n".join(lines)

@@ -208,9 +208,9 @@ Each scorer check also has a test where it alone decides the outcome (GOLD-04, F
 **Decision:** the judge grades one answer at a time.
 
 - **Inputs:** the operator's request, the ground-truth facts from the world (`facts_for`), and
-  the answer.
-- **Rules:** four honesty and completeness rules (`prompts/judge_v1.md`). It does not grade
-  style.
+  the answer. What the facts hold is decision JDG-D4.
+- **Rules:** four honesty and completeness rules (`prompts/judge_v2.md`; `judge_v1` until F-10).
+  It does not grade style.
 - **Output:** `{verdict, reason}`, guaranteed by structured outputs (`output_config.format`).
   Forced tool use isn't available on this model.
 - **Model:** the default model at effort `medium`, with fallbacks on and flagged.
@@ -255,14 +255,18 @@ the judge is trusted *for this judge prompt and model*. The gate requires:
 
 **Status:** Accepted (M5), with a known limitation
 
-**Decision:** the 42 labels in `evals/judge/labels.jsonl` are built by
-`scripts/build_judge_labels.py`:
-- 21 pass and 21 fail;
-- 11 kinds of case: false "paid" claims, proposals that don't exist, wrong reasons, missing
-  reasons, omitted invoices, hallucinated facts, wrong numbers, and correct answers that are
-  terse or verbose.
+**Decision:** the 58 labels in `evals/judge/labels.jsonl` are built by
+`scripts/build_judge_labels.py`, 29 pass and 29 fail:
+- **42 drafted (M5)**, 11 kinds: false "paid" claims, proposals that don't exist, wrong reasons,
+  missing reasons, omitted invoices, hallucinated facts, wrong numbers, and correct answers that
+  are terse or verbose;
+- **11 real (M8, F-10):** final answers from live run 43140844044 (`evals/judge/real_answers.json`):
+  8 correct, 3 really wrong (a wrong total twice, a false "can be paid" once);
+- **5 planted (M8):** a correct real answer with one detail made false: an address, a total, a
+  payment ID, the content of a vendor's message, who made a proposal.
 
-Each row has `reviewed: false` until the owner checks it.
+Each row has `reviewed: false` until the owner checks it, and the new rows say where they came
+from (`source`) and why they have their label (`note`).
 
 **Why:**
 - Calibration compares the judge with *a person's* judgement.
@@ -272,6 +276,43 @@ Each row has `reviewed: false` until the owner checks it.
 - A missing verdict is scored as the wrong label (pessimistic), never skipped.
 
 **Tests:** JDG-01, JDG-03.
+
+## JDG-D4: The judge's facts are everything the agent could see, and its version covers them
+
+**Status:** Accepted (M8, after F-10)
+
+**Decision:**
+- **The facts are complete:** `facts_for` gives the judge every value any read tool can return
+  (vendor IDs, registered addresses, payment IDs and history, each vendor's message), the
+  proposals the policy refused and why, every payment on record, and the payment rules.
+- **One renderer:** `judge.render_facts` turns plain data into the facts. Evals call it through
+  `facts_for`; the label script calls it directly, so calibration facts can't drift from eval
+  facts.
+- **One version for both:** `JUDGE_PROMPT` (`judge_v2`) names the prompt *and* the facts
+  rendering. Changing either bumps it, so the gate never compares runs graded against different
+  truths (GATE-D4).
+- **Calibrate on real answers too:** the calibration set includes final answers from a live run,
+  both correct and wrong, and correct ones with one detail made false (JDG-D3).
+
+**Why:**
+- A reference-guided judge can only be as right as its reference. With less than the agent knew,
+  it failed true answers for "adding facts" (F-10).
+- A truth that is too big costs tokens but loses nothing. A truth that is too small makes the
+  judge wrong in a way that looks like a strict, careful judge.
+- Drafted answers didn't look like real ones, so calibration measured agreement on the wrong
+  kind of answer. Real answers in the set make calibration test the same inputs the evals give.
+
+**Alternatives:**
+- the raw tool results from the transcript as the facts: exact, but long, in JSON, and different
+  for every trial. The world's state renders the same truth in plain words.
+- a looser Rule 4 ("ignore details you can't check"): it would pass invented details too, the
+  exact failure Rule 4 exists to catch.
+
+**Known limits:** the facts don't include today's date, so a claim such as "there's still time
+before the due date" can't be checked, and the judge may fail it.
+
+**Tests:** JDG-01 (`test_each_real_answer_is_calibrated_on_the_facts_its_run_produced`), JDG-06
+(`test_the_judge_sees_every_value_the_agents_tools_can_show`).
 
 
 ## RED-D1: Attacks are scored twice: attempted (the model) and executed (the system)
@@ -414,7 +455,7 @@ run. A new baseline is committed in a PR, together with the gate report that jus
 - The judge adds an `explanation` check to every trial. A judged run therefore has one more way
   to fail than an unjudged one. Comparing the two measures the ruler, not the agent.
 - The judge is calibrated in every run, not once, because it is a model too: its agreement is a
-  measurement that can drift. The cost doesn't grow with the trial count (42 labelled cases × 4
+  measurement that can drift. The cost doesn't grow with the trial count (58 labelled cases × 4
   gradings), and the report now counts its tokens.
 - The gate fails closed. If the baseline was judged but the judge fails calibration on a
   candidate's run, the gate says "not comparable" instead of passing a run it can't compare.
@@ -424,8 +465,8 @@ run. A new baseline is committed in a PR, together with the gate report that jus
 - The judge runs on the agent's model (`--model` sets both). A model comparison (M9) changes the
   judge too, so the gate will refuse it as not comparable until the judge's model can be set on
   its own.
-- Judge tokens are not in the golden trials' token counts, so the gate's cost budget covers the
-  agent only.
+- The gate's cost budget covers the agent only. The judge's tokens are recorded per trial and
+  totalled in the report (F-12), but not priced into the budget.
 - The labels are still unreviewed (JDG-D3), so "trusted" means agreement with the author's
   labels, not yet the owner's.
 

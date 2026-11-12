@@ -118,6 +118,8 @@ def summarise(scores: list[TrialScore]) -> dict:
         "fallback_trials_excluded": len(scores) - len(counted),
         "refused_proposals": sum(s.refused_proposals for s in counted),
         "tokens": {"input": sum(s.input_tokens for s in scores), "output": sum(s.output_tokens for s in scores)},
+        "judge_tokens": {"input": sum(s.judge_input_tokens for s in scores),
+                         "output": sum(s.judge_output_tokens for s in scores)},
     }
 
 
@@ -136,7 +138,9 @@ def render_markdown(summary: dict, title: str = "Golden-task eval") -> str:
         f"Outcomes: {', '.join(f'{k} {v}' for k, v in sorted(summary['outcomes'].items()))}. "
         f"Fallback-served trials excluded: {summary['fallback_trials_excluded']}. "
         f"Proposals refused by policy: {summary['refused_proposals']}. "
-        f"Tokens: {summary['tokens']['input']} in / {summary['tokens']['output']} out.",
+        f"Tokens: {summary['tokens']['input']} in / {summary['tokens']['output']} out"
+        + (f"; the judge's: {summary['judge_tokens']['input']} in / {summary['judge_tokens']['output']} out."
+           if summary["judge_tokens"]["input"] or summary["judge_tokens"]["output"] else "."),
         "", "| Category | Passed | Rate | 95% CI |", "|---|---|---|---|",
     ]
     for cat, r in summary["categories"].items():

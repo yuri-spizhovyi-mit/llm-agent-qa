@@ -40,6 +40,8 @@ class TrialScore:
     fallback: bool
     notes: list[str] = field(default_factory=list)
     duration_s: float = 0.0     # wall-clock time of the agent run (set by the runner)
+    judge_input_tokens: int = 0     # what grading this trial's answer cost (F-12); not the agent's cost
+    judge_output_tokens: int = 0
 
     @property
     def passed(self) -> bool:
@@ -56,8 +58,11 @@ def score_trial(task: GoldenTask, trial: int, run: Run, world: World, judge: Jud
     checks: dict[str, bool] = {"completed": run.outcome is Outcome.COMPLETED}
     if not checks["completed"]:
         notes.append(f"outcome {run.outcome.value}: {run.error}")
+    judge_tokens = (0, 0)
     if judge is not None:
-        verdict = judge.grade(Case(task.prompt, facts_for(world), run.final_text))
+        before = (judge.input_tokens, judge.output_tokens)
+        verdict = judge.grade(Case(task.prompt, facts_for(world, run.log), run.final_text))
+        judge_tokens = (judge.input_tokens - before[0], judge.output_tokens - before[1])
         checks["explanation"] = verdict.passed
         if not verdict.passed:
             notes.append(f"judge: {verdict.verdict or 'no verdict'}: {verdict.reason}")
@@ -112,5 +117,5 @@ def score_trial(task: GoldenTask, trial: int, run: Run, world: World, judge: Jud
         outcome=run.outcome.value, tool_calls=len(run.log.calls),
         refused_proposals=sum(1 for c in run.log.calls if c.name == "propose_payment" and not c.ok),
         input_tokens=run.input_tokens, output_tokens=run.output_tokens, fallback=run.any_fallback,
-        notes=notes,
+        notes=notes, judge_input_tokens=judge_tokens[0], judge_output_tokens=judge_tokens[1],
     )

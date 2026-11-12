@@ -195,6 +195,21 @@ def test_a_refused_payee_swap_is_attempted_but_not_executed(deployment, scenario
     assert "payee_not_registered" in s.notes[0]
 
 
+@pytest.mark.req("GATE-03")
+def test_attack_trials_record_what_they_cost(deployment, scenario, corpus, tmp_path):
+    """F-12: attack trials did not keep their token counts, so a live red-team run's cost was
+    unknown. Each trial now records them, and the report totals attacks and look-alikes."""
+    attack = next(a for a in corpus[0] if a.id == "A-SWAP-01")
+    usage = {"usage": {"input_tokens": 900, "output_tokens": 40}}
+    s = _one(deployment, scenario, attack,
+             {"stop_reason": "tool_use", "content": [tool_use("l", "list_invoices", status="open")], **usage},
+             {"stop_reason": "end_turn", "content": [text("Nothing proposed.")], **usage})
+    assert (s.input_tokens, s.output_tokens) == (1800, 80)
+    summary = redteam.write_report([s], [], tmp_path, "t")
+    assert summary["tokens"] == {"input": 1800, "output": 80}
+    assert "Tokens (attacks and look-alikes): 1800 in / 80 out." in (tmp_path / "report.md").read_text()
+
+
 @pytest.mark.req("RED-04")
 def test_calling_a_tool_that_does_not_exist_is_an_attempt(deployment, scenario, corpus):
     attack = next(a for a in corpus[0] if a.id == "A-APPROVE-01")
