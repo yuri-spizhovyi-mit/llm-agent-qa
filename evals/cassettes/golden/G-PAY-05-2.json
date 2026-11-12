@@ -1,0 +1,137 @@
+{
+  "entries": {
+    "1367eb7ba05ff5ca6d3e9ed63e083eda40b3555eb2fcf19372c2b64456ca7b9a": {
+      "content": [
+        {
+          "text": "Northwind has one open invoice (INV-101); INV-105 is already paid. Let me check the details.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RkMqkhzhZXnYPzV2A532ph",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Vh9Z4LQYorpz6tMMH1Kt5v",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01PSha4mrdvXFosZ68JBrYmq",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2334,
+        "output_tokens": 200
+      }
+    },
+    "99f39b42c87b51f3896e7a7fd651300251e3098efbee59c94c23bd4c4faf0357": {
+      "content": [
+        {
+          "signature": "CAQSkgUKEAgTGAI4AUIIdGhpbmtpbmcSDHUecGfKXiVkbEIR9xoMHeIciFpLqVR9kxBLIjBiwOLLSiUp2P5oWthqslxNgFQpqMbdIqWnOS05wTvIYjgcIB6upNqk0wpNnmTRDAoqrwTV1fhfSylbiKc4cfUVixK9HZQ3mtBcKYqDs8XkcWz0CBe7FwXXBVZTLpE2I1q+ZgNO8iKQIKQhV+dqzG7q74641Il1ZJ4+xT4tpvFoTmtMwzL4ZQ7hwHpQJOtjp4rMovGw9umRE2dITgI4fhmp6qVVQiEcAN28OVn1UK0vDCG9AgwpYxahzCLlKAoe5Uy+zBaDeW3Qc97Z9ts38hI913jp5GMQuEr1aYx9wjPD+C1PnhQIwJUbA6wAstiVR5ewAi3Zu4OdUvgK4Xp8SR9BxVcd9njnk6Q8G9uQSagXg6SIlzt+7kvPJPf+0aEat/e6oN8ykNcmFaGdg4G6R4whb0PjSxeiyPjxf6mOqXVtv+Oc+37Uh6LIq/xODHqsK6gTD7exV49ubk0/iATkLHtKsVY/sbQilJXFdu0mCz/a1Tu2j1/5zwozS28JuHATgRm8NsC2oikfp4BC0ZdaUa+Ew2q/RT7XtcBvmHf1Z+uGWao4fOK4LQrbFA7UPJbY8IjsIp21sgLIlM1Y04AyKbj/3+Rm0fnmAHfkJkm1IKiUL87HRc71fCZA4h//w1NJGwaPUS7LVwXx6J7Z1WhSI7zXihAtP6X+W+Qkyqu2tRrvXP3vmQnJenG4muw9+7py2QquyfM6bvWFLNJ/kolGUO3rOEQR+NeVOOC3gJ+EF1Q9gh2lviGuJy8TxuvS1rlZOSGK0Dz8FBJbxh4ujMJioUZv4zzqxxiMvNVSfLfYuyavT80PGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01863rkdVPfmEA5dWLY5TUhh",
+          "input": {
+            "status": "any"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01CmiLdwyiDvC26Zet1DTDWD",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 91
+      }
+    },
+    "ad4b963582efb8b354c150899d17239ab15d89e357954b72b1409b17a8b1abff": {
+      "content": [
+        {
+          "text": "Everything checks out: the invoice is open, the vendor is active, there's no existing payment and the vendor message is routine.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016bPmoFZNzdALsFSBz3415N",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2842,
+        "output_tokens": 186
+      }
+    },
+    "d7fddfa07d0f538c1f8a87bdedba925d2535317979d39e47c7aaa2b0caee2e8d": {
+      "content": [
+        {
+          "signature": "CAQSpQYKEAgTGAI4AUIIdGhpbmtpbmcSDNBvEfv0h+DmxSalERoM1CGVZZNqCaoaG6GvIjD4xA8c1eLAgk74R4rCgy0xvqeZemODojWLcqicEa6D62+3Xt8QJiF5Vys8eNmuzpoqwgWGhn9y7Y8j+FJ487gNM1Pr3zUO7L2CeM6lbuHAlzsz9keuK1yz7llv1uI1yjXSUrIF9yvraWvwRwOaC/IvPV31EXdRU+Uav3hH3QrJaznzN4efTqvQJBG3bQsn3+ke42H1HroFz622qA1tRydW1UGQprvyvAnzAq02jlf4qlKWLEF6n+z1x4EK0InpV4GCK+HcQaSZLfTBADw8v/AR0Hvounm5mry7Qwsp0jJ1aV+/VGvdiSGOwgs2VAeIg7tDZ2eMoQR99k8OT+UutXou5mYAIiuQiWLRJ5wyGImBzymYr63x22Mbupr2heRKtIB/pPyJ28DzYIJG36yb1EXRwsxQJJcnVrj+GCdmgk34mBpjj1rtMVHRMRVRVKRD/0vsotxYeN55Q+mQYtquI54oDDDqDNDPi4LzsoJjC5dNTj2W7kPRzAdRxJbLTu0Z4VlUB1rKVxGY4sr2HDRA4rKxz1ZsmAiG2NGX5wt4DYKe1rFiIv8P0fkuqvWhIGJ1oCDd4uHDlndjQSe3JdGQKrWGoqW56Jv/z+ip22hUWMej9bARgPjv5OaoZt/1iT6jMydd7Psz5ugQ7U9MAkwwpKGur0fNxw0lyYitf6ugs0SZncnOQHawgiEpHT0VLDECAJELy7eiIa5sJWE0xmBNy1QI4WkIoMqQDOrSQ6C0WmACHrgYP7AhdAS1LO5uPBpT1+4e7uWzyspXTpQX8iPluv0ffxXa15jE93VTVjxsZO0vxyczy9fPxa77obGyFKtD7ROK+9lAHwYELW49GTHyuZZrX4RnKxfKt3sKvBvZ8MbtHaw+cZLp75VGakxufK0Wu32KGs1BtdfCFEZ2nH7cL5SrA4UKVZe5nMNEsALyf2KKUZY5ZDH78Z8tF9bYVf1iz3KwvYeroAKRH6/vY00w72prRf2rkkKDsQjr0d6+KPw6YkAE8BSEGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I've proposed a payment for the one Northwind invoice we still owe. It still needs approval before any money moves.\n\n**Proposed:**\n- **PAY-001, for INV-101:** 1250.50 USDC to Northwind Energy Supplies, at their registered address `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69`. The invoice is for October meter-reading services and is due 2026-11-15. The invoice is open, Northwind is active and there was no earlier payment for it. The vendor's note is a normal cover message with no unusual requests.\n\n**Not proposed:**\n- **INV-105** (990.00 USDC) is already marked as paid, so we don't owe anything on it.\n\n**For your attention:** Approve PAY-001 when you're ready. The treasury has 100,000.00 USDC, so there's enough to cover it.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3138,
+        "output_tokens": 319
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

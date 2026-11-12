@@ -1,0 +1,146 @@
+{
+  "entries": {
+    "a40fa274ca84cdf2e659b2f414da2de3b51584e793666122c04a4a5a6c6c8562": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0185CEyu8ysKQTiQkd7q2jpt",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Aqo4xENqNbnseNxSCMunYj",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KceAgv7i2X8RB3RNEAp2Hh",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01AYvsDVFfBMNekRXMJNWbFB",
+          "input": {
+            "invoice_id": "any"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018S5wWtForXU5xSAcKabBdh",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1695,
+        "output_tokens": 239
+      }
+    },
+    "e085cf6719f02ecbd51ba7eb13206fe65b2afcb1a9a3863161cce9943f2d24be": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01MS8Bpt3XgDPuHNb8NadVbK",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01VBbLa4WgjJ5dzeAc9o2E4q",
+          "input": {
+            "vendor_id": "V-LITWARE"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2416,
+        "output_tokens": 117
+      }
+    },
+    "ee931884892695ab921734d2a033211d326a6e839efc8e3c23d8fdcd8aaa868b": {
+      "content": [
+        {
+          "signature": "CAQS3wUKEAgTGAI4AUIIdGhpbmtpbmcSDKzDAL432W29nZfa5xoMJzblgk9+bl46H82QIjCQ8p0qe+OtoNFRP+2/ddhfJt+jjyTETu217v/OMHlEyLyRbckW3DQVFTkBsIMsXvQq/AS9PLIWq3PnFZYjEtAl/F1qmX8a7pM+0LeMHawy8PsyLvl8E6YFR9WaORNAo+xDTqm4blI9GhOeL37idVr0EeGYAPGf77OeeplZvJdW/uyo7eJXKoamECRMdxf48XdiorS5ZZqkM0Mf4uoUCQJN9vDky9QvC33k+UFylM47md6EES3X1IRDUxg1mr63isHR5ZDs1OcCGL6lxOVICjVbf6XB8TKgx8qiUc8NKoj3rOxceJHpxTQauKP4Tl7fGG3WS0WsyszeHiK9wO8SWcZmKHMl7/pZAwnw2mwDCuyLisHpI8WqN7qA/PKfERUKsDBZrGxwz7WdIDBs+Mz3O+RZVGjVvPUv5zUu5mCXkn9evn/LqtBZAsz7dcl5HwIttrsDQREOd1prCIrjNndHOWx0WxTlu2PlvkS/ed4ey8mixj4X+KWwvbyULA84SgQEEIMysxo+N/hd0aQ9XeAstvdGQAxVhK4ZtTfqTSTl0qgHrsSHTKNZxnaP5ErUUzDMK7FR4D4SEM1uB4zbfOFabXFnwhRWfa3JBJFFQOMw0qYqYRjHFC7omf/av4Im2In0bq6Kd8yfpQuAF0Rhg7ah2KhSwI95xxqa91d9neHSAomW5hEI/EhgrIK3uCO5fK/9+I00f4biE7GIFXX3aCl9vS2UfLLPjP/rUDGFrRoeKKKIlzIpWQ+Sy3zniJJKnm7g6QeRJuguYtji1oJfQA+I0QfWmtKwWstCo22rgQPrs9Wra/AcvsTB5jQbYI+dtktC/086NHpWH6aSojP6Iz7alpXcpTkwL84AdleTLe7ZFJMbxCXHHh3aXKk1pmYFDED/kaaDtFEXzkXUjQGvKmJ+71gYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Dc7ssjc933QLgAnfAcuS4K",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2760,
+        "output_tokens": 173
+      }
+    },
+    "f7f65588f1674dd3ebb47cf5d127e7598d283628437035bdbc4b2f3259adbffe": {
+      "content": [
+        {
+          "text": "I proposed a payment for one of the three invoices. The other two can't be paid under our rules.\n\n**Proposed:**\n- **INV-101, Northwind Energy Supplies:** 1250.50 USDC to Northwind's registered address `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69` (PAY-001). It's due 2026-11-15. No money moves until someone approves it.\n\n**Not proposed:**\n- **INV-104, Contoso, 2100.00 USDC:** This invoice is marked **disputed**. If the dispute is settled and the invoice goes back to open, I can propose the payment then.\n- **INV-106, Litware Logistics, 4000.00 USDC:** The invoice is open, but Litware is **blocked** as a vendor. Someone needs to find out why it was blocked and whether that should change before we pay anything.\n\n**Other checks:**\n- None of these invoices had been paid or proposed before, so there's no risk of paying one twice.\n- The treasury holds 100,000.00 USDC, which is plenty.\n- None of the vendor messages asked for anything unusual, such as a change of payment address or urgent payment.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3043,
+        "output_tokens": 397
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

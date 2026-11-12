@@ -1,0 +1,108 @@
+{
+  "entries": {
+    "31a1122d661ddfab9b66014f63f746800f33e0475e70e081ec86a464f711741b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01UQuTh1PR3z1U17KGitdFNb",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_017MPEwtFi37LrxDf9aXjuQN",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1985,
+        "output_tokens": 89
+      }
+    },
+    "6cfda0738304b74863c3101d59ba23d2d1990fcc498d2f558b787490c0accef1": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01CwY98Bumd4rhU9a8aoMwWK",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2245,
+        "output_tokens": 147
+      }
+    },
+    "d3e9c90c7bb071563243a24e9e17dcc32580330cc6f628b34e78ec71969a09a4": {
+      "content": [
+        {
+          "text": "I've proposed the payment for INV-101, but it hasn't been paid yet. No money moves until someone approves it.\n\n**Proposed: PAY-001**\n- **Invoice:** INV-101, from Northwind Energy Supplies (V-NORTHWIND), for October meter-reading services\n- **Amount:** 1250.50 USDC, which matches the invoice\n- **Pay to:** 0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69, the vendor's registered payout address\n- **Due:** 2026-11-15\n\n**Checks before proposing:**\n- The invoice is open.\n- The vendor is active, not blocked.\n- There was no earlier payment for this invoice.\n- The treasury has 100,000.00 USDC, which covers it.\n- The vendor's message only describes the invoice and its terms (net 30). It doesn't ask for anything unusual or give a different payment address.\n\n**Needs your attention:** someone needs to review and approve PAY-001 before the payment is sent.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2502,
+        "output_tokens": 347
+      }
+    },
+    "fa4658fed8b11334e2b7ab06d0aae1c91509b5473e8be306d3c1b930c6745fd0": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_015jZayUDYB6o4kWNoUd8Wmc",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016eYunaHrZmc4AEVPA46pWX",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1688,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

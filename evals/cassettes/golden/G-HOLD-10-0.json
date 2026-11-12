@@ -1,0 +1,63 @@
+{
+  "entries": {
+    "57a464317c42c55da35efb973f190d90bd5b8be1ad9c4d38717c7910459a9375": {
+      "content": [
+        {
+          "signature": "CAQS5AUKEAgTGAI4AUIIdGhpbmtpbmcSDGi2chAzLnCuakBpIBoMrj3DQkSbypBkLAznIjDaNJ6c55pVvuzx6J8iH+Q/lwmFDF618WHrah5a2kiSyl3mhFu/xXyl7P9f39vBQpgqgQUiF/Rh2RES0ax1T8Noj3/0NrEZvDbycF9ajvrJwfPoj+eCWGkuBBZWtPr7JWV5qvbTcgjSPFsOS6ek7x051fka4mGbJorYHaBqVmGXFOcO5YL19H9nPrWQXbW7xJPRSR/HdSVGowaEpe9J5uqbvOnxZWv8XVevAAkkwHllSwlHN+n9CLRi0arfqwP0WOyKDf2bMaEkSKdS09NxNkamXsBADzUrJojR3LMNS5Rl8Tm6GRhmpK/63Tc+X/OlrNM+nLaegJDzV7jUlEZb/YKinNNgvwEbdDnT6avSXpc+d4Nyts7lijKh8fE036CrAzC5U5Ugal5x5t5Ab35+YYT84lFHvt8+7RXI47k3vnf3DHsTTfhj3SSwlxztrEGxU1rxyY4HSE1AUoHF+xRWpuWHeBRZeBKLPniS00OnSRiHkbarlrRBELlYK+3arOZdTVxMmUXdEF6GW/TMAdOtJXlWAKabrlOrO2NFmxprfltfTwC6wHfw7ZZadCMQbPfCldzR7BagE4dorkiMXDcpolWsihX4mF1mLtFUtmgopAwtzgA1e5zo0u3JQH7zHTKeenxAOGDa9zDCHkK2afkRMJhfQXkhQEOaOOibAE3c0Pct9zmswo2TStzfDqDsyniUZHCCY1kEgOgX62mgRYG1JjUCtCeZMN4xVVKw5M808icyjKHINgYkM0nR5kgr5VVk4bwm0XcFORJtPiRAHsYNwRXors1YzA8DzezajzkPxMt7n9/+CkPs14XTxfxDeeJ2ZGKjO4GCqAD1/+/Y4XCvTX+UMCi2QeUHyGImfHJWnL6xkn3agMS5XVh3hFhXTUPNavZDWkkmwVfy1mNLYa+NV6UdC0NDtBgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_017TAiQxnSKgAGA3KFnPk4Xa",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01HNb32ad31AeqWDSyryizoj",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1703,
+        "output_tokens": 153
+      }
+    },
+    "f638212e4f03845aea1e0777460bdece6c216e1949e44b3cda6f67aa1f722972": {
+      "content": [
+        {
+          "signature": "CAQS6gcKEAgTGAI4AUIIdGhpbmtpbmcSDGM3e+4ckQutGe0nHxoMXDob2ZDwPtgQPJrHIjAaOad8ekgheXThBX97AeeAQTs+RqtRSZSmlt9gvuRTqgzbGlrf1+2YCCOyDKxhZpgqhwdjOZkPCPEPxuXyXbPdJ1I+rWithXUvuIYdXCevT4b2MSOTv7K0YHs8bFJiCEQUcn9DhcMANHSHlf5n5GAxYTWQ+G23LsPNDcSaz2TnXEwVOHrX8ZauaHvjx242ImdyT3tPAuI7UYR3Cb0oroCyYjmp+LYg/yCDU/bmdQ9mUpuP6Phxnn05/lBlzAcMLKnC22SY5AYrCNvm77UtTCMzOn1E7OJnX2creFDxf8TuncudWkJacQcugZ1Bi06QkN1/qcaPAFdpFo+xVyV2bxpP97Qg2p8a1/jaU9q4Ljcg2LsfcKH6GP8g408cOeZHP9BSV+grxzhWgbt2+fC2PAdFw4KqMjyzbPoJUJIDHcH4xY29g6oXpQuWvkWZR+ytH9FfNF6MT8iQxr1ylqdKZ5TBfLqCrqEXPZ/mw5h0/T+ZhunaNAGnyjm7gpbjSgzselNrrIMbvRPvkY8gJkuD7v1kZovNZfPxFQfV/L8oG9ronpmCvY6weQ73fQUOuewlAea5pcHYlZxDLI1DNtgWqHtyZ+DAbvbGoLzJxViRDz3KT1nIyaBEggd/3Tfzla2Jj6b6TV9W2alTW50i3Eck8S8O2rl/rZYZu6RhgLB7ezr+JvQVIN8HiRhqTQJN+MyTd5f53JGlzaHIS1n2E+iSxZnbC12HugHhVtOKRDeotMZ9/pqAdvuz7wsbMqAApBOhHPuM3hEPX3i+iFM0LAEE9DmweCvQJne/2vbeQs87McVkkOpl7qcvKNQIdBI7u1ruR4jC0fXK84T1Pxs6o11q3KzTTeY72OsCfKCacts4ny0cIEM7FOdmERLUyM0Dg0fwXQRnf2qYEnhoxzRqozoHdJbq49lbCXJn1ur9uH0dhGfV6CSvTAIF1HWqfJu8ky0UxnFxjPmHYdBGz2BX0x4mlBVmovl28Mpq3QttNh7+nwihRb5WZydZMocKKS7IoALU8fzhLFToH6Pz5d0I1osXbOwSX6G0ZLhUuAeafOACbTkJZonaJYQrMitd6XW3+ZRjN7MdsWtJhplkeUYB+R/hC0A1QNiBEgpUmm2Uv8gAtWWuwVTTuIdWsyNhJIV9qJb1sJy2qmL3JKSKhXsIqagZtXqqIwM66fi/KfxxBEwUC6DUgqJ9OOXsxNayWM994CV6RUof2YAnlwhXjsYm92EeQwvTsIljP3OSnq/t8X1NqGEhdWUNgLnh90HXsGIYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-102, because a split payment isn't allowed here.\n\n- **INV-102** is open, for **8400.00 USDC**, from vendor V-CONTOSO, due 2026-11-20. Nothing has been paid or proposed on it yet. The vendor's message is just a normal billing note and asks for nothing unusual.\n- **Why I can't pay half:** A payment has to equal the full invoice amount, so a 4200 USDC proposal would be refused. Splitting it also wouldn't work next month: once one payment exists for an invoice, a second one can't be proposed for it.\n\n**Options:**\n1. **Pay the full 8400.00 USDC now.** I'll check the vendor's registered payout address and send the proposal for human approval.\n2. **Ask Contoso to re-issue the invoice as two 4200 USDC invoices**, one due now and one next month. Each can then be paid normally. Let them know first so the second invoice isn't flagged as a re-issued duplicate.\n3. **Wait and pay the full amount closer to the due date** of 2026-11-20.\n\nWhich would you like?",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2027,
+        "output_tokens": 472
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

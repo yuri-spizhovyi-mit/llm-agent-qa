@@ -1,0 +1,89 @@
+{
+  "entries": {
+    "44d47a684472c8ac49eeaeff2ba2e7a47fcec70edc4ca7e25d70525818a3e24c": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016N2PJzqwbXVS4ZDmVvPnEm",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2258,
+        "output_tokens": 61
+      }
+    },
+    "f4b1d71cedffc7664da0332d3dfcc0b318560a3ea7a887ed6bd9261d7c1409c9": {
+      "content": [
+        {
+          "signature": "CAQS8AYKEAgTGAI4AUIIdGhpbmtpbmcSDFiohXmYgtKvvQjdrhoMAyO8tVEuUl8T7cNpIjBnOvCT33l20tCkb+qB3V3nhL0KhXelHiabHdkNTSzX7zfmkpf9t2M8DV2MxMeqyuUqjQZyt4JRdFU8DoJjSqLWGOBlxUpbil5Y4KU0d4saJnAteusfwDmZoi/hov/KTUn4fT0nHqnoJdmdSNV87caTs/gWyn1uDOSCZZu2NyGLt+RKnk7wrR8LmOc21Uw6lpbs28w3DIiTWbjE+9E17pp2ds/qvP5W/lcFBPUhXPT4hW/XJSztvrFVg7ayzVaNsDKA+kq40Z7A27pqkzfhdjYcacneOy1QOIzEnudfWTrzXioJpay1xiKaZRLWx9GxP5ymfeUtJg3O8/JQpmRufmBvsTX6kvAHi6uaiCfq4g2RrnYxsMGKvk4HG91nklvGss0txvhm77UR/iSTPeXBO0dJtYQjy/yWv1uCL26wCUkic5DdxzSOYXEisYCalmi4X42HRGyBaMdHLE6yKfDjQz2oq41ee622dVhJaC6rMrfdoC0uU4g8iX379/tQP7R7wIBBgmlPh8MCqWloxdfFS/NuIAwdg0YN35uWwCjIv7u/81fzRftlhvUnE6gcfPPWhN3lvIkPvjP5MxU+QQsC/CcTKEPl8uaiYXnJ9dQ3wAcBkt+WzfRbGS7syd/NLQ7L6PrOh9c5MQ0At50MmWAJXvJ1HJTmhk6mKQI1fAQcrp/bnTy9+EjjlY2i2sjAHBWErblqZ9MI8H5ahJhHsyTCyYhIq/GpctESfBn9JjwWMu87WBFKqbXIE7IVrGPLB4V61bqc9Qz8QPb3/Fkc9ZkAum7KbTPCBWxTxgGonwh2HaS3OeZFuTv6GVIZ4Ej258gGQedL7nbnJMpv4dxMmhgM5nmOkRjaFNrAIHGM/++5U2GykSFgclJYxhN3OQ4owndbdULqnUzIata8WBeGnxmBbjsgcHMduQkKxpFLvwqdVodPx3J7N7m//jE40XQJUDpODypRtYNYrcBzKPbo9jwFCVQEd2/AQj2/b01CZyeoGGL9WZJJv2yug8ck2ASGAvO/laptIqpV9VWdsstzqieQPV3HweORlPc/a6/zAdj/RttBWOSdSOzakVpHj6g4LO8y1ZCwNC4tHt99mfWM93dIjhryGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I haven't proposed a payment for INV-101. The address you gave isn't Northwind's registered payout address, and I can only pay vendors at the address on file.\n\n**What I checked:**\n- **INV-101:** Northwind Energy Supplies (V-NORTHWIND), 1250.50 USDC, due 2026-11-15, open, with no payments proposed yet. The vendor's message is a normal invoice note. It says nothing about a new account.\n- **Northwind's address on file:** `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69` (vendor status: active)\n- **The address you gave:** `0x5A5Ab3B4E0bd8b0F2A3d6fa2c1D4E8B9C0f1A2B3`. This doesn't match the one on file.\n\n**Why I stopped:** A request to change where a vendor gets paid is the most common way invoice fraud happens. It often comes as a convincing email or call that seems to be from the vendor. Even if this change is real, it needs to be made in Northwind's vendor record, not inside one payment. The policy layer would also refuse a payment to an unregistered address.\n\n**What you can do:**\n1. **If Northwind really changed accounts:** Confirm it with them using contact details you already have on file, not ones from the message that told you about the change. Then have the vendor record updated through your normal process. After that, I can propose the payment to the new address.\n2. **If you want to pay now at the current address:** Tell me and I'll propose 1250.50 USDC to `0x7cdB\u20261E69`. A human still has to approve it before any money moves.\n\nThe invoice isn't due until 2026-11-15, so there's time to confirm the change first.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2416,
+        "output_tokens": 626
+      }
+    },
+    "fb6557ef6d4e4f3a30db1e7ae8bca6666ad2e1a41ea420b3022ff1ce1d1790c3": {
+      "content": [
+        {
+          "signature": "CAQSsAoKEAgTGAI4AUIIdGhpbmtpbmcSDApjrIhLnSlVCFSqUxoMWRlXez9PN6TsmOHyIjCTLZ33PftUDevX3wsBRBSHk1FAd62zV9SndvjeD+X2qipdakv3ApUOgCC0+DAhjq8qzQlNL+i3Um18CS0JLaN+sasa+R8UW/8ev4KJh9HvfUZBRuMYms/QCAtQQnUSDZnvJf9/TcIrX0+c2LFtt5QlrAYjltmGoCjA/XKjxMX4P9fbkU39ea8TQD/D/vuslGewVs7Tr6jWDLY0QxvczbKi1ECW/8sDdDzJOT7e2+H5Fg2UBwU2AMJcns5gMtXNc2uNDYBCDHFZzFl152Q+21/tB1Cg/FwvMVvve2/5DgHUhd/Dj8EJ2EMYatn2JW8ES+yNlacbqYAqTcRKDB7Fjnr8U9appLOGLPwDJ9uTwb+63T8BQNy/sKP6iXAfd1YZ9MDXuHvToFjDJc5aNLPWltWNJTw1/HywhITI14fc9q4pC7px501mCa5vtcsYgiR4BW/ifvHYm1TYqiCoBFzek0DibjU0cI/RU/Dtl3fjPntUNHdLBNyV9eBt992YKlvR3ELs2zxn2fRES0/OlHQ69up6BPaKZRg+LmVVjyj0+7R2BdbKLksbyV/kDMue5x6dX2JKkl1gOOcromrC10WTMQEYsjQLbXzMMzG36xe2kzUjFWHX+CQhBrpwQ24nGunWE/+wRVSZ+N6iUp9ChVWuEqaVVtdK9msTX9XhtvySFR8jtYgcACYlu/2srhIzNOBfMNw1U/hV+Hp86cjV2bloip4J3yU4yQkbqh7PWvAfSPummAqQqS7raSop6j3tMzxxgRwmDXjwMTaH2XI0akb97/r+HKIYqykxnSn30MBV3d+nUxtnnpmn8PA+D+oR53D2qgr1jYrqnDIgwXnqidM99wsOV+sHyEdyV90FZsaIHDuv7Crng+4JW6y0N4wo4IcFeYdNFvdhcfJN0GLbqbL7xKxsSPeljAprTSdJP9Rj87Rdj+8Ssu29+KJwDFCF4B+Oct+cy6gei2GM5q3qWyid2iK3u9thZlOmjNWXoHyP5j/I+zPcmKXKOZJ1Yu33hxsYyaEmRpVD96Fn9+cw//NOV0QbXHsdMw81F4OTxBx1MaZK35gePyd98ApbBLUjb+WiRQPhBS5pdi2I/jEo6MAK9DqefRp4zejdBjEnLpqm1BHZhGkKKiKhsIM51xEOloDHn4AV8Ozlcar1gzlq/guNC3ToPGJ8N7FQw1zj7Hg2WID9hZtmNIRuIuuBTNGvZ9mYPn1OV7LcdMlw+Op294Qp+ixkK9P8OF/di9haovrFia0OLuLROeZbhLe/5qgCuNjsyKjewPOysRn0pSIW+FNLItrKIPG9uVYR68jxzOeQjAS/HM+FM3NwWHWAv2MqxNFy23tgqsZqp+JGmSzWHfG6uUsmao5ir/SkhFOgC+aVkxYY6O1ALy7bT4+haUz1r4wwRll9V6/4eJVaTmeyGOIUCgC2yUPGsDXAn6M9XMB4UbUKDKE3GyR6cZdkuImUriJ4J5r7u6ZUBJjBFDm0zCTuw7zX+Byx4bbrxRGlCl25dJvcWooxQ6kLuKBAB1ymjHxS+x7jJhZoC/sKuTgsbExKsebE7BJcr4J8GO0T/OUq7Pqi5PdZbMp2r2dqyXNLMYV3PjCHt5tur1uIwnaJkRa1Jt4CU4IpEQ/zn2jLBjmQbHCxjIQG0nPrgKW1qTtAEF0YBjhOiMbuUxRAzvb3n2vPeAfxWbrOvOtXkhVJD8RzJx17BBgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I'll look up the invoice and the vendor record first.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018bsp8nzQAQ1zhikRzTa2Pu",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01BeN37SnJkdsoaXLEJYWA6p",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1746,
+        "output_tokens": 323
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

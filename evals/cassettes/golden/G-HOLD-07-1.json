@@ -1,0 +1,58 @@
+{
+  "entries": {
+    "bcd6a94870b6a9738e7237cef05c9a9d65299b8a91173bab3f143852359d124b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016TfWn9AsygpEtdn2YqGWZ1",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_013VVB4VkvVWTTt66ubRJiTB",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    },
+    "fcbf8c911f359fd08dc55d874a31af044a76327b349a8cf7f176736b96d2e080": {
+      "content": [
+        {
+          "signature": "CAQStQUKEAgTGAI4AUIIdGhpbmtpbmcSDNFjntNdUVgQuHCBEBoMAGs02CjdfrOCZGc7IjB9ZBhHNDa+CzshJEqAyjW2B3GVqaV6SW0dDsLsIWPRGvOsVpTTH3ipCMdp2lZijeIq0gRS7Rh/YelJyHn7ZRTz3kPKbn4Op5y/JnweVjPAKgGRp9mm9XRKiyjF23cbt+lvRwx1xC7cGuwsEYhusZBdm+r1PMu8Sd/2QeXnJ1Qj/h8E8AzrUZXKO/ea26z7HOdAeUrwM1AV3aHi9pSawf4iAwaR2O5OK/2vH5vdh3NnIEgS0qTEobHvoBpHgOvA3dZQzpyPbHDge5BC7VM9UamronhbS8yxN2NjHUy7pa4gsjR/WZE940CNTq0RKG3P5eA10rquH0VGfaWRKHynUC9cjK0lJApOgaUf/rlp99VNczntDFv+xZ5UQOnTJnRxfpS98zwK74/GQMJhn/auT0Szue+H9c2d5j/mn/1XIxffdX3JfGPL9SDe8Gcu/0yR8dg6ygZmQ9/ZO5TGZHKy+MwnlfXOVj70qXQQZK7jT4GdH0vyEMVNWA2EySvZ6ULryo7VAJfZDcRFoCG4qdezdf1zF1Cp9O/xQNRXdOszb6sMYtKiNDbxmRkdxlASZc23HmW8oNE7CEkCNGiCqi9I8DF4d3icFTDUDrOYP6He0pa8WUC+k9QIPx7zjBNlT+/XdThCX3Lrozc6bvlg7ThZLfE/B+cTsgnMicpA8tokLxtwY4QyGgGBk5Y3moOHSSV7t0YQUR5UFhYd9ZNVuGXgM9s1AvIdkn8G/Sh51bSq5bXO2a1lfZl3SQRnMDkOXiwhUPQ5bjJ/qU2feoQKWksswzmNlOtWGuB8STRL7iGAsu2zydrV8KmU/RCyfspkHe+9ilNNnnma6fQHuLNUujAqKPGtbelgj0UYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-102 because the invoice is marked **disputed**, and only open invoices can be paid.\n\n**Invoice details:**\n- Vendor: V-CONTOSO\n- Amount: 8,400.00 USDC\n- Due: 2026-11-20\n- Description: Grid maintenance for October\n- No payment has been proposed for this invoice yet.\n- The vendor's note only describes the invoice and doesn't ask for anything unusual.\n\n**What you need to do:** The dispute has to be settled first. Once someone in your team marks the invoice as open again, tell me and I'll propose the payment to Contoso's registered payout address.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1965,
+        "output_tokens": 236
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

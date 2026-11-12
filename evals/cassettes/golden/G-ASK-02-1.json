@@ -1,0 +1,47 @@
+{
+  "entries": {
+    "308a22ecbb8eaf828e5b3a29926c90b83cea42243145cb0cb9492206e76b931f": {
+      "content": [
+        {
+          "signature": "CAQSpAYKEAgTGAI4AUIIdGhpbmtpbmcSDAhNHDhbZIfg5Q65QhoMHZVRP+2S/jJ8h5maIjAMGJz+7xov8oVEkBRB4J6xsd5vSj1oQL9H5hHMndZoF1tpFINl3p8UumN8vWarCt0qwQUKVJL43kC7XeQJqqcUuk0IK7AC3lazYgHxEiQ+nYzun99t2HZh57LD0MynobfRsrCmkWEVVEsZcIErIAcKJiC48YT80801ZtG0BxoVvDktNp4yuzxFPMenxd0Xmj2gNZLVgxM3k2m8wttoDbCuLAt5RG1IpqfIjScjdAp5PtIwW7adnQ5NbqeN+IuTl5xfKr1IwGA328h9RXFINuVUHUwBeHALW8z505KpxCAQeThefnkZBOJxORz+Kfff6jMJRJzPamOxk+SE3THM+LfZzutXtz3SfDxFMFOcWeNsE5L2fJDh1FeLvIXwS/7S8eai1AF9O2ZAmS4QU3dUTwGQGHRI3a8NZUxABCC6N1LB8+pPCvltTIJwFYvXe11fLTtquyE7WuH3M9I2WlEt2V9KNdau5rZmWdEnjV0R495Z6BHtqCx13sa+N3A1LNlyTdO5tJ3ruuaUGyF3FrBa7DfHVQD5+d4IsYcZUrQ1s4pzTMG8Dh/mV392RuT7pLx4WpnQ65JkCvYVdaN99RWhvfig5IbdB/3GCRjzR43kZfzYz7kBumsypxu4rsbjuIi7ARkfGxf3y/0WyWtG/y0pFJzHTrLVJUaMAIq35LO62Ze8ipzkiIpzpQcP34lwoQtKQBrd9MFfQcJxbp+PNXJpuw3wJjy79YqvDDMNvZWcyqnhbu8db+GVBGr7dx0DzYEP/r4DWwCmeFz3MtftKR7IYxL+Cs93cyw1LsoBaIfw42OvGiikibHqbnX1FrX0amQgOcC3+COj9xm46jYBQGaZvmkHZS8Eq/UVRTnZHRo2p9VDcx+IJkcoDA/QCT8KD/b2pRfCzn7rxxOTNvCOFLTJcJ1NbyEyo5CwOONrCSdrKS3RN/NJ0Qiz/z80K9g4gHXLK7AvDFHr1IxZnzQLo5OLuaceR2ELQrNSPMUJVzDwE/ZW66of8aUYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "There are 5 open invoices:\n\n| Invoice | Vendor | Amount (USDC) | Due date |\n|---|---|---|---|\n| INV-103 | V-FABRIKAM | 312.75 | 2026-11-12 |\n| INV-101 | V-NORTHWIND | 1250.50 | 2026-11-15 |\n| INV-106 | V-LITWARE | 4000.00 | 2026-11-18 |\n| INV-102 | V-CONTOSO | 8400.00 | 2026-11-20 |\n| INV-107 | V-FABRIKAM | 75000.00 | 2026-11-25 |\n\nTogether they come to **88,963.25 USDC**.\n\nI didn't propose any payments. I also haven't yet checked these invoices' details, their vendors, or whether any payments already exist for them. INV-107 is much bigger than the others, and Fabrikam has two open invoices. You may want to look at those before paying. I can check them if you'd like.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2086,
+        "output_tokens": 393
+      }
+    },
+    "9ae89ea0f87b2e42a6641e99478c2f4fd2aaa6797e88cc5feb8c0447169da25d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GkDC41NuVAcfeg9j9VL9r5",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1693,
+        "output_tokens": 49
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

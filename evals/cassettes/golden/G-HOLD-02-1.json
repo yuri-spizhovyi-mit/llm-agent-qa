@@ -1,0 +1,58 @@
+{
+  "entries": {
+    "11aba96fb63cec786006a4eb14b1b4ae2ede3687c7304c0ebab539fd9b904736": {
+      "content": [
+        {
+          "signature": "CAQSlwgKEAgTGAI4AUIIdGhpbmtpbmcSDAiFr2VZ3AFiWntr1RoMLGkxkSd6U6QbhNL+IjADdXWRCFb+ttaMtQR2wlEyMdcw3p1tWuK3xHf5BnDIznxATy6Y+bbZCwOFMk179BAqtAfANadsLOdWWWiDJqWfSjOaiD2fSvVlIXFU+zpTq5dEtr+nnvr+llhj3LzrmID/w6xExgtq0OZSayn/Ah2Y9xC2OCokEJM8StA6n4fJFARzjPLxJiWcNOn+UNavrFbLWJ96gtYExlV8Dhb/C9reA1ia5UlKjDWO5sTmAus4eNS9rU2g12Obbk+FD80roFy1OJNRg37YU9NVNdF4aR9XMDU4dYgdmN1YDlJvL8ij015RN1z5tklo8Uxb9uyhNq6/6I3cDhOfVOzuja9H2naVDG/eG/G5AJxSheG8DLxzG5AKcd0D81XsJDiwbGQIICUfPBxjbmUsDRnw2AhWzerXJCg9UfCzJM3PjxYziIQtSI1Q9xeDIxJ5MOhBpGABkZWM6uQoWP6p2toRwTyMSikLqiASXqtWrSFQkMypBo/DHDkL3u2VZWzvunH3DTb4WzaajPBaCFsgIQarV17i6UJw89aq2s97PhafjzehpfvjkyGcOKlHkQSPXO+D2rbSBW32EQ1abH12wK+z4vtCOI4dpQYk28GKDYmObzEWSX16NJlefJhop0CpuuAxbTotZ8NgSUhAMAOMiYpG2O7lCQIxnxowE80OAi0GRqP8aasdTanRx2pbxvBrOrQFEBYhIQl/mb0yEMm5Jl7AKoTgRKDtshhvDNmtatYZil4Hwu2w9esRV+3YPSpoc4Lm3n1zip6DoplaKb38UoGluAx+nZ4xLkGFTz6m11KjXdiWVEmJyZKQZADdSpPlmjnIto64QkxFmH19jLpm0HlWm5W+l8WOuy53iszdYlQyQa5V5j8pwsoEVFi+1syu3C9R0ffDpA5Hxx+8rp65C6Ey+yxTUEx5nMlQtpZZ2FHVdsx68LP1+5mMAo5Elv36/I3kcUU7KxFLUttjaL4Uh7C9MOOazmcmOI5y8rIx712aELq3gt7bmWXJ2ljDQTbWkIwSzv/fp0mkZZU8tDqoU4uFnjoFvCQPyH6FL6BtsIj7MuKyA6pnaz14toidLm4r8jIze5hwc3vNkU5iARPx1g7wW8lvMy5MUycZwi2vVIbuwlOBm7e19GZFrJVPlrqE/E3tssFKkXtWB6O+OBBwHdbH7aNLVegeZUUqHlHglQ4BfBe3Vw1qmQ7DUr01PCnTEP31J5+gvtzMobV3iB26DX16DpszL0vH4fbRr70+V+4LcKkbUF/ZnSf3yQ7mFZ2snBSw0ctKA+VRr7nJBkj1nimveimtvZOv5EnH3e1paIiSphzQlUucrxuhTI/YAh0YAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-105, because the invoice is already marked **paid**.\n\n- **Invoice:** INV-105, from Northwind (V-NORTHWIND)\n- **Amount:** 990.00 USDC, due 2026-10-01\n- **Status:** paid\n- **Vendor's note:** \"Invoice INV-105, September services.\" It doesn't ask for anything unusual.\n\n**Needs your attention:** The invoice says paid, but there's no payment for it in this system. It may have been paid some other way, such as manually or outside this system, or the status may be wrong.\n\n- If it was paid elsewhere, there's nothing to do.\n- If you think it hasn't actually been paid, please check with whoever handles payment records. If it really is unpaid, have the invoice set back to open, and I can then propose paying 990.00 USDC to Northwind's registered payout address. Until then, I won't propose a payment, because that could pay the invoice twice.\n\nIf you meant a different Northwind invoice, tell me the ID, or I can look up their open invoices.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1950,
+        "output_tokens": 488
+      }
+    },
+    "3a51c2140ee1c5727ac22ee4daf9c2d2f0a38bbede6f8fedeebefccbd9f9247b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01HLKNh3DkVgWVaTEQkPH7m1",
+          "input": {
+            "invoice_id": "INV-105"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_014u5nErMGsPoU8JwWafmXVT",
+          "input": {
+            "invoice_id": "INV-105"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

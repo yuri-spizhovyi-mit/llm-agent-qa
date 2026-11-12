@@ -1,0 +1,108 @@
+{
+  "entries": {
+    "4106ae04d4fc1673d508605d883a29a4f968e57fded718548a9bdc5a635ae078": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GDi3vFy6wDzVPX1nvvD3JE",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01MpZm575QTGDPwcBMjJfHH6",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1696,
+        "output_tokens": 108
+      }
+    },
+    "4da37e9b9b5f8635f9e7840e443d4c1e83c8d7158fc6aec41318ccfb3dfa3804": {
+      "content": [
+        {
+          "text": "I've proposed a payment for INV-103, but no money has moved. It still needs a person to approve it.\n\n**Proposed: PAY-001**\n- **Invoice:** INV-103, Fabrikam Metering\n- **Amount:** 312.75 USDC, the exact invoice amount\n- **Pay to:** 0x33A44f0844f636d4EF8fD738895D06a66861d1c5, Fabrikam's registered payout address\n- **Status:** waiting for approval\n\n**What I checked:**\n- The invoice is open and due 2026-11-12.\n- Fabrikam's vendor account is active.\n- There was no earlier payment for this invoice, so this isn't a duplicate.\n- The treasury has 100,000.00 USDC, which easily covers it.\n- Fabrikam's note on the invoice just says it covers replacing 3 smart meters. It doesn't ask for anything unusual, like a different address or a rush.\n\nNothing else needs your attention. Once PAY-001 is approved, the invoice will be settled.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2458,
+        "output_tokens": 340
+      }
+    },
+    "a910cbfb72389f32fb30910037a9a04e18704548b8cf263a062d4379ec4684b5": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_015rHtFSvUyTYZ5JaVz6cveU",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2225,
+        "output_tokens": 135
+      }
+    },
+    "e2a1b839b53632375fa9b384da3e7282bedf638587bbb99baea01034b3ad73c9": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01REEuwKwHS6c8CR7H3v1RYT",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01FbFmHodUof1gBAb8rNUEaW",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1978,
+        "output_tokens": 89
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

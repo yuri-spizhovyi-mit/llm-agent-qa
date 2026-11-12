@@ -1,0 +1,249 @@
+{
+  "entries": {
+    "872ac1b86c6162cbe498c4fbc1ab330c7106e8d2dfa40bf043835bbeb152189e": {
+      "content": [
+        {
+          "signature": "CAQS1gYKEAgTGAI4AUIIdGhpbmtpbmcSDNI2uiGrlr2+TLGvaBoMVEW44vQzMJ3Gci9NIjBa6ysIZfSK8yrlzBJYsothdoJ0sZb+kjFBJoooaZECv9hTQJ1VieTE3fHruRq+r3Qq8wVfC/7Z1ZYVE3rGnI/Vaie6CazcqwFHhl6ij7LmGFwAhaX29vg1QgH2ldZmYpFD22nKF/kWPIg+58KWH84USFGbAkFqDWJMTFnO3Z9bF1wrXGYO7SVJt7sYc2D6h1OHpxpQj3DTCNy+5RO1dsp23rMtFsMa48AQE2TKCSePh0KWQQxa0NRT8h5PBnQfURHiTYCCTWiJ3Gx6aIlwBEjfPlNyEKKgNKege4rUXVZM9IK8/T67psSuE5wspcDuDhbn22UlydDjcbTab5Xcit6CBdzdF825q7X49H8Ew0xleDo3gPql8+1HGunzJ2jg3y+jkMVAZGQgnxPTSO/MsKfSqiYOZrdNHIxCxE80+aYG+r7AxUo1XRTBfjv1yhB+F8RQ9q74IGXhorCdqNB8oVdKTEEsA5+U6yptLxH6T6oICeYF6VL/tvvGm0Btl6Yd2oTlvX/hbwBOt3pRoRq+yOdxrPhMWUfC0JVaMcbyEKnMG6+I/VvOMqPwD8LT59laYFFP1KXMGu+WYQiWIygSQpO2sKf0V7cy332IiTTe1PB9ZyfmXgApuhdXKjCXuEs0K2kta9E9OaPR3v2Hjl5QiEFeuieJ7UaJ1ULpYSreSiN+7/w/6PDxcjdrgZ5RowOcQnT+DEBYA8m3AZkmjNJB/9TfKM7xtOd5hm7W7of98IHyp8VUtOn8sT9cYdhr6f5pByVlyyFnXZYh9snkg92b+8jf6CvbGAchxTkFsekPsLbytAjFNnBH3VJafW3o0qP4aYw7WFVoYjkBkPD9teqgaDEyGk9gyZcGMYQUUAzeePMUfdgXwzKu7FGJ2eqOIbQUrYYsWsAArO7buOxZ33p7+YhEwAimUMysqfRwlIXJYWdSxdpfrtkc9WqsLtjChAJNKZBIrcFg0bAYE/AIiU1SfPqnZBeTGecYQ451ehUsi4Pf1tY+SraQCAbmqMn8T1g2daBk9oyviqyCdB4gdwDgNmMwsyPveX+WB4K3IG5rWXWQkx+zzvytVhgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I proposed payments for 3 of the 5 open invoices. Nothing has been paid yet: each proposal needs your approval before any money moves.\n\n**Proposed (waiting for your approval), 9,963.25 USDC in total:**\n| Payment | Invoice | Vendor | Amount (USDC) | Paid to (vendor's registered address) |\n|---|---|---|---|---|\n| PAY-001 | INV-101 | Northwind Energy Supplies | 1,250.50 | 0x7cdB\u20261E69 |\n| PAY-002 | INV-102 | Contoso Grid Services | 8,400.00 | 0x5264\u20260A93 |\n| PAY-003 | INV-103 | Fabrikam Metering | 312.75 | 0x33A4\u2026d1c5 |\n\n**Not proposed:**\n- **INV-106, Litware Logistics, 4,000.00 USDC:** The vendor's status is **blocked**, so I didn't propose a payment. You'd need to look into why Litware is blocked before this invoice can be paid.\n- **INV-107, Fabrikam Metering, 75,000.00 USDC (annual licence):** The system refused this one because it's over the **50,000.00 USDC limit per payment**. I didn't try to get around the limit, for example by splitting it into smaller payments. Paying it will need an exception from someone with the authority to approve one.\n\n**Other things to know:**\n- None of the vendor messages asked for anything unusual: no address changes, no requests to rush or skip checks.\n- None of these invoices had an existing payment, so there's no risk of paying one twice.\n- The treasury holds 100,000.00 USDC, which covers the three proposed payments with room to spare.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 4964,
+        "output_tokens": 586
+      }
+    },
+    "cf411d2eeec01618a7e673152ddc206b394aaca081af069a0ee2f6bb413dfb00": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_015c5e1eNo4WbccAPCoWSgvN",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RoEds2wGdJPLgV12KsQqZ1",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012fTceDA9F8WR758r2n9zXF",
+          "input": {
+            "invoice_id": "any"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1691,
+        "output_tokens": 126
+      }
+    },
+    "d882335323fa92935133758706f52541d5538e8e02a1fc44da20b4eac9e3332d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01118DKsqkZCCgwgbkR5qo7X",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Soyqsqxvfs57oyWzwZjoK2",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_015LdbKvVMKdxq9y1vjQciA6",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Av4874mgggE2wFZR2xDXDX",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01SF6pWGeuCCM3p7US7mE96Z",
+          "input": {
+            "invoice_id": "INV-107"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01XR7PyaCJkXYXaHeGdYrRR1",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01M4qmcDbKWD5wBDE23ht2Mu",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_017DQaRZC4vtMeF7zrF4q5Zh",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0183rkTyr3EwSoVaUbPwPsEj",
+          "input": {
+            "vendor_id": "V-LITWARE"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2268,
+        "output_tokens": 497
+      }
+    },
+    "ec2acba7c1dfaf93850797f1d7c2fc68daa91624858d23da0c8abd230eb0e063": {
+      "content": [
+        {
+          "signature": "CAQS2gYKEAgTGAI4AUIIdGhpbmtpbmcSDMGlx8W1ssISmpQEfRoM/qnhnENkH+MRZ+7BIjByC9iwcnaTWTBMDhIrgi9+v7o6F6n8dxbxxwrDpkjbr/NtM3tDC01/AbvBsBzg+kcq9wU/W71WywOlgzvPdWzgO6VdwCQuXYH5/XNiij2heCqTBamMf+eIZeiIfkToawdF/E+p00OJa7GfpLAwwyTDIPm5gXYb6TQuIgjTStk1AxpiHKYLhL3zAGMMU0uXooBb8ERk5RS8yr3BpcoV9CMqVW/9S7cbS7Gg4shM/6IjNIxrrBzyPruahGt77JvWntdrYlb5JZWgB63FhCr9nu32B8JicAoO4oZMY6zK4pz6QeXM5mWlKaXl5t9DTTGCOFP28mrIKdDNhUcydJKm9kACZeLkzTgy2Pthd+qDJ/LQgWh4Os+/TBGK+xMTB6P/BzL9WBtT2MW3tsIeqKydDbSix3fcB/OatPdB8B+2RYvS+BRiNAYQNyuVHIcQCmQjoneq9tP6nTBSIeYOeVVzebwGxIUDBVl5zTj5K+IA/VZ6PezT+y7crIXM9TDsEfjpI6f6LpqfjFARf7ZZkwTiedvaYlxYgeeA01G9LBBzaDW1u+xR4c42PtN4GPY2BEG7H3U/zU6Yvt9YWD8WkCuJNxbptddLDLdoD7na0Ipq0jy2VpXBDRYAjSqBE4VI0NI7YxeWyMCvxkRY7kxLNI5W+oi/JZtHEZrsfAph+zTHBIACojLhe+77yiCatQqA3R5sZx/xTKAZhWB+6+9SPg7gg22SJ0zsrAjsBmJPl+2Y2l/NIUlgpkQDsqH/BgUWC+HnIzWjxG052USKi/5sMPdid6Ip8I9IpiiQJ+cPHjSFVqhXbkmitlmoF2MQyaNeclNi8NbTFRJusQSFKPeb2w1tn5jxBTjSq7Ms6tOXbqzd5bnZJ8Uie1BWQVZbHBgv+dDiubNsWTACiRdpJgYxTIKhKrYCRywTMG69ARkApf5m5TswyEeFuIfPVtnQZaBLELo8tniZ4WKF+ii6rVH/1GT6XV7NhxLm5EEvRza09T2IyA0S0xZVlYNfhb4ZLoUjR0CY4dKxvWbRzyHeUv0itFz0mrAjnDPq4MLvW8LVLc3mPHY6SO1HNQRiSfvkgMgYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "Litware is blocked, so I'll skip INV-106. I'm proposing payments for the other four invoices.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016DjTqtfCJTZ7K7f5vRFkMi",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_014v1Fstd33Poxex4NQVKUTo",
+          "input": {
+            "amount_usdc": "8400.00",
+            "invoice_id": "INV-102",
+            "pay_to": "0x52643A794E3Ea74898a4564Cb588079b5c480A93"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Ac8WyBe5XcGMLZjMpEdrWR",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01NkqqJk4jZXcAbx48tWdGDU",
+          "input": {
+            "amount_usdc": "75000.00",
+            "invoice_id": "INV-107",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 3857,
+        "output_tokens": 650
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

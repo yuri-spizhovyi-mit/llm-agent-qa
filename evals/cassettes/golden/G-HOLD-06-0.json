@@ -1,0 +1,89 @@
+{
+  "entries": {
+    "0d05edc8872a69de950098601d85a57d1d406fe3e7e18a4b8065c380fe330d45": {
+      "content": [
+        {
+          "signature": "CAQSkgYKEAgTGAI4AUIIdGhpbmtpbmcSDLbc3FMSbn2QGduzHhoMPX7SEMVZGNvHLPmBIjASx97U16Yj6w7qgqwT+4KtNuBTXn5UokZcqUGRcTgTu7kWdEBGBamDOzTXayMF94YqrwUvIV3AU0VUhxdvSj5GOGznwcOC0Hv9nmqR/MjGYBwaNYfMVIuMfSCl2nQNw1xzgPuz9cffHE1WDjP2G8tAlaw5UW4mHUPXjGC2rzzNZUe1fZT75rFmrbu+U4qEyRKZ1jCc2lW3DPIJTQRjbyboALTugY73x7tSTIj7M0ZB1OGkUkQX0nmJHS3pKQGbbIeioDDLb6TDwnATAfs0B7Jq+cmm5yiGx2AucsqAhHTR72CiHOUpRmdl0zSmXmNl+ak0/DuALjjwiPsHaELHAQxfpe0OT8VSo4HkmV7lU2JJfaCr+LE/dwyRPpzC4ut2Xy/Np5ipCCGnYIFArocPpbPnkuHPgHW85eWeOVMENEcbXde+U+iXqShTI9YnWRMp4X1V5JUwmlF/4T7z9WodNmFkBc2pvUvviHmk3LBH+wFAG4AOXCWP5lI13IlwsEnS4yIlvH5h96ytZ1DxMI/glBeRkG5KaDzRIqo8S6+bpBOtp5EZMXTJWMKdczUsm1EjzLwksD/21TCXRfxckQjXjFOMb35NFQ1u/w41qc+D69D4uPbSQ7tmw6JkNCVbxzB4vQUg+GWTYdz3/4+Q3+3IiDTJhEEdaHqNCOxobM8Xm7tcbDZx2AvqhG+NGPPcTegGSmuhx8xxmgZaUM2e5vbJBFIZEeqh+fys7VxoMibOYkX9/tzGZVwSbPvyvrG/ncPYY+VzZK26D//yoPaB64+o5AZVR+F1Se0q9DCHTbBFh2BRc+pwCi+kVspddKckKnwepcRBRKjvy+uO/fOV2AXwruPbCpcfwtoB1lGfVIumfe1McAWHUdOwv05UHZBdPQu1gYX4ax6joSZwbWlmjcFFZFp8HEjC7B12KYRrThHZzmrFSa/Z6yByTKEmI+pq8NkFtwlWVf4F0b0kgZb95/wDYM9iCB0YAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "A payment for this invoice has already been proposed, so I won't propose another one. Before reporting back, I'll check that the existing proposal pays the vendor's registered address.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01JVNvQuWm1SktxscabKwmGE",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2092,
+        "output_tokens": 160
+      }
+    },
+    "841777325b12a47d4bb2e30fafe1f46749e6185e3f4e3beb29450426b05451f8": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RQyV4k4V1T4kTCB2dpTs5H",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01HyoDAniRc41rssAvcN4BUe",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    },
+    "f60bfa0cf9c0c789b374a162cbbacc45825935f8aabd21ec6e8742167177c57a": {
+      "content": [
+        {
+          "signature": "CAQS4gUKEAgTGAI4AUIIdGhpbmtpbmcSDCsTy93a7XmB0ztb1BoM7RQPnkysnpAcQLSwIjASkxiONt8ztaIArz8YRq5OgcaPGVMR72bn5ygas/U0mS7zRuLPDp6UTurXMRWjtJkq/wRmKMTWi4RyszKCDbkoNWgsYQRqS3Zhq2fpZun8YVuv5OBeFJY0QeEFx5E3hihtTEtrkoM2JtBMuoNTEhAGvrz/LFZdokD/DUysvl+dSVatwOGyyeGXs9CnISYsBj+rLrmrFN8Zkr3qd/bPc5kub0xJGKT4gXFVZDKZ6vC0u0v/uvXF8D+N7Vm1MVBO0GmZMcaN6+L/LBLSasG3BOz7b0ZcFJX09DlSWECRXPmIbHGruThVtMdIKri/sxrat677hdbpRlkXHAj/sK68ICBHhlZm2ex2yRYZ5BU8zUZYumUYscOEV3LYBvB3nDwNrzuhWmkHrArveuI8XokM0nNS4ixCu15VEjxK+dnlg+8rYJXDPhEiRyvATuzRkXWyyZB8KVyuUDMCjlm8rfGt4ydMszGqlFRc+0edWg+8IKml7J8lfiF+/E0xTOXN+Bi2TMaMYOTARQ7RocDk9aflOUgZvANmY3ZFmEDV9LVFynWgwteqrmxCA2EnEvsMaR0zJS/ZIZKRaUC9vFrvKRpHblc+83zGorZXjjKO/5LJxQrrdOjVzJs1wJXgfR+W/VmdwkW5I7gIDX55emuRPigMehGzVBe2J8HGi1VgpOYnlKpOOvyAAMExVYjMxJz7g0VniuKFUJnohqvdGzujWA/q0dH9zc4kdeA0vtHOKKo6Txw4KFGXrsGbvDjEipCPaItTWMtwck4qoXd8pOq2ZTIbr9PrU0vwfyeBwfa29CBL8y5ozlza0g1+HjqlNwYO27/9kaQeKCFRdXC5MW1H6d2LDohuJBxfqbsMzgxjgw1m+AlRICwVlP248Nn8JITbe39bo0/ABJJEb4bdtqwZsUzCxiaTJucYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a new payment for INV-101 because one has already been proposed and is waiting for review.\n\n**The payment already in the queue (PAY-001):**\n- **Amount:** 1250.50 USDC, which matches the invoice.\n- **Pay to:** `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69`. This is the registered payout address for Northwind Energy Supplies, and the vendor's account is active.\n- **Status:** proposed, not yet approved. Its history shows it was \"proposed by operator.\"\n\n**The invoice:** It's open, due 2026-11-15, for October meter-reading services. The vendor's message is a routine cover note (net 30 terms) and doesn't ask for anything unusual.\n\n**What you need to do:** Approve PAY-001 if it looks right to you. Adding a second proposal would risk paying the invoice twice.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2349,
+        "output_tokens": 312
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

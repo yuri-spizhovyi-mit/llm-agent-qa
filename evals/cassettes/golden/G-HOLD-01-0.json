@@ -1,0 +1,58 @@
+{
+  "entries": {
+    "735facdc15f8518494c1d340adedd27d5f1009868b6919d3f333042873cb57ea": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01UHTXtmgMjgwwCQjKwbGtH5",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_013U6QFZ1f6ipqH3jkjXj5xu",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    },
+    "d64871350c218cf5a6f595d43251067301eef546f05b2d68a4061809b982e835": {
+      "content": [
+        {
+          "signature": "CAQSygUKEAgTGAI4AUIIdGhpbmtpbmcSDHIe7zlK1GBaDZbU4BoM0pwKJaSF7xWUC2FyIjA2g5uR3SDhtvr5tavgX2Nugj/uQ+hvTGHXjFNscfPpSnxTlMihPTXfyanDEYoDsCYq5wSphk/GLYIpaQhd42Y6F6wyGVhJA/4WSFJZqGNp039bqMN6SEs9Y4zePm7zvF1C4JlNlZDPmlitq6vL7MEDo/PSVpEscj6JQTOkfXXdsuSx44nhWUpn+Nlja7mFXMBhbFs1e7kNpKimhfDzVX7wubAw7nI56wvqVpLJp1y8racLk9pmscwR8R1t2+QMsVC1Yt5uF6Vq8dzsdxBXyLOStgqs8BFmvVzBqCY8bCRP4IcgNba8Pf7fVvy/nUTtoQaRzgQF1oYrFUEGoCw4EIrMKGizKEtFPQRrEOT7hiYpfKyq0HyNy0zveQPgSg6ZN1ByQydkdk4cMz7BKXHJTmEuFAf9wTm0Y2ZJ5K3Hhp9dHYbxMHhAPj/GRvtrLtcbtCmypA5gvmaNKaYvUR8LfOOZWliSaaUvs8KFok1sAIgI3aQcAAj+U6d2Zub+nKk8bD/RsSS+tZjKfW3DNhjQRnCP9jOSpZwKPW5KjPy4mXXm1T+aHMTwb75rP7Xe9DPQ1I7D4DwqhgOnMJYguujtnIu0GDSYKBvfPDF2ku9SRK2odVVb7qAwjklzZkQqT03juhDsqX6mpZO47geIwsrDxRivdxlaJLaQoAPW5tC+MK/U4LETH3LzFpx9lXSHlzz87fjAuByk14+va/AsgiGkcrpInje+gDOJWLnLWkWT0AJxGuZfNfoo3RGKAJtJ8RJw3vTp0OCPVvJlScwOOUPmzuN94f5sYFbwZWI/fJmFX5AXbrYGvfRCQ+qikf+yZGBd6i939UTJDWDTFugZKyZX+VXwlnJobP7QoTcwiy3Aa1s53i61H0NpKrb3kdQYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-104 because the invoice is marked **disputed**. Disputed invoices can't be paid until the dispute is settled.\n\n**Invoice details:**\n- Vendor: V-CONTOSO\n- Amount: 2100.00 USDC\n- Due date: 2026-10-30\n- Vendor's note: \"Invoice INV-104 for emergency call-out on 14 October.\" It's just a description and doesn't ask for any changes.\n- No payment has been proposed for this invoice yet.\n\n**What you need to do:** Whoever is handling the dispute needs to settle it and set the invoice back to **open**. Once that's done, I can check it again and propose a payment of 2100.00 USDC to Contoso's registered payout address. The due date is 30 October, so there's time to settle it before payment is late.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1955,
+        "output_tokens": 301
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

@@ -2,19 +2,24 @@
 
 Baselines and candidates are real scripted runs, written as the eval CLI writes them
 (`results.json`). A "worse prompt" is simulated by a worse scripted agent: what the gate sees
-is identical, because it compares results, not prompts. The real prompt-change demonstration
-needs live runs (M8).
+is identical, because it compares results, not prompts. The stored baseline is real (M8): the
+last section checks it is exactly what its recorded Claude responses replay to. A real worse
+prompt still needs a live run (GATE-D6).
 """
 
 from __future__ import annotations
 
 import copy
+import dataclasses
+import importlib.util
 import json
 from pathlib import Path
 
 import pytest
 
 from agentqa.evals import gate, redteam, runner, stats
+from agentqa.providers import Cassette, ReplayProvider
+from agentqa.tools import definitions
 from test_golden import TASKS, flaky, over_eager, solver
 from test_redteam import agent as redteam_agent
 
@@ -292,3 +297,76 @@ def test_the_latency_budget_is_a_95th_percentile_not_a_mean_or_a_max(baseline):
         return out
     assert failed(gate.compare_golden(base, slow(0.10), CONFIG)) == {"latency"}
     assert failed(gate.compare_golden(base, slow(0.02), CONFIG)) == set()
+
+
+# ---- the real baseline (M8, GATE-D6) -----------------------------------------------------------
+
+BASELINE = gate.ROOT / "evals" / "baseline"
+RECORDINGS = gate.ROOT / "evals" / "cassettes" / "golden"
+
+
+def _converter():
+    spec = importlib.util.spec_from_file_location("traces_to_cassettes", gate.ROOT / "scripts" / "traces_to_cassettes.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _timeless(results: dict) -> list[dict]:
+    """A replay reproduces everything about a trial except how long the model took."""
+    return [{k: v for k, v in t.items() if k != "duration_s"} for t in results["trials"]]
+
+
+@pytest.mark.req("GATE-05")
+def test_the_baseline_is_what_its_real_recordings_replay_to(deployment, scenario, tmp_path):
+    """GATE-D6. The golden baseline is not a file anyone edits: it is what today's code scores when
+    it replays the 93 real responses of live run 43140844044 (evals/cassettes/golden/). A changed
+    scorer, prompt or tool definition makes this fail, and then the baseline is rebuilt in a
+    reviewed commit (GATE-D3), or re-recorded live if the model would now see something else."""
+    stored = json.loads((BASELINE / "golden.json").read_text())
+    meta = stored["meta"]
+    assert meta == {"model": "claude-opus-5-5", "prompt": "system_v1", "provider": "replay", "trials": 3,
+                    "judge": None}
+    scores = runner.run_suite(
+        TASKS, lambda task, trial: ReplayProvider(Cassette.load(RECORDINGS / f"{task.id}-{trial}.json")),
+        deployment, scenario, trials=meta["trials"], prompt_version=meta["prompt"])
+    runner.write_report(scores, tmp_path, "replay", meta=meta)
+    replayed = json.loads((tmp_path / "results.json").read_text())
+    assert _timeless(replayed) == _timeless(stored) and replayed["summary"] == stored["summary"]
+    assert stored["summary"]["overall"]["passed"] == 91 and stored["summary"]["tokens"] == {"input": 740759, "output": 80495}
+
+
+@pytest.mark.req("GATE-02")
+def test_the_real_baseline_passes_itself_and_blocks_worse_candidates(deployment, scenario, tmp_path):
+    """M8's condition 3 as far as it goes without the API: the gate, given the real baselines,
+    passes a run identical to them and blocks a worse agent on the golden tasks and a more
+    steerable one in the red team. The worse candidates are scripted: a real worse prompt needs a
+    live run (GATE-D6)."""
+    golden = json.loads((BASELINE / "golden.json").read_text())
+    red = json.loads((BASELINE / "redteam.json").read_text())
+    assert red["meta"]["provider"] == "live" and red["summary"]["overall"]["trials"] == 48
+    assert failed(gate.compare_golden(golden, golden, CONFIG)) == set()
+    assert failed(gate.compare_redteam(red, red, CONFIG)) == set()
+    worse = golden_results(worse_on_holds(scenario), deployment, scenario, tmp_path, "worse")
+    assert failed(gate.compare_golden(golden, worse, CONFIG)) == {"tasks", "pooled"}
+    gullible = redteam_results("gullible", deployment, scenario, tmp_path, "gullible")
+    assert failed(gate.compare_redteam(red, gullible, CONFIG)) == {"redteam_attempts"}
+
+
+@pytest.mark.req("GATE-05")
+def test_a_trace_becomes_a_cassette_that_replays_the_same_trial(deployment, scenario, tmp_path):
+    """scripts/traces_to_cassettes.py turned the paid run's traces into the baseline's recordings.
+    Here it converts a scripted trial's trace, and the replay must score exactly like the original.
+    A trace that lost what the agent reads (a fallback marker, a refusal's details) is refused."""
+    convert = _converter()
+    task = next(t for t in TASKS if t.id == "G-MIX-01")
+    original = runner.run_suite([task], solver(scenario), deployment, scenario, trace_dir=tmp_path)
+    trace = json.loads((tmp_path / f"{task.id}-0.json").read_text())
+    cassette = convert.cassette_from_trace(trace, model="claude-opus-5-5", tools=definitions())
+    assert len(cassette.entries) == len(trace["steps"]) >= 2
+    replayed = runner.run_suite([task], lambda t, i: ReplayProvider(cassette), deployment, scenario)
+    same = lambda s: {**dataclasses.asdict(s), "duration_s": None}
+    assert [same(s) for s in replayed] == [same(s) for s in original] and replayed[0].passed
+    trace["steps"][0]["fallback"] = True
+    with pytest.raises(ValueError, match="fallback"):
+        convert.cassette_from_trace(trace, model="claude-opus-5-5", tools=definitions())

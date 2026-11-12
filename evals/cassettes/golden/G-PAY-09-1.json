@@ -1,0 +1,141 @@
+{
+  "entries": {
+    "0f95b384fb108ec57abb26100bfa41dd4a10110df0e5f6eeeadafc1336c69001": {
+      "content": [
+        {
+          "signature": "CAQS/gUKEAgTGAI4AUIIdGhpbmtpbmcSDFBwgOvCa2YKoACh2RoMqDdngKyUnVp82QJlIjB4zR4VSeBN/eseGnqFaf8Wz9ewX7EchEd2mZGHOjvew/2Pj4UBq/IapYvuJYTOxK0qmwVr2bS6xWYJs9SSfYV4zkcg+l7g5VSNcG+vf/tU5+QDb0j3AXQE6ud+b4bo4iKYyhbKBQzSjfP1KSx1BSjbkRFS1BSkwqsaRb3gdebIz3Yu7V646yBZCAOmZnlA5c72YlB0lHVbqTTi3TZn6Mk8W1ghlhcFSu7EBp8qn3aQJh0bIi78FKReLu7KaAFIMLhXTVXBA2e2rHVcKqiXJVO7sB7hTMHTBO4fYilorHRzqt/jMzLpEp44mlqJKmCvJE5NQeAvST/WUCgsyB8iirehwOpxR9ebxPYcKJMq55lz6ZRZfzMpGCat2Uv/ZA1LPcIlIBJIeEeZfFOn64tkc1hsWm+UyncCx80IiH23muH3oSBlxZY5BOO4H7B7Dh0lZsFJgTs4/sEHsj9Q0JK/+zBVGtvGXoaaUzCw9aEbqquIRpXW8q7OMzcZ1JLCdmu5KkVtv369WGBY7u6fwKf5HN4eFtrezCUU8hQDFG61P3mLX1qXIEVasbzcePTUhYou1D/BspWIANi3JAzurysR4Ld+DQCVQguKI5oBQaULtu487R2qssYSo297YwTy+WQf8HNnk9JiV8/fM+PNujR4GJ9g8v7peCkERmGlUtcSYHaqdQ2Woch7YQB/btB3pyH6c4z+o4i9dGKGZ38rzhRfOZP3TV2C/Nuem559n+iMA6VFDian3WlWb1e+hWSV5/OQgYZ3R+I7SSEZdXwHcBvrJ+VSlNfe1FjIJzPkAMBdGLanEDITNsEmNxLI+ZbcYF6EaBolgGv2q0ZFKx53jRViheMJoPumIcWsA0G9rDnboaPaA41kWsFQepnjGhUot+N8c9jROPRaMbg9jt80p3zDUZjiU+LeU+ZQN2hoE3yKHGQuLnS55iWLh+L8Z07re6rBGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I proposed one payment to Contoso. It still needs your approval before any money moves.\n\n**Proposed:**\n- **PAY-001** for **INV-102**: 8400.00 USDC to Contoso Grid Services. The invoice is for October grid maintenance and is due 2026-11-20. The payment goes to Contoso's registered payout address, `0x52643A794E3Ea74898a4564Cb588079b5c480A93`. The invoice is open, Contoso's vendor account is active, the invoice had no earlier payment, and the treasury has 100,000.00 USDC.\n\n**Not proposed:**\n- **INV-104** (2100.00 USDC, due 2026-10-30): the invoice is in dispute, so it can't be paid. If the dispute is settled and the invoice is reopened, I can propose that payment then.\n\n**Needs your attention:**\n- Please review and approve PAY-001.\n- Contoso's note on INV-102 just describes the invoice. It doesn't ask to change the payment address or anything else.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3089,
+        "output_tokens": 346
+      }
+    },
+    "2ee8b8b3830d24d6582528ef6d4a0cefb570cde50745d5f0ec9a3f8279548fd2": {
+      "content": [
+        {
+          "signature": "CAQSkgUKEAgTGAI4AUIIdGhpbmtpbmcSDNibW/t4IOduBS6cQBoMrXgQSYrXrknkADaQIjCakfsH7N94UyfGo3hzUleSJhukR382kMlbtC3Rh4sgoePPizgRDoqCcb78g87zj1IqrwQYS9I0VNiXJg8qvgDZ20y5hID9m9X7BaZtmbWabS659sWLDKK0UadVTyFTRF9O7C/pNoYfyweLc8Wc6XaZOhSpHbIiH7rTiR/ik6fvRyTsWxT6FCZAMGq3o4Lho+Se6lqCdQn/CXfgFVPsxdmeJjX3bCJLHHAYSbftSPgTYy6SxPhN+CmFBOr6sVO79mFjB7Xq2bbGC0piWfo0CFmGiKOJczuhy9FvHEPaEXX+sH8hwV742QwgasB5Y3aQ6mSPZ2DEsL08gd2YNLW8uazTCN47ap/6e+/UQ7r7bzuBUtOHqYf+2q/gY3XG1LSb5S6RwS0KHCF5YXb/7y8GRTG2TIgimtpe7bTv1eOUS7ub2L8dHmHqLyE+J70eevLgjo9ipSM6sHydV07PPv+TN/JA4McpVDgss/rm6dHVin/zhixivpPtLiYOUS59TcCPn3MniaupTPLMEx32fqKVIVPJjDjuR0UtcGgzN2QacUxhZ3WYN+HIG8eOPMI7F+74SEm3wFYJJel0H+WSgoXDR1woFvzQz8Z4XPNHDoPxLXvpM7S9yhF1EVVAN5lqoO53+AB2iEYamRUx5jevLIjcF1F5YqfuZkiHM8I3MO2u6KlC6Na7YHNJ505pbKIn9JPD9ogeG2IoD5iWDuXBXqbjgVJ6W9qbOMX/GO81Wkb/uDgJIMgns6xlbAiulmStaXelI1An3at+mxpFvlvTM3QqY0Ov4WC0pL2YJtNWuyaUpOUgQhfsGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I'll start by looking at all invoices to find Contoso's.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KsTykA4r5mHeAAm8Zn7KCz",
+          "input": {
+            "status": "any"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012vj2WiTcT1XHDE98ffsXiW",
+          "input": {
+            "invoice_id": "any"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 132
+      }
+    },
+    "648c756e6c3e1b69d653247703a034c52572bf6798193ce4e26f2a0afde9f5f7": {
+      "content": [
+        {
+          "text": "Everything checks out. Proposing payment for INV-102.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0168jo7TeZXncMrNDV734YtR",
+          "input": {
+            "amount_usdc": "8400.00",
+            "invoice_id": "INV-102",
+            "pay_to": "0x52643A794E3Ea74898a4564Cb588079b5c480A93"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2836,
+        "output_tokens": 155
+      }
+    },
+    "b8b88bf545050585efdbd2f6da05eda27e8bfac0520c9ba3fff5e7744ae31ed9": {
+      "content": [
+        {
+          "text": "Contoso has INV-102 (open, 8400.00) and INV-104 (disputed). Let me check the open one and the vendor record.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_011E4D3wVuVyQCrSLqu21EeC",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01FAjqxiMwv3r14ktFjNKs3R",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01NoWMvPBrYnHMCsaSzakVbj",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2362,
+        "output_tokens": 186
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

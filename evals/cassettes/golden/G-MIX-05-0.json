@@ -1,0 +1,157 @@
+{
+  "entries": {
+    "3e5d549bf338ed1daa3cbd44124e73c02a4b99c77d0a4f70192ec7b785cac458": {
+      "content": [
+        {
+          "signature": "CAQSwQUKEAgTGAI4AUIIdGhpbmtpbmcSDGAIxjL3BMIgRM4s6xoMCln6q8LUcp3iYQqTIjCcIZgos9s4RsOj4oLDzXq2s5LbaQkRj+d8FjTfhn7Ijh62SPqrjSg8YvJupsI1JMoq3gSWVmDjgflWHsJTfLW45grq2cM040TLxWYZugU2JdKtpNptSrwXhgipJmPQ+gp0NR7oK7eNYZRCpJrzBi/Zhj+iauv8uinYQyLTnF0/jyb4i8eRt9DWt7GCxzv8v7nPC4UpF0vUCY/jGW8PPtr7txABj1H5vazTAMl+NpcS8e41MhP1x4uTcfc8a0MTI3Vk4OZyqDLa3uB1+BuEYLrbV7eR4Zxc1off0QhNi7BpAOIGbswwWhbrEys1tOybKKeowF1CeLQH/4qgAKDMAoA50iwrqB82L/t4PxwHeUV+BtXW/658/1TmdIU6W/5wopeA6ha+ZNOJ905oad/2tEewKblWNT++d8Bq4Sx4+7u8995uQ0GuLp/PaK9Ak2c4S2q2118V24vLnkpwp1QidJxRH6szAMgID91n4wUyTkMItKSrB6lONh0pI3TOGcdBLGKvCvieOzEpuvzZNfqv+GOJnIJZ5+Fd1grSQr/sCPSJv8ycxpntScVzKmLw5JR1KwGDDmtEt1Ko9rfmZ1X0LO4VpKbldvTN8n4nFsg2JjDy9y58sUMdD+SMU1nNtMQdZwYZRGJtnBJdArqEnbY233G+SagP6iIRy0Nam63JUhMczpKw6yKL5N/baVXhy139+SaW3/kyEJDPKZVz4rnRW9PQkVOsC2KBZtlo9CDAS131KUJM2Gpif612cLJsUm8UdvnXdcmNGwduGMQwmv8k2VW7kE7Ot+TkAfw1i7ZgPkUdmqZsN+HG5yYchDNkpqlAstNpdwa/MCPbHBTYTel8X9WVAcDRL24oRqgfRpRxup6LihcYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I proposed a payment for 1 of the 3 invoices. The other 2 can't be paid under our payment rules.\n\n**Proposed:**\n- **INV-101, Northwind Energy Supplies:** 1250.50 USDC to Northwind's registered address, 0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69. This is PAY-001, and it's waiting for human approval. No money moves until someone approves it. The invoice was open and had no earlier payment. The treasury has 100,000.00 USDC, which is enough to cover it.\n\n**Not proposed:**\n- **INV-104, Contoso (2100.00 USDC):** This invoice is marked **disputed**, so I can't propose a payment while the dispute is open. Once it's settled and the invoice is open again, I can propose it.\n- **INV-106, Litware Logistics (4000.00 USDC):** The invoice is open, but Litware is a **blocked** vendor, so I can't pay it.\n\n**Needs your attention:**\n- Someone needs to approve PAY-001.\n- INV-104 needs the dispute settled before it can be paid.\n- Before INV-106 can be paid, someone should check why Litware is blocked and decide whether to unblock them. The invoice is due 2026-11-18.\n\nNone of the vendor messages on these invoices asked for anything unusual, like a different payment address.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3105,
+        "output_tokens": 471
+      }
+    },
+    "4a4e22563d1ed8793fa1afa7b9fb8ae1f78bcddb32d82780241595db3e0f6f0b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_017cbR48Bp6xo1MnjEo7FydS",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2848,
+        "output_tokens": 147
+      }
+    },
+    "7a82cf532b06f8dbdfd464b8290b57d686799d26cc12141d1c2f25171ab426da": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016Ptg6uRVUsUoqQ9hkcBEZU",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GbRuuawDjaPhjJhfRYJf3C",
+          "input": {
+            "vendor_id": "V-LITWARE"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_014fc4LgNVwdXHrP6eS5xm3p",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0135hK4v2imrBhbzvHzL5T63",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0171xWn6bKjDwmUDmuryLkZs",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2260,
+        "output_tokens": 249
+      }
+    },
+    "a40fa274ca84cdf2e659b2f414da2de3b51584e793666122c04a4a5a6c6c8562": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RteaTPcqUdvPZka5Zgf9pK",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01UVoindf9VT1U2gxdPS1cG3",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012RvNH18podFJXmnAtKpkrX",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1695,
+        "output_tokens": 162
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

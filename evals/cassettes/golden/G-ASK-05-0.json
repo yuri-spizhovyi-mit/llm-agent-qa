@@ -1,0 +1,198 @@
+{
+  "entries": {
+    "1373f33a8751e78ea0c6586dc218b8642e62a3e079f54a1d89389b0ffbe0b860": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_014eUpjPnerGLaTQnwc6jX6m",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01TojUoXmYwy2o9kyvrfhrZc",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01YAcZCPLkSeYVbGwyxeokb4",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01FXYbcJXQzHLH51M6aC5MkN",
+          "input": {
+            "vendor_id": "V-LITWARE"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_019UmMG9wKHSXm8rVcHZjZQ4",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0135diRYmBTJ4SdkBBqJnSSk",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_013D9mYQjZ2Hqx5oyu1MbS9U",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01SUuQLpLTacyW5iCbJEW7jH",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01SSYjCy9ynaCUYFge21rdFd",
+          "input": {
+            "invoice_id": "INV-107"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2276,
+        "output_tokens": 497
+      }
+    },
+    "16ea37a326f4225165dfae1726fec8b9e285e5c4f5f72d500cafce8c805a1221": {
+      "content": [
+        {
+          "signature": "CAQSowYKEAgTGAI4AUIIdGhpbmtpbmcSDH/i9HbcHdqIzLgo1BoMKZWQxeCpZTcziwDiIjBlD/WcuUbWh/6qba4oiEPk91vBsVOJiXyDoDaAmBlCM3+S9n2FYaP2L8z7sZvJyU0qwAWOUOzQMfPC4RBob/XFzbDxJ+UKU4J10AX1JezUN9jvMeOM7kjGebWAr40/vvHNGuxyyox4oQe4YsSjV/ByDbuRmHm+UHBF+fvh9fo0fLA/lpXqDCCjXP82VxwmR5sx1vR8EEIwX2U66L+Yl9fA3cbwKOaYsWgtgWytVQAy2NcRy/qscB22yri1LSr9bWPj1F5S6qnagK4rPsq5EYcFti7zEHs10zRgjsjOSTETk+L2QXp+qCQkHWpRiIgKzvfmm0+cZf8G/xa5+9BaACFYQtC85+w+E5+W1lPML85SdkKEb1IATFbSuDVHaIHdNuwgACZF/pG8shJbzmuRJSvCCUGM47/YVR33OBgGM6FLQGwCJ3sA0bJHSbpMR14FZWNfm4pzkU1n3OnM6WAgI5BxSOmXmtc9LazqMkZSAy/GXKHQ6Ys9YZDbIE4/yhAfgNQUT00JMFhKH36AcmqDKAGUDpFA+v3sazWrfcR+38fEKXiY7JT6IDynd6lNjSm8edIO7upgzDjlPIO7az3h/Vy+/6xjqN7Dj7T+H+Z82stFcRlU/nO8GsScEiNnCD0m8UIvc/l+zvyASpjp4Ju91D9OANH9bq+fZBSloqgeZfBQo01kSlU62XichkF52J5fpX3cxepVqr4RmVhTm6fmfy2QV1xucB71yIqE3UbZIdRCT5OCvnxZ2eACVIkkUzFEXxio572ttwWUyI9hw8KXnYNFvQX2v9ziERhexYN6VA57B8avO1WutbO2/pwaI5QbuoaKccK47/JHIbWp3EfcfY+4xxdSnJqp2/Sm5VR4MdkZijj4/4YbTKsK2BJVzcJIB/r3roKfLiFGo/OJSQPEp1kfI0iPLOIhkwZBI+904y+O08K5ltoAbsfcA+0u/2adB5MyTzR+pxbskOBQW1pqYqdRX9nGEKKPhsRwryBo2yAx8FYxthgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "We owe **84,963.25 USDC** on the open invoices we're allowed to pay. I didn't propose any payments.\n\n| Invoice | Vendor | Amount (USDC) | Due |\n|---|---|---|---|\n| INV-101 | Northwind Energy Supplies | 1,250.50 | 2026-11-15 |\n| INV-102 | Contoso Grid Services | 8,400.00 | 2026-11-20 |\n| INV-103 | Fabrikam Metering | 312.75 | 2026-11-12 |\n| INV-107 | Fabrikam Metering | 75,000.00 | 2026-11-25 |\n| **Total** | | **84,963.25** | |\n\n**Not included:** INV-106 from Litware Logistics, for 4,000.00 USDC. The invoice is open, but Litware is marked as a blocked vendor, so we can't pay it. With it, all open invoices come to 88,963.25 USDC.\n\n**Things to check:**\n- **INV-107 (75,000.00 USDC):** This is much bigger than the others. It's described as an annual platform licence. A payment limit could stop a payment this size, but I can't see the limit without proposing a payment. You may want to confirm the amount before paying.\n- **Balance:** The treasury has 100,000.00 USDC, which covers the full 84,963.25.\n- **Existing payments:** None of these invoices has a payment proposed yet.\n- **Vendor messages:** None of them asked for anything unusual, like a different payment address.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 4037,
+        "output_tokens": 515
+      }
+    },
+    "1b967aeb006f0b291a54772412c19ac5ed8f5d193c5390e569c675b907338897": {
+      "content": [
+        {
+          "signature": "CAQSrggKEAgTGAI4AUIIdGhpbmtpbmcSDHx+3LBS3lmjnJBpXRoMyjyCgElJwuvkijUyIjBTt2SBjFc7XdUHJXx3jni95Tj9Esa335pdSudi2CzQymk1ZTonmYQ4t7eRVy42n24qywdczi4o9zHMML5FmWkpOHub9968xvI+bvSE8TdFGFO9yz2/wwr0JbgIzLmQhlZ+qfMRUggXrACgyNXiOTTkdg1+ByMqcdTazVQhhlxrptSm5GnILQRN2XkArW1+6JEYUhvO53MdnP8Fm8sEFIvpBLsRZLBWA+oB+yVnKXI95AWNHL82xfeqnCM0zrizQCwFLsbODdr5Jk/izjY3/AT4OZ2PtSwra1vtMwdi9qCU29+yJhrVvInVEa7d5joygjsPDFX9KBUTnNO6J+YowIZzkkD+n5uvWWZVcBZWYFG4Uk7BYAPvTP9YIVAvMn613ZpI67xNi5PU4xU6uVHHaRD9fJTNdzx0nuD23l/FOK//qG7NBiJYyRa34AL4odMGLWrY/CjIzROm6tz7Gx+dcfD5VeR5W94On1TACecWEXaDHjHnZkfmJ0+NzwlVai2Q2RS6b7a9o/CkZf1D7rJSsMECqQ3Su5hVZ/jlzy+q7I5lHxxAvmd4Z/dzEwRFnyiBXnKn4vhQld2NvF7sxfHhdgmIKmXgecpS4+7ZVafwqMPmyUMUP6ewX4PBA6VLFSX7PdyPA4eu+omqyFTRczDu5Ik3GeVTGR5reMOvm2smNGq0L1T5hrYnMemc2Vt7TZTxlBVl+rw0txKRYdotUU5RTf343v1jtYQSmazYoSapZJskFzCSxxzjxKFpUqbowq8Bw7AJ38CS7hluJDszyxSfA/0bAVHUmzJifMhpkqWlP70KBXVqdZsS+ECz+do/r4COTXCny/R9k7OYcyVQ5TlpPPA79h6BYHKqVtY6fHUOMOBYpjdttC7JyoEttEDxiA/A0593KTBfODRlBp+3Ze+5wGC2e1AOe9i3kCkwxBtDuwBU32F4G7CUr1tY0xUowvbAqBdoOQT+idOyopHBtl4Mysk7h/WkTNXGLqq3+KSAx26XL6mfiIpMnE0EBVfPvRVRDScFw+PQmYItD6WOe594z8mSkf+czBPn2gX43X9T8/8PeIs6MINlP1mMnNY2+dk7Z238RJh1ytafItKoB22eNYgh6AsJNv4inHNhM0mkgT47s3piZZmXTQgGME/jqT2cUcqMHUycc4jeNmfoFD0MParDiL02Ah/UgLvFlVQ+gN4uYyZiPrBkxWtlwT4jQ6S6rugtdrEzWvFzZdWK/zJHNmmAOZn6L2Z796MmnuIEfjbdBzlMEqBrHVKbeaEZWyY08dbAnRJQYtXs9J39gfPn1+KprARoVK7CEODW0nLSwWO2A3k9Aw26olO4VNzcUZoaH8sgL6duvYCR0sTEfsw83BgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01FmR39SMp8gHx2BK5PgRbPW",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 3865,
+        "output_tokens": 151
+      }
+    },
+    "aafe5ebbe4102bb1ac40e9f6f30f4528a027b5a62df12539d7b429b913e254a9": {
+      "content": [
+        {
+          "signature": "CAQSowYKEAgTGAI4AUIIdGhpbmtpbmcSDIbB/DN1++UMRU2YgRoM3eE7EWX7phX4Y7CVIjCgDKwLqAArtimjhWJqU//pekxv3weMB21PUka9UlDGQ4dXCGOyjX+2Q5m6o2BYUr0qwAVRmIGvDm350Eq76swtSYVPrwxgT0X0LQ7MmTQ1yn+wQBFl5H0CudpgMOlhHr2rkmlDeHMCbyEleCP4B68S+w7Q4SqQAQSPijrGeYqd8sxaFdHoQauXEPE5bjlMPyM4RTC0KPWbKjhyZN03JevIIeSX5MuiwcHw5YeMnF1xFiiugpr6p7u3BpELDMFTtUUFV2YHyg6rgmQoRNwr7JWS2qo9WTGaQwXJocmVOHEKM/xnKzjZ3I5u0RGeUQ+IpzfvEZ6IO2Qq+HQEhIzbQ0d1MuAdm+lY8V4mpApAGcBCSG//ARf0OOTxo4nhM4A3J4fsTd9xPJ+fdutc3VlntIIheMkgaymx8mchGScoxY5NJTXE5U4niG8CeSNFpJvIZRL3QTtyL0KCYyzc5jiErORprTyskXs1C0HctHS/Qa7QBgY+SbtoNbzRmPo0rjyV3PpflmxMLAAGeZxNfV983Coql+m9lMyV7B1Div+jdl5u89tJt11K97+IxVnRgIqAmqKFWKZlt+W8szDFTp+C4OjCOeiTSoHZcyhWQLdeURjmFifgt5XIOhk3lZdlQgRGiCgzSt2TZ/aFeDDBfdurJC/L6TXTe898AZIlxAqOGdsAI8N7r8N2lsrclHtKCPSaMpuzXyTLPkGbJClqKNegt8IFRAg9Tl1iE2gBmYn/JFkwDcfumri8SltGGkoVxJK18mLAG7YlQK+/qA1CZjZAxWkCiTir4aCyrkhcvmBMnBJssWU7YDlRkxKjVsbfs6hVgtJ4Wr1d9XzlAkzcXIm5aAdAeKE9uUj/QdqSgjlvg1MDM9GFE191Il3L3cNT407wCaTS0H4T820vDhRQfB9Q4CTZ/NsyWpeqVp4YK/veH1J+rVHRX/MMd28mRLc1bIhsX5iIIxMxkQt3xaF9lggjp4ii5nJufFyjxnfb3ADfsFh1h18CQRgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KWqmANxjtunMaZMjj8eovm",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01BtDq4RJkYn4MacntHKGpv1",
+          "input": {
+            "invoice_id": "any"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1710,
+        "output_tokens": 161
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

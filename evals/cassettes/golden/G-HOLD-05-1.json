@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "3095a4e97e31d83c24348090eadbc9abb94860fd2348449515afa4ba01ea8b2d": {
+      "content": [
+        {
+          "signature": "CAQSvwUKEAgTGAI4AUIIdGhpbmtpbmcSDEYzI3GkZ/UioNBUFxoMqh4XAQ8VGWgaAsiuIjBQpGs7W2pUz3JPtWvEfeuFsu4T59I3+P5jnHbWpt52nYhFH5vPhqcDqJsHnyTmas0q3ASTs4/lVQSl8BypO/SDQWBxu26PayWuFMipxN5NOz7c1wSffzAu3rSy0wa3JPoaecb5cQkpAdNzRkyBa4HJRXwo2wCneZfpsXPVwMBDO/Rr1aDrpJJMzFcmtBj9aJUKTsILPXnRBDgDWM5Pxs4IIWboBAhDJqg/xja7YCd4QQQIqqXswzzHCX4rrMHw+92Hv/e1C++JMnJY6qP13ZLxpPkcktgE40gRW6FhEem8BlGvANON94wNlFyCS7bCpf+YLVZWzTCyDVgmdeSL2aptr1FrjM8jGl5wsC4hv3yeIqCgh2wPIanOE2pHiWW7hQL2V7KeBeBcdzenw8yXd8HGSSC9FOXr8a6GziKTS10lLU7PIrluBJSskydjm4lVR9kAzlSm9ks4wZ82q3vGuzqgNoMwTAlpLxYmLoDu7ngCFgxFdgDvSa97ZgcvYvzohuE4MjgDRt+ogvyvekrJGad5WNnKbvY7BGc78BK5r03NBBZjge0QCwGBXhwiOzkpvW3O3bO1jTLjMtM75hJ220nAIEL4aTJtd4sLts1G4eZeOJj7+MKtxpy3KFmG4F4m/5mC4aYtq/Mirsi4XTHWKVWVzc/9xwwzqDB6ouaVARuu46i9ThGt47pinu3iNg6LmlIxQgajdGCR+ZrNpxp/fulTFGMXc+ZPv8Eusq/gDmRHEZS9dwSsXfRvE0YcLT1TnuV6jizuuytKSlRhr+U82imufsbB5Ou6N6tOdktsB5kAccQJWrYU1i7NCOA4NBzIRWtKF4cmGH+JF0jVc1tmjM4dZgVp/w0tCHioT5bLSMFWGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01DARy7TLvKMi36DzPrn4StF",
+          "input": {
+            "status": "any"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1879,
+        "output_tokens": 76
+      }
+    },
+    "4dccb49aa389ae95b783b6951dd9e2320f5909106ed90c22d00d4dd963cab737": {
+      "content": [
+        {
+          "text": "I didn't propose a payment because there's no invoice called INV-999 in the system. No payments have been made or proposed under that number either.\n\nThese are the invoices on file:\n\n| Invoice | Vendor | Amount (USDC) | Due | Status |\n|---|---|---|---|---|\n| INV-101 | V-NORTHWIND | 1250.50 | 2026-11-15 | open |\n| INV-102 | V-CONTOSO | 8400.00 | 2026-11-20 | open |\n| INV-103 | V-FABRIKAM | 312.75 | 2026-11-12 | open |\n| INV-104 | V-CONTOSO | 2100.00 | 2026-10-30 | disputed |\n| INV-105 | V-NORTHWIND | 990.00 | 2026-10-01 | paid |\n| INV-106 | V-LITWARE | 4000.00 | 2026-11-18 | open |\n| INV-107 | V-FABRIKAM | 75000.00 | 2026-11-25 | open |\n\n**What to do next:**\n- **If you meant a different number,** tell me which invoice. I'll check it and the vendor's registered address before proposing anything. Only open invoices (101, 102, 103, 106, 107) can be paid. 104 is disputed and 105 is already paid.\n- **If INV-999 is a real bill that hasn't been entered yet,** it needs to be added first. I can't propose a payment for an invoice that isn't on file.\n- **One thing to note:** INV-107 is much larger than the others (75,000 USDC). It may go over a payment limit, so check it before it's paid.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2434,
+        "output_tokens": 536
+      }
+    },
+    "7adf4ff04a18e96ed60dd53c89f4df4efaf6d717641bd3c05478faec566e7fa4": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018gkLThiiqthVjhc9RhdUnC",
+          "input": {
+            "invoice_id": "INV-999"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01JF62XK8eCKjscc4i1XwdXu",
+          "input": {
+            "invoice_id": "INV-999"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1687,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

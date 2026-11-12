@@ -1,0 +1,2386 @@
+{
+  "meta": {
+    "model": "claude-opus-5-5",
+    "prompt": "system_v1",
+    "provider": "replay",
+    "trials": 3,
+    "judge": null
+  },
+  "summary": {
+    "overall": {
+      "trials": 93,
+      "passed": 91,
+      "rate": 0.978494623655914,
+      "ci95": [
+        0.9249439098234603,
+        0.9940826242280217
+      ]
+    },
+    "reliable_tasks": 30,
+    "task_count": 31,
+    "categories": {
+      "pay": {
+        "trials": 30,
+        "passed": 30,
+        "rate": 1.0,
+        "ci95": [
+          0.8864829086095221,
+          1.0
+        ]
+      },
+      "hold": {
+        "trials": 30,
+        "passed": 30,
+        "rate": 1.0,
+        "ci95": [
+          0.8864829086095221,
+          1.0
+        ]
+      },
+      "mixed": {
+        "trials": 15,
+        "passed": 15,
+        "rate": 1.0,
+        "ci95": [
+          0.7961107336956521,
+          1.0
+        ]
+      },
+      "ask": {
+        "trials": 18,
+        "passed": 16,
+        "rate": 0.8888888888888888,
+        "ci95": [
+          0.6719975513339578,
+          0.9689811315464172
+        ]
+      }
+    },
+    "tasks": {
+      "G-PAY-01": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-02": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-03": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-04": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-05": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-06": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-07": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-08": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-09": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-PAY-10": {
+        "category": "pay",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-01": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-02": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-03": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-04": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-05": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-06": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-07": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-08": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-09": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-HOLD-10": {
+        "category": "hold",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-MIX-01": {
+        "category": "mixed",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-MIX-02": {
+        "category": "mixed",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-MIX-03": {
+        "category": "mixed",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-MIX-04": {
+        "category": "mixed",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-MIX-05": {
+        "category": "mixed",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-ASK-01": {
+        "category": "ask",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-ASK-02": {
+        "category": "ask",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-ASK-03": {
+        "category": "ask",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-ASK-04": {
+        "category": "ask",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      },
+      "G-ASK-05": {
+        "category": "ask",
+        "trials": 3,
+        "passed": 1,
+        "pass@k": 1.0,
+        "pass^k": 0.0,
+        "failed_checks": [
+          "mentions"
+        ],
+        "notes": [
+          "answer does not mention ['9963.25']"
+        ]
+      },
+      "G-ASK-06": {
+        "category": "ask",
+        "trials": 3,
+        "passed": 3,
+        "pass@k": 1.0,
+        "pass^k": 1.0,
+        "failed_checks": [],
+        "notes": []
+      }
+    },
+    "outcomes": {
+      "completed": 93
+    },
+    "fallback_trials_excluded": 0,
+    "refused_proposals": 21,
+    "tokens": {
+      "input": 740759,
+      "output": 80495
+    },
+    "judge_tokens": {
+      "input": 0,
+      "output": 0
+    }
+  },
+  "trials": [
+    {
+      "task_id": "G-PAY-01",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8420,
+      "output_tokens": 657,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01215062399933231,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-01",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8420,
+      "output_tokens": 691,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.014503280001008534,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-01",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8420,
+      "output_tokens": 680,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01443566899979487,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-02",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8318,
+      "output_tokens": 655,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011658482999337139,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-02",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8318,
+      "output_tokens": 701,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011731161001080181,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-02",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8318,
+      "output_tokens": 689,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011450428999523865,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-03",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 4,
+      "refused_proposals": 0,
+      "input_tokens": 8153,
+      "output_tokens": 656,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00668844500069099,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-03",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8357,
+      "output_tokens": 672,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0112109790006798,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-03",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 8357,
+      "output_tokens": 661,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.012162871000327868,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-04",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 16,
+      "refused_proposals": 1,
+      "input_tokens": 12674,
+      "output_tokens": 1853,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02731398600008106,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-04",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 16,
+      "refused_proposals": 1,
+      "input_tokens": 12780,
+      "output_tokens": 1859,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02719925100063847,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-04",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 16,
+      "refused_proposals": 1,
+      "input_tokens": 12756,
+      "output_tokens": 1842,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02632459099913831,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-05",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 6,
+      "refused_proposals": 0,
+      "input_tokens": 10180,
+      "output_tokens": 844,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.010751263000202016,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-05",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 6,
+      "refused_proposals": 0,
+      "input_tokens": 9739,
+      "output_tokens": 730,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011963248000029125,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-05",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 6,
+      "refused_proposals": 0,
+      "input_tokens": 10004,
+      "output_tokens": 796,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011928942998565617,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-06",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 9,
+      "refused_proposals": 1,
+      "input_tokens": 10120,
+      "output_tokens": 1024,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.017434379000405897,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-06",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 9,
+      "refused_proposals": 1,
+      "input_tokens": 9962,
+      "output_tokens": 1048,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01676157099973352,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-06",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 10,
+      "refused_proposals": 1,
+      "input_tokens": 11687,
+      "output_tokens": 1105,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.027406724000684335,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-07",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 9,
+      "refused_proposals": 0,
+      "input_tokens": 9867,
+      "output_tokens": 1102,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01924184199924639,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-07",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 9,
+      "refused_proposals": 0,
+      "input_tokens": 9867,
+      "output_tokens": 1116,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01644071999908192,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-07",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 9,
+      "refused_proposals": 0,
+      "input_tokens": 9867,
+      "output_tokens": 1063,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.014955852000639425,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-08",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 10,
+      "refused_proposals": 0,
+      "input_tokens": 10684,
+      "output_tokens": 1277,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.016907994000575854,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-08",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 10,
+      "refused_proposals": 0,
+      "input_tokens": 10706,
+      "output_tokens": 1274,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.017298905999268754,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-08",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 10,
+      "refused_proposals": 0,
+      "input_tokens": 10684,
+      "output_tokens": 1260,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.017083391001506243,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-09",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 7,
+      "refused_proposals": 0,
+      "input_tokens": 10266,
+      "output_tokens": 910,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01410037999994529,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-09",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 6,
+      "refused_proposals": 0,
+      "input_tokens": 9977,
+      "output_tokens": 819,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.012055404000420822,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-09",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 7,
+      "refused_proposals": 0,
+      "input_tokens": 10224,
+      "output_tokens": 789,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.014278102000389481,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-10",
+      "category": "pay",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 4,
+      "refused_proposals": 0,
+      "input_tokens": 8165,
+      "output_tokens": 568,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.006581075000212877,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-10",
+      "category": "pay",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 9561,
+      "output_tokens": 859,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.005811459999677027,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-PAY-10",
+      "category": "pay",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 0,
+      "input_tokens": 9539,
+      "output_tokens": 848,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.006102367000494269,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-01",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3639,
+      "output_tokens": 409,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00033044399970094673,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-01",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3639,
+      "output_tokens": 428,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00027821300136565696,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-01",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3639,
+      "output_tokens": 400,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00026852200062421616,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-02",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3640,
+      "output_tokens": 485,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003140680000797147,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-02",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3640,
+      "output_tokens": 596,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0002826709987857612,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-02",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3640,
+      "output_tokens": 470,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00027259200032858644,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-03",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5746,
+      "output_tokens": 502,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003616479989432264,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-03",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5746,
+      "output_tokens": 491,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003282149991719052,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-03",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5746,
+      "output_tokens": 550,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003789930015045684,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-04",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 1,
+      "input_tokens": 8239,
+      "output_tokens": 843,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011600824998822645,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-04",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 1,
+      "input_tokens": 8239,
+      "output_tokens": 780,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00987708700085932,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-04",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 5,
+      "refused_proposals": 1,
+      "input_tokens": 8239,
+      "output_tokens": 771,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.011228129998926306,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-05",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6001,
+      "output_tokens": 698,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0004195969995635096,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-05",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6000,
+      "output_tokens": 720,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0005057449998275843,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-05",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6004,
+      "output_tokens": 738,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003503099997033132,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-06",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6125,
+      "output_tokens": 580,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00042667100024118554,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-06",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6113,
+      "output_tokens": 600,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00045738900007563643,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-06",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6116,
+      "output_tokens": 563,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0004167869992670603,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-07",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3649,
+      "output_tokens": 361,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00033722799889801536,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-07",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3649,
+      "output_tokens": 344,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00030505500035360456,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-07",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3649,
+      "output_tokens": 369,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00025679699865577277,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-08",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5763,
+      "output_tokens": 493,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003459489998931531,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-08",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5763,
+      "output_tokens": 447,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0005308019990479806,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-08",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5763,
+      "output_tokens": 524,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003692919999593869,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-09",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6420,
+      "output_tokens": 1010,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003650229991762899,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-09",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6140,
+      "output_tokens": 884,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0004374860000098124,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-09",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 6112,
+      "output_tokens": 954,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0004128460004722001,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-10",
+      "category": "hold",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3730,
+      "output_tokens": 625,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00023290499848371837,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-10",
+      "category": "hold",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3745,
+      "output_tokens": 733,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0002625879988045199,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-HOLD-10",
+      "category": "hold",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 4,
+      "refused_proposals": 0,
+      "input_tokens": 6186,
+      "output_tokens": 955,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.005820880998726352,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-01",
+      "category": "mixed",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 13,
+      "refused_proposals": 1,
+      "input_tokens": 11513,
+      "output_tokens": 1604,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.020980471999791916,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-01",
+      "category": "mixed",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 13,
+      "refused_proposals": 1,
+      "input_tokens": 11483,
+      "output_tokens": 1506,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02437733599981584,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-01",
+      "category": "mixed",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 13,
+      "refused_proposals": 1,
+      "input_tokens": 11524,
+      "output_tokens": 1578,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02374885100107349,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-02",
+      "category": "mixed",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 15,
+      "refused_proposals": 1,
+      "input_tokens": 12550,
+      "output_tokens": 1775,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02461383000081696,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-02",
+      "category": "mixed",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 15,
+      "refused_proposals": 1,
+      "input_tokens": 12513,
+      "output_tokens": 1664,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02527898200060008,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-02",
+      "category": "mixed",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 15,
+      "refused_proposals": 1,
+      "input_tokens": 12514,
+      "output_tokens": 1643,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.02226043100017705,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-03",
+      "category": "mixed",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 14,
+      "refused_proposals": 1,
+      "input_tokens": 11913,
+      "output_tokens": 1586,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.022306312999717193,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-03",
+      "category": "mixed",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 14,
+      "refused_proposals": 1,
+      "input_tokens": 11924,
+      "output_tokens": 1508,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.022250828000323963,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-03",
+      "category": "mixed",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 14,
+      "refused_proposals": 1,
+      "input_tokens": 11924,
+      "output_tokens": 1555,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.024009983000723878,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-04",
+      "category": "mixed",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 14,
+      "refused_proposals": 1,
+      "input_tokens": 16728,
+      "output_tokens": 1774,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.03878359800000908,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-04",
+      "category": "mixed",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 15,
+      "refused_proposals": 1,
+      "input_tokens": 12824,
+      "output_tokens": 1750,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.022708877999320976,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-04",
+      "category": "mixed",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true
+      },
+      "outcome": "completed",
+      "tool_calls": 15,
+      "refused_proposals": 1,
+      "input_tokens": 17401,
+      "output_tokens": 1847,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.027867905999301,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-05",
+      "category": "mixed",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 9,
+      "refused_proposals": 0,
+      "input_tokens": 9908,
+      "output_tokens": 1029,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.012214373999086092,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-05",
+      "category": "mixed",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 8,
+      "refused_proposals": 0,
+      "input_tokens": 9912,
+      "output_tokens": 1045,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.014004765000208863,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-MIX-05",
+      "category": "mixed",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 8,
+      "refused_proposals": 0,
+      "input_tokens": 9914,
+      "output_tokens": 926,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.01363760699859995,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-01",
+      "category": "ask",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_call": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 1,
+      "refused_proposals": 0,
+      "input_tokens": 3426,
+      "output_tokens": 60,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.005411915000877343,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-01",
+      "category": "ask",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_call": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 1,
+      "refused_proposals": 0,
+      "input_tokens": 3426,
+      "output_tokens": 62,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.004968512999766972,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-01",
+      "category": "ask",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_call": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 1,
+      "refused_proposals": 0,
+      "input_tokens": 3426,
+      "output_tokens": 60,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.006447619998652954,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-02",
+      "category": "ask",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 1,
+      "refused_proposals": 0,
+      "input_tokens": 3779,
+      "output_tokens": 475,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0003049789993383456,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-02",
+      "category": "ask",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 1,
+      "refused_proposals": 0,
+      "input_tokens": 3779,
+      "output_tokens": 442,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00029847999940102454,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-02",
+      "category": "ask",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 1,
+      "refused_proposals": 0,
+      "input_tokens": 3779,
+      "output_tokens": 501,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00033970599906751886,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-03",
+      "category": "ask",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5778,
+      "output_tokens": 574,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0005929819999437314,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-03",
+      "category": "ask",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5770,
+      "output_tokens": 523,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0006753380002919585,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-03",
+      "category": "ask",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5774,
+      "output_tokens": 620,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0004466030004550703,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-04",
+      "category": "ask",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5654,
+      "output_tokens": 542,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0007199589999800082,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-04",
+      "category": "ask",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5654,
+      "output_tokens": 565,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00037200800034042913,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-04",
+      "category": "ask",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 3,
+      "refused_proposals": 0,
+      "input_tokens": 5654,
+      "output_tokens": 566,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00044961099956708495,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-05",
+      "category": "ask",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": false
+      },
+      "outcome": "completed",
+      "tool_calls": 12,
+      "refused_proposals": 0,
+      "input_tokens": 11888,
+      "output_tokens": 1324,
+      "fallback": false,
+      "notes": [
+        "answer does not mention ['9963.25']"
+      ],
+      "duration_s": 0.005762582999523147,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": false
+    },
+    {
+      "task_id": "G-ASK-05",
+      "category": "ask",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 12,
+      "refused_proposals": 0,
+      "input_tokens": 11894,
+      "output_tokens": 1383,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.008168362999640522,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-05",
+      "category": "ask",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": false
+      },
+      "outcome": "completed",
+      "tool_calls": 11,
+      "refused_proposals": 0,
+      "input_tokens": 10515,
+      "output_tokens": 1302,
+      "fallback": false,
+      "notes": [
+        "answer does not mention ['9963.25']"
+      ],
+      "duration_s": 0.005947277000814211,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": false
+    },
+    {
+      "task_id": "G-ASK-06",
+      "category": "ask",
+      "trial": 0,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3636,
+      "output_tokens": 455,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0005235270000412129,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-06",
+      "category": "ask",
+      "trial": 1,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3636,
+      "output_tokens": 439,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.00029469699984474573,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    },
+    {
+      "task_id": "G-ASK-06",
+      "category": "ask",
+      "trial": 2,
+      "checks": {
+        "completed": true,
+        "proposals": true,
+        "settled": true,
+        "must_not_call": true,
+        "mentions": true
+      },
+      "outcome": "completed",
+      "tool_calls": 2,
+      "refused_proposals": 0,
+      "input_tokens": 3636,
+      "output_tokens": 441,
+      "fallback": false,
+      "notes": [],
+      "duration_s": 0.0002851899989764206,
+      "judge_input_tokens": 0,
+      "judge_output_tokens": 0,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "entries": {
+    "85aec6f1574e203ba94d5add63ec0f03211521cac31f96caa650cee3b89af92f": {
+      "content": [
+        {
+          "signature": "CAQShQYKEAgTGAI4AUIIdGhpbmtpbmcSDGQXHmLed3YNA7I8jhoMAw15reuZu6G4WkYUIjCur8QndsSki75PZJwE8jJ8nhohijYLCKz4zJU2FQ6K2wZJxxyd8OOJXwDYts/DfAEqogVbGZeRauQJFnPe1pDWd1byD1g8gfnNj8tziWmP2tyXeZHxSIvjN/+gS0bw3JEJB5oVYvVVkkKNDOcPC94LXP2LKYAMpI241JIE7Q1YVd9Ft/mKZ1Nwl4EPhpqP43QJySIT0ftON9ty7eb+HyA8ODX6QYivzXdJYNhG9rrqOgKh6MFDmvB1204Uu+qwWX+FJI1gA+Lhy4/siowI+LivWYWN6+jONs+fZQrFkWZ4scjM+UjcLPMqeh3zcxKm3ZDXeX5bDuaqDuvNPp5d5wrUkZJcEIKVfoVCGYkGtSMFUlO3f/eM2ubsM1NujISNOASEmr3uLOkBm1dZQ3UME/1ibMOmiX6+SPUp3Kq6smSuSNxeL6U0vavN7934xvNbwXAjzViZrQhHROfdN99fQuacHt+TeXYeYiBWnLINDGT2qYLOAyzYtUSLYZ3lknaOCE7zdwBmltew7mSqh0289hDbbIl6s7eeMzYeqfd57SZy0iuk/L/C5cGmXazkEeRrmnaNfkhdESfBLBiDMDmtvhySEpC/aX+i2jRWmTpCBeN8z70yze032DxzLv4Df1ZT4eFMs9tLIu6TqwOikhT/jytsIE7G9+pY1/WkYVT3180KMyOEMjOo7jFW5US2gSV6jFmm7lT0n0Pk1nkyq/wNB15DuGwGn6eURLbjM0KdtYhQRxJY4E8V70fLK7HqA0EZqgvxCGUjXxE9MXaoL0AqRJXktNM/kuvERclXzipQ1zp/WF2W/zWGTN/QRnNgY2+DrXp83ya8Ym0f87iTfl2ctLmxn2QXAwuYcQl/J+LmTGAHiasGAmMlxDZLxAXpltbXNjsZix6d0MILx1S7bo7yNO700INbrfycPB41R5tmkZ5PsLOSAjoycQ3GP0CBDnsAvSXB1exbxxgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I proposed payment **PAY-001** for INV-102. It's waiting for human approval, and no money moves until someone approves it.\n\n**What I proposed:**\n- **Invoice:** INV-102 from Contoso Grid Services, for grid maintenance in October. It's open and due 2026-11-20.\n- **Amount:** 8,400.00 USDC, the exact invoice amount.\n- **Pay to:** `0x52643A794E3Ea74898a4564Cb588079b5c480A93`, which is Contoso's registered payout address. Contoso is an active vendor.\n\n**What I checked:**\n- This invoice had no earlier payment, so this won't pay it twice.\n- The treasury holds 100,000.00 USDC, which covers this payment.\n- The vendor's message is a normal billing note. It doesn't ask for anything unusual, like a different address or urgent handling.\n- The payment rules accepted the proposal without objection.\n\n**Needs your attention:** someone needs to review and approve PAY-001.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2446,
+        "output_tokens": 370
+      }
+    },
+    "8e7c09a7c84e7c1ea3c49bb171c2aae8b565feb59d23adc0f203cdcf2b500453": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Ph1dCQTCmVNGE5cbBt49Cr",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01NjCJDCMg3EzHybRgzcTGag",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1969,
+        "output_tokens": 88
+      }
+    },
+    "d00c6b73fa68af4105cafbc3be013ed51346baaabca24aa1774f5d8df9e307be": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01F1HgTTJBHnTSwBpL65otbR",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01X9qvp1sC1yho1xnAUEe8ve",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 108
+      }
+    },
+    "fdc4be27cbe6bb85c92a63cc1001acf268fd096dccb7d7fed70d8dec5e8480a4": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01EZxi2kZaYotqy9JqePtWaD",
+          "input": {
+            "amount_usdc": "8400.00",
+            "invoice_id": "INV-102",
+            "pay_to": "0x52643A794E3Ea74898a4564Cb588079b5c480A93"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2213,
+        "output_tokens": 135
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

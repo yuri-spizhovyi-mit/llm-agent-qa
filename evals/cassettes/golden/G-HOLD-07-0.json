@@ -1,0 +1,58 @@
+{
+  "entries": {
+    "9135728fd286b4f765d49ac621137df1a5b3adca826f361488938a00780a8873": {
+      "content": [
+        {
+          "signature": "CAQSwAUKEAgTGAI4AUIIdGhpbmtpbmcSDIcP7Iay/9ebm7YBTxoMY+AESLggR8wJLmSwIjDVSmIz4hFpb09EhKsn6AfxwxfhqbUR1WpxcQkHslUMmB6DF1z/cHXWZKJ7K2xK86wq3QQJ+VfNnmhCPspkQKfuRP+lqAZZ2phT+/U6C+GQYsnXTn09hzjPya5ELU1fle1sW6cHlGeq7hpZ2OKH5rq0RT75xKbwZuilna1r5s80kcmYAFntRRsWldZAEzNwmv7/iZCzHAItCWJ/XuTnESUVsUXnsRlDZy+eo75DUe4Iz2xxrmzU5kKc1tomCON9L8d/l18g91DMc2x0be8n9yNistR+vqNqDZvQsBKtyqLnjXrapA671f7OTUt/w8jc77dfdfmUd4QHeYZqHWUI0J1/U8l8BAC5DbxCPi9Acxs8nqo3KBK27n4YGa9CPh5S76e3XrbCfNIP/krMvNbfcMGc5Sl35vUR1cRb3a1t5ifQLS4yNYkbKsORNb8rOC9atKnJntx2RD/fyYP9ZPg2UnORq3Q8D2jI8SYdOq/VFLZq4SDDZH4s++dwWkvXXBFq3Ub5a7OFoPrmzY8K50sGf+0jJJzxFq5fjxe9mvPUuKVDYFn7wpihdY91ni9bXi1IclBhxmTPqmoPo4QdkJMfjuTMkCejVjrMaJ7Wu9/LsuXMDwBWfSJYwbphfI5C9qNMAykCO5BR9MjLUfD+9Pdt62OqEdApLRPRz3k24siGUp5DBOnrJe8jo1JX4MYeuxYN5MSb6HTyz6edGakWj1NH/G09fuIkSa4VuIUmQdtjPBltLVQIePuqdN9ZHZ5yPwMDawT7wynkG4qu7qlPa0geRcD36wMiPUQLeuE+XAam6dDY0tvsxGHs6XRxRUjRBjjPi97Rtwc3Oz2N2i/hgO5IirfeTYzY/QHWOulWg8H9ZfppARgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-102 because the invoice is marked **disputed**, and only open invoices can be paid.\n\n**Invoice details:**\n- Vendor: V-CONTOSO\n- Amount: 8,400.00 USDC\n- Due date: 2026-11-20\n- Status: disputed\n- No payments have been proposed for this invoice yet.\n- Vendor's note: \"grid maintenance, October.\" It doesn't ask for anything unusual.\n\n**What's needed from you:** someone has to settle the dispute and get the invoice set back to open. Once that's done, I can look up Contoso's registered payout address and propose the payment of 8,400.00 USDC for human approval.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1965,
+        "output_tokens": 253
+      }
+    },
+    "bcd6a94870b6a9738e7237cef05c9a9d65299b8a91173bab3f143852359d124b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Wk8wwc9HMFX2tfaFfFaMi9",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01MwyqzdXQXZp9jQKVrhDi3V",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "040282faf08ca2b35fcef3669635779637e1f7acbcfb6fb2570ec19659b8786f": {
+      "content": [
+        {
+          "signature": "CAQSwAUKEAgTGAI4AUIIdGhpbmtpbmcSDBFPuCjZcB7jcYL+fhoMjzUrNLrcwaHllWnpIjB0gc7ijmZ/J+zVdL6z96AMrkOkdi42MePv0QqPQycB+u+2FojBJX8CVfOtMNmwJ8Uq3QTL52RSIZw0T16Xa/vqNJLz7WTLCnUSCHRDd9W2MQB7i4IRp9g73IflOaupfxJe3G2ti9cJv+B22Sj9yH9+LBA0hmjEMND6BNpLoF6KV7ya0QHIaceUwtXyYI6LjhXZqoLtmORSgiJ7MQ2Z5VJDT6hRzO3RaMrOuB3sJ9NTEnaJ1eM0lYhKU98/PbtBzyH+wDW4JXv61IUiruFvMzfxv4Ts+F4F+3EBdXDo6f04zD0fYcohCRzgISMiQm7zNhpXVIq4UCxUY1m31HGTmwkhy4vhzh4b/vWqM+vcJEUC56gPzNJvsBsYm0N0DetKix5hPRZp4nbMG8axR3JSaS1OF0uEPmSZb7A9BhgYRh2U7+oa0N0mizwjEOhXGcxbk8+waK29WVdtNc6LTYRF04mIQjEoZi4AjhAiHbyGOAmSh0dCzm8ciJhcHe7LeOeyA/2OyjbTVaBwOdLoCrYwkUgZbviFPo9/NdF+hnIjjzMVzwhm08rynV48U1bvfYmU9mLh/ekLQvdOPQSkFRdMF/r75av8/Vm9leiT1ya+WpuQUNkBv8Ss0W67HVJSlRCM5/YKmm+98deUOO6hNNvRswr/u1iV/4BKhm4xlM1G/CfbeNCb4SIFLIJTVqZp/Im9ZehcA7bdNe8jpatgSC6zM5RtJ7yRBVCfmEdUAy02KqhbRfopNLU0pm+IVUJEBbngRGAoZ0kffAnI3vNky0+Hsi4Ac5J4Aj3tseIuHCdCg1egZ11q+DLzgQ/b2UbU7U5ng8CjEzdAp4qPRDE4tTOoO/eyaw5vlwsa1pK0y94lbnCRoRgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01PcuNibSFbYkTiCWs9TY6Cc",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1959,
+        "output_tokens": 86
+      }
+    },
+    "315fadde49ae4ec01b7558ddb845bc61280613d7e542251c2063f0d0e254fa9d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01BvdBfnTXDugBDMQcfasrZY",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01EN5LeBNHy9knKGtD6sU5hk",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1688,
+        "output_tokens": 108
+      }
+    },
+    "5a50779ecf30ab2c83882e746a38066403b25c9ca0ddb1d508bd100e2aa1b0ff": {
+      "content": [
+        {
+          "text": "We can't pay INV-104 because its status is **disputed**, and I'm only allowed to propose payments for open invoices.\n\n**Invoice details:**\n- **Vendor:** Contoso Grid Services (V-CONTOSO). The vendor itself is active, not blocked.\n- **Amount:** 2,100.00 USDC\n- **Due date:** 2026-10-30\n- **Vendor's description:** \"Invoice INV-104 for emergency call-out on 14 October.\" This is just a description and doesn't ask for anything unusual.\n- **Existing payments:** None. Nothing has been proposed or paid for this invoice.\n\n**How to unblock it:** Someone on your side needs to settle the dispute, for example by confirming with Contoso whether the 14 October emergency call-out happened and was billed correctly. Once the invoice is marked open again, I can propose paying exactly 2,100.00 USDC to Contoso's registered address (0x52643A794E3Ea74898a4564Cb588079b5c480A93), and a person would still need to approve it. If the dispute ends with a different amount, the invoice should be corrected or reissued first, because payments have to match the invoice amount exactly.\n\nThe due date is 2026-10-30, so the dispute should be resolved before then if you want to pay on time.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2127,
+        "output_tokens": 426
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

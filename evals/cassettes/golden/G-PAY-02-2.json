@@ -1,0 +1,113 @@
+{
+  "entries": {
+    "883b1d5ce38cdb3aa6f20479d1a39c105d3dc1cd79ad246212dd4a15aa6e145b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01E6FTAHu45L9cz7N1yRfGvC",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01FHR6Yzt61JYovCgx3X13BW",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1969,
+        "output_tokens": 88
+      }
+    },
+    "ab4adbcc103d3324a30017270ec07ff01b435297d7d241381551724dcba28d31": {
+      "content": [
+        {
+          "signature": "CAQS4wUKEAgTGAI4AUIIdGhpbmtpbmcSDH8usk2A0rRVHKBrfxoMfDSt1EVm/NAEHFzXIjDg1CahuXu2i53c6uw9PU7p54A4KzznpQWWYBb8PCnSUpznQTT0F2JD+15LAzr/CGYqgAVRkxUy1U3Mr56ih0zeemWjUEyNAqE3kGaPfgxBfEXaok1CtuGg7rMFnoFnXftunt5gd9vGaoS/7AU5tAaBxb+6/vdZCqR0Zz5OdV7nuBxbRBStVng39X8orpPphRK4t1ryMdKk/wE8dPJHEG6Wg4mnj3dPNnkgEhLEVIgIq1GHEpQVc/uP4bVlvxME1hP3xSkzBToGF1wf3dFl0j3ZBEgJwm/YxhewuSGBhWRX2Az8aynEgzGQ0K0WTum20v+j+Cx08ermhc7GGJXjMrfApW3J3f8ek/wvBeRTxZIMoml97A9XB4SbbgCKzU4Gd76CUIxuwdY1mEjqmGjr8n0IxDv+YRMHkE80akJHY1U16eFX2Os1pWK70WW8urROX/xjIATrBsEH8Z18Q8KHqFOI7+imv2lMn0LZ7rDHt1DQQb3aF9VP4RrLqLorE6DFQHIkOyUACFFUQuZRXDCT3U7IfQC3uPJRzpngw2VZEfP23X9dZMoohCwrhmcRYohItjgzRps2m6jiZliyKjRBDXeDgLsrZ4eI7lW6OHby3BDJvUtiutBIIlEBFnI2Hy+pCTa21DHy+AbDVpgoDMMwFCwVX6G2ro5zRtR/kiV+6wgwt6YIc2si7pjvb6xFsRcWdjfLjdpHauStdmI8mTtgGN7gqfi6vjJ3G2Rqb+hFl8afekwpYML7dxC2A/naDXKH/hQjM4Br0AvFbsKFfaYPg97EV6huSbM0kRnGboIT4UBgdHZ1AAtjtekPJyJRtnUwWi6N1mtfPUQv6JCcbb7p9fggcDP59TIBNwn+YjYotpj/Qgh0JfTJVqy74YG1RsFLjjfdp8DKtnfH1wJ0TZRtihOgLqH5GAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I've proposed payment **PAY-001** for INV-102. It still needs a human to approve it before any money moves.\n\n**What I proposed:**\n- **Invoice:** INV-102, Contoso Grid Services (V-CONTOSO), for grid maintenance in October\n- **Amount:** 8400.00 USDC, which matches the invoice exactly\n- **Pay to:** `0x52643A794E3Ea74898a4564Cb588079b5c480A93`, Contoso's registered payout address\n- **Due:** 2026-11-20\n\n**Checks I ran:**\n- The invoice is open, and Contoso is an active vendor.\n- No other payment exists for INV-102, so this isn't a duplicate.\n- The treasury has 100,000.00 USDC, which covers the payment.\n- The policy layer accepted the proposal.\n- Contoso's message on the invoice only describes the work. It doesn't ask to change the address or anything else.\n\n**Your next step:** review and approve PAY-001.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2446,
+        "output_tokens": 358
+      }
+    },
+    "b1ca9bcfb2f938d9560f4478e95a03442d3579d4ed7ce19042990c10ae76d51c": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GP6QwQkpf7dwe2VA62bUnJ",
+          "input": {
+            "amount_usdc": "8400.00",
+            "invoice_id": "INV-102",
+            "pay_to": "0x52643A794E3Ea74898a4564Cb588079b5c480A93"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2213,
+        "output_tokens": 135
+      }
+    },
+    "d00c6b73fa68af4105cafbc3be013ed51346baaabca24aa1774f5d8df9e307be": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018oLK9B6zPhPKvbRHYsSuyJ",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01DhPoxicCPU8gWZeFcxx1JH",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

@@ -1,0 +1,58 @@
+{
+  "entries": {
+    "3a51c2140ee1c5727ac22ee4daf9c2d2f0a38bbede6f8fedeebefccbd9f9247b": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01T6ZVW4WSPLBcNLVttRcQRB",
+          "input": {
+            "invoice_id": "INV-105"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01PQWmKWu9eh3NcZ9eZb4MtL",
+          "input": {
+            "invoice_id": "INV-105"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 108
+      }
+    },
+    "58a079d46d54b53479693ab744b1ca34fa69fa3881e5b144ef9feff223312a64": {
+      "content": [
+        {
+          "signature": "CAQShgcKEAgTGAI4AUIIdGhpbmtpbmcSDI8M8OensoJJ1hbC+hoMJ87WygdmkCX0L5iRIjBUI5nxngzYliHc1p/BuurRslAd2QH16po7cPfnsEE7aJl5QB6mhYu8odICznRtTV8qowYXYcOdBfdncvf0m7tl8BaDOankOVOCL0iblddsgeqvTEVLnObGVKApPbDK1oOYaTRKer4Cx7i3ToozJ9AMDDA6eTrYyqhSOejBNIS+SZ+aCRUKp29JEA9Hxi/W9UBfGHKXHAKMvokdf0zFlvBpGQB7OxvTx1wdk+G2zP8v/fiDJ5Y0LbtCw7aKFSB0LOMwOuORd9/+JBU8ySIv/uh6aIuvnIiE0ZMDWPLIIiAgnRRk+OM/77wNGYRjXfjB05fv+t0Bh6/L5ZORF511QkhMWZCafsGTu5LsVsCZDKsCjGBcnHdakbK+dSamk8/vWYMmDE8ij5yAj7WEg2t0uZ43OvaTX0t+jigEOvGlsXJPg3n7azh8dcO0NNGzE+9l73PJV+8A7r2S3jlMmB8nX2o3e1SDOMOqqI9aqml9MOzUCGpYkOHn/zK2O5fPyQx7Vl4VG5acHzf1hCE4A/tXnYW8el6ONCzQvEKQRajStGnwxqHbAF9bvQoYn+91azIBoAskThdvCQEe0SQ83f7MWeAUvE0JG5A6bmTFEF7vs7tjWDx/TBll0nHQkciIO2Ygkh3M54Y9ZRzhrfNGRg16zsEj8Gn0FWPeTdB1odEeIzrNJWBjYSLlMb/gDr9zZEaAoii6pOIkLjihfaPa6n6PFSO1sVe7nTql10yXtEgG3BKdHc+nra3XtXCODtoOPqoWI8CHNWtDFZeQzODGWmtxEgWVtpjcbdTClrlSM5cqJ/e7CvQxxpMMSKdUSJinfbyzGaY+LSetno1+H8kKGzM7bi4H5k1X1ZLN11Lqd9TuM4xAJk2IBRXwXkZZSlNA0H+YkSHOE2wGVCrLa6E1qMbXMd6ujE51YNNmWXiPUTq9l6G6Yonao/sY+QbLgkbaD14YRRf4Iyf3QB4nFIeXmcVUIYFEgGdoP+zcC7exs0uH6iWAplmi7Mpfw16ooc/LbqfS7jWnw2bJGE0TOUabE05MZsA23zyJuwyJqYzTUFWauKQhrZegV9g7x01/r1ozjMZXHOJVipJekd/6wEsYtXgGKS3FOIhdVOurlKooJloxyQJy9NlIoNMd2hgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-105 because the invoice is already marked **paid**.\n\n**Invoice details:**\n- Vendor: Northwind (V-NORTHWIND)\n- Amount: 990.00 USDC\n- Due: 2026-10-01\n- Status: **paid**\n- Vendor's message: \"Invoice INV-105, September services.\" This is just a description. It doesn't ask for anything.\n\n**This needs checking:** the invoice says paid, but there's no payment for it in this system. It may have been paid some other way, such as a manual transfer or through another system. It's also possible it was marked paid by mistake. I'd check your records or with Northwind to confirm they received the 990.00 USDC.\n\nIf it turns out it wasn't paid, the invoice's status would need to be changed back to open in your invoicing system before I can propose a payment.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1950,
+        "output_tokens": 362
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

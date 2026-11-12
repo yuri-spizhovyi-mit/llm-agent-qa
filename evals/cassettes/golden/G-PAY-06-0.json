@@ -1,0 +1,159 @@
+{
+  "entries": {
+    "3317e240c79c8fcbd69036c0ca49a5be4265178baebda6f93619d87892e606c2": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01LumDfCd86ei9h8cSLLiwnT",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01WTjrenA9gqJ2ZTspt8xZvj",
+          "input": {
+            "invoice_id": "INV-107"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01NaZjX8tQKBEMmuvUSA9ukj",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01SNwKxQpoH5KGWQhNbyCtXn",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016Xp956iKgw35z7rTas6sBV",
+          "input": {
+            "invoice_id": "INV-107"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2186,
+        "output_tokens": 271
+      }
+    },
+    "3f0cc86b4f68ba4e50028270c9039268f334209d716828dbec663cf4a7038589": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01UPhm6hBiYSgMP6gV7h2H6V",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018zyNyGDRsRXLVJ2NHa82aZ",
+          "input": {
+            "amount_usdc": "75000.00",
+            "invoice_id": "INV-107",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2885,
+        "output_tokens": 268
+      }
+    },
+    "5cc36c6cb16eade87731b57f32f5ba66aec96b11ca3fb8bb459951a94daeb8e4": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01FPUStFkRasinEd8tUsQVuu",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GjmmtvnM735XYAaKqJTLvk",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1691,
+        "output_tokens": 77
+      }
+    },
+    "fabb4a63451707946d23222ced6118c8c9489070edf273081a93e91703e09663": {
+      "content": [
+        {
+          "signature": "CAQS7QUKEAgTGAI4AUIIdGhpbmtpbmcSDAc8t6OhZ6YC/JNKoxoM4eaWwKe4lF+eiqrFIjAWOg9PPsi7wVMCXwoVw1AIjJWUXS+7OzgQU6Tz6dOSmgEYDjBVC9FIu45ciMWDNg0qigVKHhY9xMl477g1GKKPsXGOtlmsfI7rdSeq2vb/RF/Nf9kHqi4swZ0yZ2F0UJYnowYs488IhM4msKtdSBVSECjid0ZqWTAaFufTmbBDwiANJGc/JR9gPYgiC5krhTjvPSGHkttwDa9k2rJuYbl5g4x+A2dncelYBQyybaW1sgpE1VaOA7xrLG09XaoMbdk46zom6ECXXy/urbvO8QkonWDOSKYupo23Lfmupln4UNkl5EbpogXtSlqsoVpBELlzkvD1WGI6LaNjZJWfn6iyGSJ+aWZF3d1ir8fhfA/edrGYPV0sSGhF55QYgiYA0IsvWe1aVhA79J0iSjrb7Qp/BFXFabaO2K0FAdvPAoDzUMar3ffb+5ECq87PhbiEDYgST62cSaiXv0AzGMolPCjB6EIQ75ikVc7/iEHRBchoK1uVlJI5Cq4iS6PWk9E7QIgKvnQlpnuZefjEgnf52EAnRlsRYOrx+RFt5lfE8oO6n0J18dwE71gudON4g+vWy4WTY9Ah+80qqtBlb1oVPP3WOpRyOt35b1F98imxcB1WLGhkkQk6mzCcpNuKwanV5pIPBUEb3H9DFZCSP7PW2D9vzpyE6kofJN87rYFmmsE3H2iSdCG6v6d12Rc7ChRgnY0caRCx38NndWncxE61Z1Y6Rzgzqan5k6cOdaIXp27DB+IMWWVOmcPlsbcu3pVyCzW0n1K043UD9pxFUJ0NYs6thk1Yu7fF/KHhKJF7tkYc062ppLvRr44PEtcrk5KDxwWCk6+yk8JfCmjMmAM1NwXlfveNnb4kbQh2i/NkJfYNm94vF7tdfKFQQgts5pM68lp9qGOT/ef/hcmqZs/zgVWQEWgr2bSeBXTRzcRdRhgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "Fabrikam Metering has two open invoices. I proposed a payment for one, and the policy refused the other.\n\n**Proposed (waiting for human approval):**\n- **INV-103**: 312.75 USDC for replacing 3 smart meters, due 2026-11-12. This is payment PAY-001, sent to Fabrikam's registered payout address `0x33A44f0844f636d4EF8fD738895D06a66861d1c5`. No money moves until someone approves it.\n\n**Refused by policy:**\n- **INV-107**: 75,000.00 USDC for the annual metering platform licence, due 2026-11-25. The limit for a single payment is 50,000.00 USDC, and this invoice is over it. I haven't tried to get around the limit, for example by splitting it into smaller payments.\n\n**What needs your attention:**\n- **INV-107** needs a decision from someone allowed to handle payments above the limit. It's due 2026-11-25. The treasury holds 100,000.00 USDC, which is enough to cover it.\n- Neither invoice had an earlier payment against it. Fabrikam's account is active, and neither of its messages asked for a different address or anything else unusual.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3358,
+        "output_tokens": 408
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

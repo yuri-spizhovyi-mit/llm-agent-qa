@@ -1,0 +1,154 @@
+{
+  "entries": {
+    "4b9e907e9653237014952a40867ad98837987c2f0ef94e6d71f00eaeeca7489e": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01HCqsEwUKkKUPkJhekFpsb2",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01QpMPSRTyXJWDVRHgYWte4f",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01W7fmZvADe81GNU3duXt9ER",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2263,
+        "output_tokens": 147
+      }
+    },
+    "5b76077cdb977f723c151276c484e9245edc896490e2a65e13c4a907f9a9831f": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01QWGj7EjZMgqHC6RgwMfV6j",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01W3XCt6ZhxHZN42EaayfZMx",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2687,
+        "output_tokens": 279
+      }
+    },
+    "7a33a49e697de2e3d188ab00741456de5c78d63800f074edb56a8bb5b3e22fa4": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01BfQ9YMEeyxN8GXTJ5GtQRv",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01DKNxcwqGkrzeofY33y3NE1",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01AcfktZESt9sNC1Rjevhc6W",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01LiKtZe3PdoypFuyz1x4QDL",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1693,
+        "output_tokens": 213
+      }
+    },
+    "ddae877c0235a842893f192fcd0305a386972301c9686755084b10aefcd22927": {
+      "content": [
+        {
+          "text": "I proposed payments for both invoices. They're waiting for your approval, and no money moves until a human approves them.\n\n**Proposed:**\n- **PAY-001, for INV-101:** 1250.50 USDC to Northwind Energy Supplies at its registered address `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69`. This is for October meter-reading services and is due 2026-11-15.\n- **PAY-002, for INV-103:** 312.75 USDC to Fabrikam Metering at its registered address `0x33A44f0844f636d4EF8fD738895D06a66861d1c5`. This is for replacing 3 smart meters and is due 2026-11-12, so it's the more urgent of the two.\n\n**Checks:** Both invoices were open, neither had been paid before, and both vendors are active. Each amount matches its invoice exactly. The treasury has 100,000.00 USDC, so there's plenty to cover the 1,563.25 USDC total.\n\n**Not proposed:** Nothing. Both invoices you asked for were proposed.\n\n**Needs your attention:** Only the approval of PAY-001 and PAY-002. Neither vendor message asked for anything unusual, like a different payment address or skipping checks.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3224,
+        "output_tokens": 424
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

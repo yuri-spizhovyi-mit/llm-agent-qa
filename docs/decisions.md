@@ -415,7 +415,7 @@ The regular `ci` workflow never has a key (ENV-D2).
   running them on every PR wastes it, and running them on none lets a prompt change merge
   unmeasured.
 - Fork PRs get no secrets, so they also skip.
-- M8 makes the gate a required check once a key and a baseline exist.
+- Whether it becomes a required check: no, for now (GATE-D7).
 
 **Tests:** GATE-05.
 
@@ -449,7 +449,8 @@ run. A new baseline is committed in a PR, together with the gate report that jus
 - **Compare like with like:** the gate's first check, `comparable`, blocks when the baseline and
   the candidate were graded differently: one judged and the other not, or by a different judge
   prompt or model.
-- **Evidence:** a baseline is committed with the calibration report from its own run (GATE-D3).
+- **Evidence:** a judged baseline is committed with the calibration report from its own run
+  (GATE-D3). The current baseline is graded by code only, so it has none (GATE-D6).
 
 **Why:**
 - The judge adds an `explanation` check to every trial. A judged run therefore has one more way
@@ -501,3 +502,77 @@ workflow), JDG-03 (`test_calibration_reports_what_grading_cost`).
 **Tests:** GATE-05 (`test_an_outage_is_not_a_result_in_any_eval_cli`,
 `test_a_few_failed_calls_still_leave_a_result`, the workflow), GATE-02
 (`test_runs_with_no_answers_are_neither_a_regression_nor_safety`).
+
+## GATE-D6: The baseline is the paid run's real answers, replayed and graded by code
+
+**Status:** Accepted (M8, closed without buying more API credits)
+
+**Decision:**
+- **Golden (`evals/baseline/golden.json`):** the 93 responses of live run 43140844044
+  (`claude-opus-5-5`, `system_v1`, 3 trials).
+  - `scripts/traces_to_cassettes.py` rebuilt them into cassettes from the run's traces
+    (`evals/cassettes/golden/`).
+  - `--provider replay --trials 3` replays them, and its results file is the baseline.
+  - Code grades it, not a judge: chain state, proposals, settlement, trajectory and `mentions`.
+    So `meta.judge` is `null`.
+- **Red team (`evals/baseline/redteam.json`):** the same run's live results file, as written. No
+  judge took part. The run kept no red-team traces, so this one can't be replayed (F-14).
+- **Checked on every PR:** GATE-05 replays the 93 recordings and requires the result to equal
+  `golden.json`, except durations.
+- **No new spend:** the account's API credits ran out (F-13), and this project is closed without
+  buying more. The `ANTHROPIC_API_KEY` secret was removed, so `eval-gate` reports "skipped"
+  (GATE-D2).
+
+**Why:**
+- **It was already paid for, and a replay is exact.** Every replayed trial matches the live run:
+  outcome, tool calls, refused proposals, tokens, and every check made by code.
+- **Graded by code, the run is a usable baseline:** 91/93, with 30 of 31 tasks reliable, so a
+  worse candidate can show up as worse. Graded by `judge_v1` it was 6/93, against facts that were
+  missing half of what the agent saw (F-10). Against that, nothing could get worse.
+- **`judge_v2` hasn't been calibrated live,** so the code won't let it grade (JDG-D2).
+
+**Known limits:**
+- **Durations:** a replay takes milliseconds, so the baseline's `duration_s` values aren't
+  latencies. The gate checks only the candidate's p95. The live run's latency is in
+  `docs/eval-report.md` (p95 16.4 s).
+- **Pinned to what the model saw:** a recording replays only while `system_v1` and the tool
+  definitions stay the same.
+  - A change to `tools.py` makes every recording miss, and GATE-05 fails. The baseline must then be
+    recorded again, live.
+  - A scorer change can be rebuilt by replaying, in a reviewed commit (GATE-D3).
+- **The next judged run won't be comparable:** when live runs resume, the judge is calibrated
+  first. If `judge_v2` is trusted, the golden run is judged, and the gate's `comparable` check
+  refuses to set it against this baseline (GATE-D4). That run becomes the next baseline candidate.
+  A golden run without `--judge` can be compared at once.
+- **Waiting for API credits:**
+  - `judge_v2`'s live calibration;
+  - M8's condition 3 on the real model: a worse prompt blocked, and a fresh baseline run passing;
+  - M9's measured fixes (F-11) and its model comparison.
+
+  Until then, the gate is shown against the real baseline with scripted worse candidates.
+
+**Tests:** GATE-05 (`test_the_baseline_is_what_its_real_recordings_replay_to`,
+`test_a_trace_becomes_a_cassette_that_replays_the_same_trial`), GATE-02
+(`test_the_real_baseline_passes_itself_and_blocks_worse_candidates`).
+
+## GATE-D7: The live gate is not a required check
+
+**Status:** Accepted (M8)
+
+**Decision:** `eval gate (live)` stays optional. What runs on every PR is the `ci` workflow's tests.
+They include the replay of the baseline's real recordings (GATE-D6) and every gate check against
+scripted candidates.
+
+**Why:**
+- **The path filter:** the live gate starts only on PRs that change a prompt or `tools.py`
+  (GATE-D2). A required check that never starts leaves every other PR waiting for it. Requiring it
+  would mean running the workflow on every PR, with a free "nothing to evaluate" path.
+- **No key:** without `ANTHROPIC_API_KEY`, the job reports "skipped" and passes. Requiring it
+  would require nothing.
+- **A live run is a decision:** it costs money and is started on purpose. Its gate report goes into
+  the PR, for a person to read before merging.
+
+**Revisit when** live runs happen regularly. Then run the workflow on every PR, skip the paid
+steps when no prompt or tool changed, and require the check.
+
+**Tests:** n/a (a repository setting). GATE-05 checks the workflow's triggers.
