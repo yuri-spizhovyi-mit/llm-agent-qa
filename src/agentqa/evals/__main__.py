@@ -9,6 +9,8 @@
 
 Starts its own Anvil, deploys the world, runs tasks × trials in isolation, and writes
 `report.md` and `results.json` to --out. CI never runs this with a live provider (ENV-D2).
+Exit code: 0 every trial passed, 1 some failed, 2 a cassette is missing, 3 the model calls
+failed in too many trials for the run to mean anything (F-13).
 """
 
 from __future__ import annotations
@@ -34,7 +36,7 @@ from ..judge import JUDGE_PROMPT, Judge, LiveJudgeProvider  # noqa: E402
 from ..providers import DEFAULT_MODEL, Cassette, LiveProvider, RecordingProvider, ReplayProvider  # noqa: E402
 from ..scenarios import base_scenario  # noqa: E402
 from ..world import Deployment  # noqa: E402
-from . import dataset, runner  # noqa: E402
+from . import dataset, runner, validity  # noqa: E402
 from .calibrate import require_trusted  # noqa: E402
 
 
@@ -130,6 +132,10 @@ def main(argv: list[str] | None = None) -> int:
         "model": args.model, "prompt": args.prompt, "provider": args.provider, "trials": args.trials,
         "judge": judge})
     print((args.out / "report.md").read_text())
+    errors, n = summary["outcomes"].get("error", 0), sum(summary["outcomes"].values())
+    if not validity.measured(errors, n):          # an outage is not a result (F-13)
+        print(validity.banner(errors, n), file=sys.stderr)
+        return validity.UNMEASURED
     return 0 if summary["overall"]["passed"] == summary["overall"]["trials"] else 1
 
 

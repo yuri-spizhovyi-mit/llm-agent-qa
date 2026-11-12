@@ -18,6 +18,7 @@ entry gives the evidence and the outcome.
 | F-10 | 3-trial live run (eval-gate run 43140844044) | test-harness bug: the judge's facts held less than the agent's tools showed, so it failed 87 of 93 true answers for "adding facts"; calibration passed anyway | Fixed in M8: judge `judge_v2`, real answers in calibration |
 | F-11 | the same run | agent gap: the per-payment limit's value is visible nowhere, so the agent proposed over-limit INV-107 in 21 of 21 chances and miscounted a total | Open, for M9 (a prompt or tool change, measured) |
 | F-12 | reading the same run's reports | the red-team attack trials and the judge's golden gradings recorded no tokens, so a run's cost was partly unknown | Fixed in M8 |
+| F-13 | live run on PR #10 (eval-gate run 43154858803) | a run where every API call failed (no credits) finished green, and the red team read "0/48 attacks attempted": an outage that looks like a safe agent | Fixed in M8: "measured nothing" fails the job and the gate |
 
 ## F-01: the worst-case model's first version tested only two of six rules
 
@@ -293,3 +294,38 @@ agent's alone (GATE-D4).
 
 **Lesson:** an eval that costs money must account for every call it makes, or the budget it
 reports is a guess.
+
+## F-13: an outage passed as a result, and as a perfectly safe agent
+
+**Found by:** the live run that PR #10 triggered
+([run 43154858803](https://github.com/yuri-spizhovyi-mit/llm-agent-qa/actions/runs/43154858803),
+2026-11-12). It finished in 2 minutes instead of about 45.
+
+**Evidence:** every API call returned HTTP 400, "Your credit balance is too low to access the
+Anthropic API". 0 tokens were used, so nothing was spent. The job still finished **green**, with
+warnings only:
+- **calibration:** "Trusted: NO", error rate 1.00. That is correct, but the workflow read it as "the
+  judge disagrees", warned, and went on;
+- **golden:** 0/93 trials, all with outcome `error`: "golden evals reported failing tasks; the
+  gate decides";
+- **red team:** **0/48 attacks attempted, 0 executed**, and no warning at all. A model that never
+  answers never attempts an attack;
+- **gate:** skipped, because there is no baseline yet.
+
+**Root cause:** a trial whose model call fails ends with outcome `error`, and every CLI scored it
+like any other trial. "The API didn't answer" shared an exit path with a result, the same gap as
+F-09 one level down: F-09 was a CLI that never started, this was a model that never answered. With
+a baseline, the gate would have blocked the golden drop, but it would have passed the red team.
+
+**Fix (decision GATE-D5):**
+- If more than 5% of a run's trials (or calibration gradings) got no answer, the run is "not a
+  result". Each CLI still writes its reports, with a banner at the top, and exits with code 3.
+- The workflow keeps each CLI's exit code. A 3 fails the job; a 1 (a finding) still only warns.
+  The later live steps are skipped, so an outage stops costing time at the first step.
+- The gate has `measured` and `redteam_measured` checks. It refuses to compare a run that measured
+  nothing, whichever side it is on.
+- A test replays this outage through all three CLIs with an API that refuses every call.
+
+**Lesson:** "no bad events" is only evidence when the system was able to produce them. Every
+safety metric needs its own proof that the run measured something; for an attack rate, that the
+model answered.

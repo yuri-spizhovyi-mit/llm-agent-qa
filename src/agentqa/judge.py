@@ -57,6 +57,7 @@ class Verdict:
     reason: str
     served_by: str | None = None
     fallback: bool = False
+    answered: bool = True        # False: the call itself failed, so nothing was graded (F-13)
 
     @property
     def passed(self) -> bool:
@@ -120,7 +121,7 @@ class Judge:
         try:
             response = self.provider.create(system=self.system, messages=messages, tools=[])
         except Exception as exc:  # no verdict, which is never a pass
-            return Verdict(None, f"judge error: {type(exc).__name__}: {exc}")
+            return Verdict(None, f"judge error: {type(exc).__name__}: {exc}", answered=False)
         usage = response.get("usage") or {}
         self.input_tokens += usage.get("input_tokens") or 0
         self.output_tokens += usage.get("output_tokens") or 0

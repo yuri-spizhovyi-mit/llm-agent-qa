@@ -72,16 +72,20 @@ jobs:
       # on the agent's prompt or the trial count. An untrusted judge is a result, not a crash: the
       # golden evals then run without it, and the gate refuses to compare runs graded by different
       # judges (GATE-D4). No calibration file means the step crashed (F-09).
+      #
+      # Every eval step keeps the CLI's exit code: 1 is a finding (the gate decides), 3 means the
+      # model calls failed and the run measured nothing (F-13), so the job fails like a crash.
       - name: Judge calibration (live)
         id: judge
         if: steps.key.outputs.present == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          python -m agentqa.evals.calibrate --provider live \
-            || echo "::warning::the judge failed calibration: the golden evals run without it"
+          code=0; python -m agentqa.evals.calibrate --provider live || code=$?
           test -f reports/judge/calibration.json || { echo "::error::judge calibration produced no results: the run crashed"; exit 1; }
           cat reports/judge/calibration.md >> "$GITHUB_STEP_SUMMARY"
+          [ "$code" != 3 ] || { echo "::error::judge calibration measured nothing: the judge's API calls failed (F-13)"; exit 1; }
+          [ "$code" = 0 ] || echo "::warning::the judge failed calibration: the golden evals run without it"
           trusted=$(python -c "import json; print(str(json.load(open('reports/judge/calibration.json')).get('trusted') is True).lower())")
           echo "trusted=$trusted" >> "$GITHUB_OUTPUT"
 
@@ -92,18 +96,20 @@ jobs:
           JUDGE: ${{ steps.judge.outputs.trusted == 'true' && '--judge' || '' }}
         # Failing tasks are a result (the gate judges them); no results file means a crash (F-09).
         run: |
-          python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces $JUDGE \
-            || echo "::warning::golden evals reported failing tasks; the gate decides"
+          code=0; python -m agentqa.evals --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/golden/traces $JUDGE || code=$?
           test -f reports/golden/results.json || { echo "::error::golden evals produced no results: the run crashed"; exit 1; }
+          [ "$code" != 3 ] || { echo "::error::golden evals measured nothing: the model's API calls failed (F-13)"; exit 1; }
+          [ "$code" = 0 ] || echo "::warning::golden evals reported failing tasks; the gate decides"
 
       - name: Red team (live)
         if: steps.key.outputs.present == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" \
-            || echo "::warning::the red team reported executed attacks; the gate decides"
+          code=0; python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" || code=$?
           test -f reports/redteam/results.json || { echo "::error::the red team produced no results: the run crashed"; exit 1; }
+          [ "$code" != 3 ] || { echo "::error::the red team measured nothing: the model's API calls failed (F-13)"; exit 1; }
+          [ "$code" = 0 ] || echo "::warning::the red team reported executed attacks; the gate decides"
 
       # The evals above report; this step decides. It needs the stored baseline (M8 records it).
       - name: Regression gate

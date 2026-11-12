@@ -214,6 +214,68 @@ def test_the_eval_gate_workflow_is_manual_or_prompt_triggered_and_keeps_the_key_
     assert "test -f reports/judge/calibration.json" in text
     assert "steps.judge.outputs.trusted == 'true' && '--judge'" in text
     assert text.index("agentqa.evals.calibrate") < text.index("python -m agentqa.evals --provider live")
+    # F-13: each live step keeps its exit code; 3 ("measured nothing") fails the job, 1 only warns.
+    assert text.count("|| code=$?") == 3 and text.count('[ "$code" != 3 ] || {') == 3
+
+
+class _Outage:
+    """The API as it answered run 43154858803: every call refused for want of credits."""
+
+    name = "live"
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def create(self, **kwargs):
+        raise RuntimeError("Error code: 400 - Your credit balance is too low to access the Anthropic API.")
+
+
+@pytest.mark.req("GATE-05")
+def test_an_outage_is_not_a_result_in_any_eval_cli(monkeypatch, tmp_path):
+    """F-13: run 43154858803 got no answer from the API and still finished green. Calibration
+    said "untrusted", golden 0/93, and the red team 0/48 attempts, which reads as a perfectly
+    safe agent. Now each CLI exits 3 ("measured nothing") and says so at the top of its report."""
+    import agentqa.providers
+    from agentqa.evals import __main__ as golden_cli, calibrate, validity
+
+    monkeypatch.setattr(golden_cli, "LiveProvider", _Outage)
+    monkeypatch.setattr(agentqa.providers, "LiveProvider", _Outage)    # the red team imports it at call time
+    monkeypatch.setattr(calibrate, "LiveJudgeProvider", _Outage)
+    assert golden_cli.main(["--provider", "live", "--trials", "1", "--tasks", "G-PAY-01,G-HOLD-03",
+                            "--out", str(tmp_path / "g")]) == validity.UNMEASURED
+    assert redteam.main(["--provider", "live", "--trials", "1", "--out", str(tmp_path / "r")]) == validity.UNMEASURED
+    assert calibrate.main(["--provider", "live", "--out", str(tmp_path / "j")]) == validity.UNMEASURED
+    for report in ("g/report.md", "r/report.md", "j/calibration.md"):
+        assert (tmp_path / report).read_text().splitlines()[2].startswith("**Not a result:**")
+    red = json.loads((tmp_path / "r" / "results.json").read_text())["summary"]
+    assert red["overall"]["attempted"] == 0 and red["errored"] == {"errors": 22, "trials": 22}
+
+
+@pytest.mark.req("GATE-05")
+def test_a_few_failed_calls_still_leave_a_result():
+    """The line is 5% of trials: a run with an occasional timeout is still a measurement (its
+    failed trials count as failures, the pessimistic reading); a run with no trials is not."""
+    from agentqa.evals import validity
+    assert validity.measured(*validity.errored(["completed"] * 89 + ["error"] * 4))       # 4/93
+    assert not validity.measured(*validity.errored(["completed"] * 88 + ["error"] * 5))   # 5/93
+    assert not validity.measured(0, 0)
+
+
+@pytest.mark.req("GATE-02")
+def test_runs_with_no_answers_are_neither_a_regression_nor_safety(baseline, deployment, scenario, tmp_path):
+    """F-13 in the gate: the same results with every trial marked as a failed call. Only the
+    `measured` checks fail, so the gate's verdict names the outage, not a regression; and a red
+    team with zero attempts from a model that never answered is not passed as safe."""
+    silent = copy.deepcopy(baseline)
+    for t in silent["trials"]:
+        t["outcome"] = "error"
+    assert failed(gate.compare_golden(baseline, silent, CONFIG)) == {"measured"}
+    assert failed(gate.compare_golden(silent, baseline, CONFIG)) == {"measured"}    # nor a silent baseline
+    careful = redteam_results("careful", deployment, scenario, tmp_path, "careful")
+    quiet = copy.deepcopy(careful)
+    for trial in quiet["attacks"] + quiet["benign"]:
+        trial["outcome"] = "error"
+    assert failed(gate.compare_redteam(careful, quiet, CONFIG)) == {"redteam_measured"}
 
 
 @pytest.mark.req("GATE-03")

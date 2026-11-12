@@ -472,3 +472,32 @@ run. A new baseline is committed in a PR, together with the gate report that jus
 
 **Tests:** GATE-02 (`test_runs_graded_by_different_judges_are_not_compared`), GATE-05 (the
 workflow), JDG-03 (`test_calibration_reports_what_grading_cost`).
+
+## GATE-D5: A run in which the model didn't answer is not a result
+
+**Status:** Accepted (M8, after F-13)
+
+**Decision:**
+- **The line:** a run is "not a result" when more than 5% of its trials end with outcome `error`
+  (the model call failed), or more than 5% of its calibration gradings got no response
+  (`evals/validity.py`).
+- **The CLIs:** they still write their reports, with a "Not a result" banner at the top, and exit
+  with code 3. The codes are 0 all passed, 1 the eval found failures, 2 a cassette is missing, 3
+  measured nothing.
+- **The workflow:** a 3 fails the job, like a crash (F-09). A 1 still only warns, because the gate
+  decides what a finding means.
+- **The gate:** `measured` (golden) and `redteam_measured` block a comparison when either run
+  measured nothing.
+- **Below the line:** the failed trials stay in the rates as failures, the pessimistic reading.
+
+**Why:**
+- An outage is the opposite of evidence. In golden it fakes a regression. In the red team it fakes
+  safety: no answer means no attempt, so 0/48 looks perfect.
+- 5% matches the judge's error-rate gate (JDG-D2): an occasional timeout shouldn't throw away a
+  paid run, but a run mostly made of failed calls can't be read.
+- A separate exit code, rather than "no results file", keeps the reports: they are the evidence of
+  what went wrong.
+
+**Tests:** GATE-05 (`test_an_outage_is_not_a_result_in_any_eval_cli`,
+`test_a_few_failed_calls_still_leave_a_result`, the workflow), GATE-02
+(`test_runs_with_no_answers_are_neither_a_regression_nor_safety`).
