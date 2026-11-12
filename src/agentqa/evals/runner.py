@@ -26,6 +26,7 @@ from ..providers import Provider
 from ..scenarios import Scenario
 from ..world import Deployment, World
 from .dataset import CATEGORIES, GoldenTask, apply_setup
+from . import validity
 from .scoring import TrialScore, score_trial
 from .stats import pass_at_k, pass_hat_k, wilson
 
@@ -118,6 +119,8 @@ def summarise(scores: list[TrialScore]) -> dict:
         "fallback_trials_excluded": len(scores) - len(counted),
         "refused_proposals": sum(s.refused_proposals for s in counted),
         "tokens": {"input": sum(s.input_tokens for s in scores), "output": sum(s.output_tokens for s in scores)},
+        "judge_tokens": {"input": sum(s.judge_input_tokens for s in scores),
+                         "output": sum(s.judge_output_tokens for s in scores)},
     }
 
 
@@ -127,8 +130,10 @@ def _pct(x: float | None) -> str:
 
 def render_markdown(summary: dict, title: str = "Golden-task eval") -> str:
     o = summary["overall"]
+    errors, n = summary["outcomes"].get("error", 0), sum(summary["outcomes"].values())
     lines = [
         f"# {title}", "",
+        *([validity.banner(errors, n), ""] if not validity.measured(errors, n) else []),
         f"**Overall:** {o['passed']}/{o['trials']} trials passed, {_pct(o['rate'])} "
         f"(95% CI {_pct(o['ci95'][0])}–{_pct(o['ci95'][1])}). "
         f"**Reliable tasks** (passed every trial, pass^k = 1): {summary['reliable_tasks']}/{summary['task_count']}.",
@@ -136,7 +141,9 @@ def render_markdown(summary: dict, title: str = "Golden-task eval") -> str:
         f"Outcomes: {', '.join(f'{k} {v}' for k, v in sorted(summary['outcomes'].items()))}. "
         f"Fallback-served trials excluded: {summary['fallback_trials_excluded']}. "
         f"Proposals refused by policy: {summary['refused_proposals']}. "
-        f"Tokens: {summary['tokens']['input']} in / {summary['tokens']['output']} out.",
+        f"Tokens: {summary['tokens']['input']} in / {summary['tokens']['output']} out"
+        + (f"; the judge's: {summary['judge_tokens']['input']} in / {summary['judge_tokens']['output']} out."
+           if summary["judge_tokens"]["input"] or summary["judge_tokens"]["output"] else "."),
         "", "| Category | Passed | Rate | 95% CI |", "|---|---|---|---|",
     ]
     for cat, r in summary["categories"].items():

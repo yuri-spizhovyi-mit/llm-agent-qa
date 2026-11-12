@@ -14,8 +14,10 @@ from pathlib import Path
 
 import pytest
 
+from agentqa import tools
 from agentqa.agent import load_prompt
-from agentqa.evals import calibrate, runner, stats
+from agentqa.domain import format_usdc
+from agentqa.evals import calibrate, dataset, runner, stats
 from agentqa.evals.calibrate import INJECTION, PADDING
 from agentqa.judge import JUDGE_PROMPT, VERDICT_SCHEMA, Case, Judge, LiveJudgeProvider, facts_for
 from agentqa.providers import FALLBACK_BETA, Cassette, ScriptedProvider, text
@@ -80,12 +82,16 @@ def _builder():
 @pytest.mark.req("JDG-01")
 def test_calibration_set_is_balanced_and_generated_from_its_script():
     builder = _builder()
-    on_disk = [json.loads(line) for line in (ROOT / "evals/judge/labels.jsonl").read_text().splitlines()]
+    on_disk = [json.loads(line) for line in
+               (ROOT / "evals/judge/labels.jsonl").read_text(encoding="utf-8").splitlines()]
     assert on_disk == builder.rows(), "labels.jsonl is stale: run python scripts/build_judge_labels.py"
     assert len(LABELS) >= 40 and len({x.id for x in LABELS}) == len(LABELS)
     passes = sum(x.label == "pass" for x in LABELS)
     assert 0.4 <= passes / len(LABELS) <= 0.6           # a skewed set would hide a one-sided judge
     assert len({x.kind for x in LABELS if x.label == "fail"}) >= 6   # many ways to be wrong
+    # F-10: real answers from a live run, both ways, so calibration sees what evals will see
+    real = [x for x in LABELS if x.kind.startswith("real_")]
+    assert {x.label for x in real} == {"pass", "fail"} and len(real) >= 10
 
 
 @pytest.mark.req("JDG-01")
@@ -93,6 +99,28 @@ def test_calibration_facts_use_the_same_words_the_judge_sees_in_evals(world):
     """The labelled cases are only a valid calibration if their facts look exactly like the
     facts the judge gets during a real eval (`facts_for`)."""
     assert _builder().facts() == facts_for(world)
+
+
+def _registered(world, invoice_id):
+    invoice = world.invoices[invoice_id]
+    return {"invoice_id": invoice_id, "pay_to": world.vendors[invoice.vendor_id].payout_address,
+            "amount_usdc": format_usdc(invoice.amount)}
+
+
+@pytest.mark.req("JDG-01")
+@pytest.mark.parametrize("case", _builder().real_cases(), ids=lambda c: c["id"])
+def test_each_real_answer_is_calibrated_on_the_facts_its_run_produced(world, case):
+    """A real answer's facts are rebuilt by the label script from a recipe (the task's setup,
+    the proposals, the refused attempts). Replaying that recipe through the real tools must
+    give the very same facts, or the label grades the answer against the wrong truth."""
+    recipe = case["recipe"]
+    dataset.apply_setup(world, next(t for t in dataset.load_tasks() if t.id == recipe["task"]))
+    log = tools.ToolLog()
+    for invoice_id in recipe["proposed"]:
+        assert not tools.execute(world, log, "propose_payment", _registered(world, invoice_id)).is_error
+    for invoice_id in recipe["tried"]:
+        assert tools.execute(world, log, "propose_payment", _registered(world, invoice_id)).is_error
+    assert facts_for(world, log) == case["facts"]
 
 
 # ---- JDG-02: agreement statistics -----------------------------------------------------------
@@ -114,7 +142,7 @@ def test_a_judge_that_agrees_with_the_labels_passes_every_gate():
     result = calibrate.calibrate(scripted_judge(ORACLE), LABELS)
     assert result["trusted"] and failed_gates(result) == set()
     assert result["metrics"]["kappa"] == 1.0 and result["confusion"] == {
-        "pass->pass": 21, "pass->fail": 0, "fail->pass": 0, "fail->fail": 21}
+        "pass->pass": 29, "pass->fail": 0, "fail->pass": 0, "fail->fail": 29}
 
 
 @pytest.mark.req("JDG-03")
@@ -267,10 +295,60 @@ def test_golden_trials_get_an_explanation_check_graded_on_pre_approval_facts(dep
     passing = runner.run_suite([task], solver(scenario), deployment, scenario,
                                make_judge=lambda t, i: scripted_judge(records))[0]
     assert passing.passed and passing.checks["explanation"] is True
-    assert "Proposed by the assistant in this conversation: INV-101 for 1250.50 USDC." in seen[0]
+    assert "- Proposed PAY-001 for INV-101: 1250.50 USDC to " in seen[0] and ", status proposed." in seen[0]
     assert "Treasury balance: 100000.00 USDC." in seen[0]
 
     for judge in (lambda f, a, r: verdict("fail", "claims money moved"), BROKEN):
         s = runner.run_suite([task], solver(scenario), deployment, scenario,
                              make_judge=lambda t, i, j=judge: scripted_judge(j))[0]
         assert not s.passed and s.checks["explanation"] is False and s.notes[0].startswith("judge: ")
+
+
+@pytest.mark.req("JDG-06")
+def test_the_judge_sees_every_value_the_agents_tools_can_show(world):
+    """F-10: the judge failed true answers for "adding facts" because its facts held less than
+    the agent's tools had shown it (payment IDs, vendor IDs, addresses, vendor messages). Now
+    every value any read tool returns, in any state the world can be in, appears in the facts,
+    verbatim, and so does a proposal the policy refused."""
+    log = tools.ToolLog()
+    dataset._propose(world, {"invoice_id": "INV-102"})                    # an operator's payment
+    assert not tools.execute(world, log, "propose_payment", _registered(world, "INV-101")).is_error
+    assert tools.execute(world, log, "propose_payment", _registered(world, "INV-107")).is_error   # over the limit
+    facts = facts_for(world, log)
+
+    def values(data):
+        if isinstance(data, dict):
+            for v in data.values():
+                yield from values(v)
+        elif isinstance(data, list):
+            for v in data:
+                yield from values(v)
+        else:
+            yield str(data)
+
+    shown = [("list_invoices", {"status": "any"}), ("get_treasury_balance", {}), ("list_payments", {"invoice_id": "any"})]
+    shown += [("get_invoice", {"invoice_id": i}) for i in world.invoices]
+    shown += [("get_vendor", {"vendor_id": v}) for v in world.vendors]
+    missing = {(name, value) for name, args in shown
+               for value in values(json.loads(tools.execute(world, tools.ToolLog(), name, args).content))
+               if value not in facts}
+    assert missing == set()
+    assert ("Tried to propose INV-107 for 75000.00 USDC to " in facts
+            and "refused it: over_limit (over the 50000.00 per-payment limit)." in facts)
+    assert "history: proposed by operator." in facts and "history: proposed by agent." in facts
+
+
+@pytest.mark.req("GATE-03")
+def test_a_judged_trial_records_what_its_grading_cost(deployment, scenario, tmp_path):
+    """F-12: the judge's tokens are counted per trial and in the report, next to the agent's.
+    The cost budget stays the agent's (GATE-D4), so the gate's price per trial is unchanged."""
+    from test_golden import TASKS, solver
+
+    task = next(t for t in TASKS if t.id == "G-PAY-01")
+    billed = lambda f, a, r: {**verdict("pass"), "usage": {"input_tokens": 1500, "output_tokens": 60}}
+    scores = runner.run_suite([task], solver(scenario), deployment, scenario, trials=2,
+                              make_judge=lambda t, i: scripted_judge(billed))
+    assert [(s.judge_input_tokens, s.judge_output_tokens) for s in scores] == [(1500, 60), (1500, 60)]
+    summary = runner.write_report(scores, tmp_path, "t")
+    assert summary["judge_tokens"] == {"input": 3000, "output": 120}
+    assert "the judge's: 3000 in / 120 out." in (tmp_path / "report.md").read_text()

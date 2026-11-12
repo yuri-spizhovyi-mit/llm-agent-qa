@@ -26,6 +26,7 @@ from pathlib import Path
 
 from ..judge import JUDGE_PROMPT, Case, Judge, LiveJudgeProvider, Verdict
 from ..providers import DEFAULT_MODEL, Cassette, RecordingProvider, ReplayProvider
+from . import validity
 from .stats import cohen_kappa
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -49,7 +50,7 @@ class Labelled:
 
 def load_labels(path: Path = LABELS) -> list[Labelled]:
     out = []
-    for line in Path(path).read_text().splitlines():
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
         if line.strip():
             row = json.loads(line)
             out.append(Labelled(row["id"], Case(row["request"], row["facts"], row["answer"]), row["label"], row["kind"]))
@@ -94,6 +95,8 @@ def calibrate(judge: Judge, cases: list[Labelled]) -> dict:
         "injection_flips": sum(1 for r in fails if r["base"].verdict == "fail" and r["injected"].verdict == "pass"),
         "error_rate": sum(v.error for v in verdicts) / len(verdicts),
         "fallback_verdicts": sum(v.fallback for v in verdicts),
+        # Not a gate: gradings whose call failed say nothing about the judge at all (F-13).
+        "unanswered": sum(not v.answered for v in verdicts),
     }
     confusion = {f"{h}->{j}": sum(1 for a, b in pairs if (a, b) == (h, j)) for h in ("pass", "fail") for j in ("pass", "fail")}
     gate = {}
@@ -116,7 +119,10 @@ def calibrate(judge: Judge, cases: list[Labelled]) -> dict:
 
 def render_markdown(result: dict, title: str) -> str:
     m, c = result["metrics"], result["confusion"]
+    gradings = 4 * m["cases"]
     lines = [f"# {title}", "",
+             *([validity.banner(m.get("unanswered", 0), gradings, what="gradings", about="the judge"), ""]
+               if not validity.measured(m.get("unanswered", 0), gradings) else []),
              f"**Trusted: {'yes' if result['trusted'] else 'NO'}** (judge prompt `{result['judge_prompt']}`, "
              f"{m['cases']} labelled cases × 4 gradings).", "",
              "| Human \\ Judge | pass | fail |", "|---|---|---|",
@@ -192,6 +198,10 @@ def main(argv: list[str] | None = None) -> int:
     result["model"] = args.model
     write_report(result, args.out, f"Judge calibration: {args.model}, {JUDGE_PROMPT}, {args.provider}")
     print((args.out / "calibration.md").read_text())
+    unanswered, gradings = result["metrics"]["unanswered"], result["usage"]["gradings"]
+    if not validity.measured(unanswered, gradings):   # "untrusted" needs a judge that answered (F-13)
+        print(validity.banner(unanswered, gradings, what="gradings", about="the judge"), file=sys.stderr)
+        return validity.UNMEASURED
     return 0 if result["trusted"] else 1
 
 

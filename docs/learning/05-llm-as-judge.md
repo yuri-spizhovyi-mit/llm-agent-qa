@@ -1,7 +1,13 @@
 # 05 · LLM-as-judge: grading with a model, and proving the grader first
 
-*Milestone 5. Code: `src/agentqa/judge.py`, `src/agentqa/evals/calibrate.py`, `prompts/judge_v1.md`,
-`evals/judge/labels.jsonl`. Tests: JDG-01..06.*
+*Milestone 5. Code: `src/agentqa/judge.py`, `src/agentqa/evals/calibrate.py`, `prompts/judge_v2.md`
+(`judge_v1` in M5), `evals/judge/labels.jsonl`. Tests: JDG-01..06.*
+
+> **Update from M8 (F-10):** the M5 judge passed calibration, then failed 87 of 93 true answers
+> in its first real run. Its facts held less than the agent's tools had shown the agent, and the
+> drafted calibration answers were too short to reveal it. `judge_v2` sees everything the agent
+> could see, and the calibration set now includes real answers (decision JDG-D4). Read section 2
+> with that in mind: "ground truth" has to mean *all* of it.
 
 ## 1. Why a judge at all
 
@@ -18,8 +24,8 @@ endlessly. A model can read it the way a person would. That's an **LLM judge**.
 ## 2. How this judge is built (JDG-D1)
 
 **Reference-guided.** The judge isn't asked "is this a good answer?". It gets the **ground
-truth** from the world (`facts_for`): what the agent actually proposed, and every invoice's
-state. Then it checks four rules:
+truth** from the world (`facts_for`): what the agent proposed and tried, every payment, vendor
+and invoice as the agent's tools showed them, and the payment rules. Then it checks four rules:
 
 1. it states accurately what was done;
 2. it never claims money moved;
@@ -42,8 +48,10 @@ an attacker who steered it, writes the text the judge reads.
 ## 3. Calibration: measuring the judge before trusting it
 
 A judge is a measuring instrument. Before using a thermometer, you check it against one you
-trust. Here, the trusted reference is **human labels**: 42 answers, each labelled pass or fail
-by a person (`evals/judge/labels.jsonl`). The judge grades them all, and we measure agreement.
+trust. Here, the trusted reference is **human labels**: 58 answers (42 in M5), each labelled
+pass or fail by a person (`evals/judge/labels.jsonl`). The judge grades them all, and we measure
+agreement. Since M8, 16 of them are real answers from a live run, or real answers with one detail
+made false: calibration has to see the same kind of answers the evals will.
 
 **Why kappa, not accuracy.** Imagine 90% of the answers are good. A judge that always says
 "pass" scores **90% accuracy**, while telling you nothing. **Cohen's kappa** corrects for the
@@ -54,7 +62,7 @@ kappa = (observed agreement − chance agreement) / (1 − chance agreement)
 ```
 
 The always-pass judge above has **kappa 0** (JDG-02 tests this example). Rough reading: above
-0.8 is strong agreement, 0.6–0.8 substantial, below 0.4 weak. Our set is also balanced (21/21),
+0.8 is strong agreement, 0.6–0.8 substantial, below 0.4 weak. Our set is also balanced (29/29),
 so a one-sided judge can't hide.
 
 **Fail recall.** Of the answers a person marked bad, how many did the judge catch? Passing a
@@ -104,11 +112,11 @@ says the judge is trusted for this exact judge prompt and model. Change either o
 calibration is void: re-calibrate. That's "measure before you trust", enforced in code instead
 of left to discipline.
 
-**Your exercise (JDG-D3).** I drafted the 42 labels, and I also wrote the judge prompt, so they
+**Your exercise (JDG-D3).** I drafted the 58 labels, and I also wrote the judge prompt, so they
 may share my blind spots. Calibration is only meaningful against *your* judgement:
 
-1. Read each case in `scripts/build_judge_labels.py`. Would you pass or fail it, by the four
-   rules?
+1. Read each case in `scripts/build_judge_labels.py` and `evals/judge/real_answers.json`. Would
+   you pass or fail it, by the four rules? Each real case says why it has its label (`why`).
 2. Change any label you disagree with, and add cases you think are missing.
 3. Set `reviewed` to `true`, run `python scripts/build_judge_labels.py`, and commit.
 
