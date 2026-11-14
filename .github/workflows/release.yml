@@ -1,0 +1,80 @@
+name: release
+
+# Builds the evidence pack (learning guide 10): the whole suite, the real golden answers replayed
+# against the stored baseline, the traceability check, and the process documents, with SHA-256
+# sums. scripts/evidence_pack.py refuses to build the pack if anything failed.
+# - a tag push (v*) publishes the pack as a GitHub release asset;
+# - workflow_dispatch builds it as a workflow artifact only.
+# Like ci.yml, it never has an API key: model answers are replayed (ENV-D2).
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  evidence:
+    name: evidence pack
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write  # to attach the pack to the GitHub release on a tag
+    env:
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.7
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install and build
+        run: |
+          pip install -r requirements.txt
+          (cd vendor/settlement/contracts && forge build)
+
+      - name: Tests
+        run: pytest --junitxml=results/junit.xml
+
+      # Exit 1 means some trials failed, which the baseline also records (91/93): the pack's
+      # check decides, by comparing with the baseline. 2 (a missing cassette) or 3 (no answers)
+      # is a broken replay.
+      - name: Replay the real golden answers (free, GATE-D6)
+        run: |
+          code=0; python -m agentqa.evals --provider replay --trials 3 --out results/golden || code=$?
+          [ "$code" -le 1 ] || { echo "::error::the golden replay failed with exit code $code"; exit "$code"; }
+
+      - name: Build the evidence pack
+        run: python scripts/evidence_pack.py --results results --out dist --version "${{ github.ref_name }}"
+
+      - name: Evidence summary in the job summary
+        run: cat dist/evidence-pack-*/EVIDENCE.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: evidence-pack
+          path: dist/evidence-pack-*.zip
+          retention-days: 90
+
+      - name: Attach the pack to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${{ github.ref_name }}" dist/evidence-pack-*.zip
+          --title "${{ github.ref_name }}" --notes-file "$(ls -d dist/evidence-pack-*/)EVIDENCE.md"
+          --verify-tag

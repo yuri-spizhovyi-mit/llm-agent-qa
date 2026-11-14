@@ -74,7 +74,7 @@ interview questions with answers.
 | 7 | gate | stored baseline; CI compares a candidate against it with a statistical test; cost, latency and token budgets; per-run traces | a deliberately worse candidate is blocked; a neutral change passes (proven with scripted candidates here; with real prompt variants once live runs exist, M8) | 07: regression testing for AI; cost and latency budgets; observability | Merged: #7 |
 | 8 | live | the `eval-gate` workflow run live with the `ANTHROPIC_API_KEY` repository secret: judge calibration, golden evals, red team, gate; first real results; the stored baseline; findings | (1) one live run calibrates the judge, then runs the golden evals (graded by the judge only if it passed) and the red team, and fails on a crashed step or a run the model never answered, not on a failing result (F-09, F-13); (2) a baseline of at least 3 trials (golden, red team, and the calibration that graded it) is in `evals/baseline/`, committed in a reviewed PR (GATE-D3); (3) a deliberately worse real prompt (`system_v0_worse`) is blocked by the gate, and a fresh run of the baseline prompt passes it; (4) `docs/eval-report.md` gives each number with its interval, run link and cost, and `docs/findings.md` each finding with its evidence; (5) whether the gate becomes a required check is decided and recorded (GATE-D2: a path-filtered workflow can't simply be required) | 08: running evals for real; reading results honestly | Closed without buying more credits: #8, #9, #10, #11. (1), (4) and (5) are met (GATE-D7). (2) is met with a baseline graded by code, not a judge. (3) is shown only with scripted worse candidates. The live part of (3) and `judge_v2`'s live calibration wait for API credits (GATE-D6) |
 | 9 | harden | fix the top findings (prompt, tool descriptions, policy); before/after measured; model comparison (quality vs cost) | each fix shows a measured improvement, or is reverted. **Without API credits (AGT-D4, GATE-D6):** each fix is built, tested offline and ready to measure, with its measurement plan written down, and stays out of the default until measured; the model comparison is deferred | 09: improving an agent with evals: hill-climbing without overfitting | Closed without API credits: #12. F-11's fix is candidate prompt `system_v2`, unmeasured (AGT-D4). F-14 is fixed. The gate's neutral case is shown on resampled real runs. The measurements and the model comparison wait for credits |
-| 10 | release | README story, requirements traceability matrix, evidence pack, v1.0.0 | a reviewer gets the story in 2 minutes; the release carries its evidence | 10: how to present AI-QA work |  |
+| 10 | release | README story, requirements traceability matrix, evidence pack, v1.0.0 | a reviewer gets the story in 2 minutes; the release carries its evidence | 10: how to present AI-QA work | Done: #13. 43 requirements traced by `scripts/rtm.py` (ENV-05); evidence pack built by `release.yml` on a `v*` tag and refused unless the run passed (ENV-06); v1.0.0 tagged after merge |
 
 ## Repository layout
 
@@ -84,14 +84,15 @@ evals/              datasets, scorers, runners, reports (from M4)
 tests/              pytest: deterministic tests of everything that isn't the model
 vendor/settlement/  tokenized-settlement-qa v1.0.0 (git submodule): the agent's world
 docs/               plan, decisions, findings, learning guides, eval reports
-.github/workflows/  ci.yml (every PR, no API key); live-eval.yml (on demand, from M8)
+.github/workflows/  ci.yml (every PR, no API key); eval-gate.yml (live, on demand, M8);
+                    release.yml (evidence pack on v* tags, M10)
 ```
 
 ## Requirement IDs
 
 | Prefix | Area |
 |---|---|
-| ENV | the environment: submodule, deployment, harness |
+| ENV | the environment: submodule, deployment, harness, traceability and the release evidence |
 | TOOL | the tool layer and the approval queue |
 | AGT | the agent loop and the policy layer |
 | GOLD | golden-task evaluation |
