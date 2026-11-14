@@ -43,7 +43,9 @@ Foundry.
 ## Test and eval conventions
 
 - Every test has `@pytest.mark.req("ID")` (prefixes in `docs/plan.md`); module-level
-  `pytestmark` is fine.
+  `pytestmark` is fine. A new requirement goes into `docs/requirements.csv` first; then run
+  `python scripts/rtm.py` and commit `docs/rtm.*`. CI fails on an untested requirement, an
+  uncatalogued ID or a stale matrix (ENV-05).
 - **Score the world, not the words:** an eval checks chain state, the approval queue and the
   tool calls made, before it checks anything the agent *says*.
 - **Non-determinism is measured, not hoped away:** an eval result is a rate over repeated runs
