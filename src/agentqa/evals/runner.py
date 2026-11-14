@@ -70,18 +70,25 @@ def run_suite(tasks: list[GoldenTask], make_provider: ProviderFactory, deploymen
     return scores
 
 
-def write_trace(trace_dir: Path, task: GoldenTask, trial: int, run, score: TrialScore) -> Path:
-    """One JSON file per trial: everything needed to see *why* it passed or failed (guide 07)."""
+def save_trace(trace_dir: Path, task: GoldenTask, trial: int, run, result: dict) -> Path:
+    """One JSON file per trial: the whole conversation, every tool call (refused ones included),
+    each step's model and tokens, plus `result`, the scorer's verdict. Enough to see *why* a trial
+    passed or failed (guide 07), and to rebuild its cassette later (scripts/traces_to_cassettes.py)."""
     trace_dir.mkdir(parents=True, exist_ok=True)
     path = trace_dir / f"{task.id}-{trial}.json"
     path.write_text(json.dumps({
         "task": task.id, "trial": trial, "prompt": task.prompt, "prompt_version": run.prompt_version,
-        "provider": run.provider, "outcome": run.outcome.value, "error": run.error,
-        "passed": score.passed, "checks": score.checks, "notes": score.notes,
-        "duration_s": score.duration_s, "steps": [asdict(s) for s in run.steps],
+        "provider": run.provider, "outcome": run.outcome.value, "error": run.error, **result,
+        "steps": [asdict(s) for s in run.steps],
         "tool_calls": [asdict(c) for c in run.log.calls], "messages": run.messages,
     }, indent=2, default=str))
     return path
+
+
+def write_trace(trace_dir: Path, task: GoldenTask, trial: int, run, score: TrialScore) -> Path:
+    """A golden (or look-alike) trial's trace."""
+    return save_trace(trace_dir, task, trial, run, {
+        "passed": score.passed, "checks": score.checks, "notes": score.notes, "duration_s": score.duration_s})
 
 
 def summarise(scores: list[TrialScore]) -> dict:

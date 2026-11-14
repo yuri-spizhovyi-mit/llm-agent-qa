@@ -106,7 +106,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          code=0; python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" || code=$?
+          code=0; python -m agentqa.evals.redteam --provider live --trials "$TRIALS" --prompt "$PROMPT" --traces reports/redteam/traces || code=$?
           test -f reports/redteam/results.json || { echo "::error::the red team produced no results: the run crashed"; exit 1; }
           [ "$code" != 3 ] || { echo "::error::the red team measured nothing: the model's API calls failed (F-13)"; exit 1; }
           [ "$code" = 0 ] || echo "::warning::the red team reported executed attacks; the gate decides"

@@ -16,10 +16,10 @@ entry gives the evidence and the outcome.
 | F-08 | review of the gate's own tests | the latency test used one duration for every trial, so it could not tell p95 from a mean or a max | Fixed in M7 before merge |
 | F-09 | first live run (eval-gate run 42959218689) | the red-team and calibration CLIs crashed on import, and the workflow's `\|\| true` reported the crash as a pass | Fixed in M8 |
 | F-10 | 3-trial live run (eval-gate run 43140844044) | test-harness bug: the judge's facts held less than the agent's tools showed, so it failed 87 of 93 true answers for "adding facts"; calibration passed anyway | Fixed in M8: judge `judge_v2`, real answers in calibration |
-| F-11 | the same run | agent gap: the per-payment limit's value is visible nowhere, so the agent proposed over-limit INV-107 in 21 of 21 chances and miscounted a total | Open, for M9 (a prompt or tool change, measured) |
+| F-11 | the same run | agent gap: the per-payment limit's value is visible nowhere, so the agent proposed over-limit INV-107 in 21 of 21 chances and miscounted a total | Fix ready, unmeasured: prompt `system_v2` (AGT-D4); measured when live runs resume |
 | F-12 | reading the same run's reports | the red-team attack trials and the judge's golden gradings recorded no tokens, so a run's cost was partly unknown | Fixed in M8 |
 | F-13 | live run on PR #10 (eval-gate run 43154858803) | a run where every API call failed (no credits) finished green, and the red team read "0/48 attacks attempted": an outage that looks like a safe agent | Fixed in M8: "measured nothing" fails the job and the gate |
-| F-14 | writing the eval report (eval-gate run 42960862139) | test-harness gap: red-team trials keep no traces, so the only attack the model ever attempted (A-DIRECT-03) can't be read, and no red-team run can be replayed | Open: for when live runs resume |
+| F-14 | writing the eval report (eval-gate run 42960862139) | test-harness gap: red-team trials keep no traces, so the only attack the model ever attempted (A-DIRECT-03) can't be read, and no red-team run can be replayed | Fixed in M9: red-team transcripts, replayable |
 
 ## F-01: the worst-case model's first version tested only two of six rules
 
@@ -282,8 +282,14 @@ disagreements, not just kappa: the pattern was already there in 2 of 42.
 **Root cause:** neither `system_v1` nor `propose_payment`'s description states the limit's
 value; the description only says "over the limit".
 
-**Status:** open, for M9. Telling the agent the limit changes what the model sees (the prompt or
-`tools.py`), so it is a change measured against the baseline, not part of a harness fix.
+**Status:** a fix is ready but unmeasured (M9, decision AGT-D4). Telling the agent the limit
+changes what the model sees, so it has to be measured against the baseline, not just merged.
+- **The fix:** prompt `system_v2` states every rule the policy enforces, with the numbers from
+  `policy.py`, and says an over-limit invoice must not be proposed or split. A test fails if the
+  prompt and the policy ever disagree.
+- **Why it isn't the default yet:** it hasn't been run on a model. `system_v1` stays the default
+  until a live run, gated against the baseline, shows the over-limit proposals, the wrong total
+  and the A-DIRECT-03 attempt going away.
 
 ## F-12: part of a live run's cost was never recorded
 
@@ -356,9 +362,14 @@ Kind: a test-harness gap.
   recordings, rebuilt from its traces (GATE-D6). Its red-team half couldn't: there was nothing to
   rebuild them from. The red-team baseline is therefore its live results file, as written.
 
-**Status:** open. The fix is small: write a trace for each attack and look-alike trial, and pass
-`--traces` in the workflow's red-team step. It changes no measured result, and it only matters
-once live runs resume.
+**Fix (M9):**
+- **Transcripts:** `run_redteam(..., trace_dir=...)` and the CLI's `--traces` write a transcript
+  per trial, attacks and look-alikes alike. An attack's transcript adds the attack, its goal,
+  "attempted" and "executed". The workflow's red-team step passes `--traces`.
+- **Replays:** `scripts/traces_to_cassettes.py` turns these transcripts into cassettes too, so a
+  paid red-team run can be replayed like the golden one.
+- **A test** runs the scripted "gullible" model through the whole corpus. Every trial must leave a
+  transcript, and A-DIRECT-03's must replay to the same verdict.
 
 **Lesson:** keep the full transcript of every paid trial, and above all of the ones a guardrail
 stopped. Those are the ones you will want to read.

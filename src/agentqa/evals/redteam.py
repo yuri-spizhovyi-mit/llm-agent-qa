@@ -9,7 +9,8 @@ For every attack trial (learning guide 06):
 Benign look-alikes (alarming but legitimate e-mails) are scored as golden tasks: refusing
 them is **over-blocking**, the cost side of security.
 
-`python -m agentqa.evals.redteam --provider live|record|replay [--trials N]`.
+`python -m agentqa.evals.redteam --provider live|record|replay [--trials N] [--traces DIR]`.
+`--traces` writes one transcript per trial, attacks included, as the golden eval does (F-14).
 """
 
 from __future__ import annotations
@@ -27,7 +28,7 @@ from ..domain import PaymentStatus
 from ..scenarios import ATTACKER, Scenario
 from ..world import Deployment, World
 from .dataset import Expect, GoldenTask, apply_setup
-from .runner import ProviderFactory, trial_world
+from .runner import ProviderFactory, save_trace, trial_world, write_trace
 from . import validity
 from .scoring import score_trial
 from .stats import wilson
@@ -147,7 +148,8 @@ def score_attack(attack: Attack, trial: int, run: Run, world: World) -> AttackSc
 
 def run_redteam(attacks: list[Attack], benign: list[GoldenTask], make_provider: ProviderFactory,
                 deployment: Deployment, scenario: Scenario, *, trials: int = 1, max_steps: int = 12,
-                prompt_version: str = "system_v1") -> tuple[list[AttackScore], list]:
+                prompt_version: str = "system_v1", trace_dir: Path | None = None,
+                ) -> tuple[list[AttackScore], list]:
     attack_scores, benign_scores = [], []
     with tempfile.TemporaryDirectory(prefix="agentqa-redteam-") as tmp:
         for trial in range(trials):
@@ -157,13 +159,22 @@ def run_redteam(attacks: list[Attack], benign: list[GoldenTask], make_provider: 
                     apply_setup(world, task)
                     run = Agent(make_provider(task, trial), prompt_version=prompt_version,
                                 max_steps=max_steps).run(task.prompt, world)
-                    attack_scores.append(score_attack(attack, trial, run, world))
+                    score = score_attack(attack, trial, run, world)
+                    attack_scores.append(score)
+                    if trace_dir is not None:     # the one real attempt so far left no words (F-14)
+                        save_trace(trace_dir, task, trial, run, {
+                            "attack": attack.id, "family": attack.family, "channel": attack.channel,
+                            "goal": attack.goal, "attempted": score.attempted, "executed": score.executed,
+                            "notes": score.notes})
             for task in benign:
                 with trial_world(deployment, scenario, Path(tmp) / f"{task.id}-{trial}.db") as world:
                     apply_setup(world, task)
                     run = Agent(make_provider(task, trial), prompt_version=prompt_version,
                                 max_steps=max_steps).run(task.prompt, world)
-                    benign_scores.append(score_trial(task, trial, run, world))
+                    score = score_trial(task, trial, run, world)
+                    benign_scores.append(score)
+                    if trace_dir is not None:
+                        write_trace(trace_dir, task, trial, run, score)
     return attack_scores, benign_scores
 
 
@@ -251,6 +262,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--prompt", default="system_v1")
     parser.add_argument("--cassettes", type=Path, default=ROOT / "evals" / "cassettes" / "redteam")
     parser.add_argument("--out", type=Path, default=ROOT / "reports" / "redteam")
+    parser.add_argument("--traces", type=Path, default=None, help="write one JSON trace per trial here")
     args = parser.parse_args(argv)
 
     scenario = base_scenario()
@@ -275,7 +287,8 @@ def main(argv: list[str] | None = None) -> int:
 
     with golden_cli.started_world(scenario) as deployment:
         attack_scores, benign_scores = run_redteam(attacks, benign, make_provider, deployment, scenario,
-                                                   trials=args.trials, prompt_version=args.prompt)
+                                                   trials=args.trials, prompt_version=args.prompt,
+                                                   trace_dir=args.traces)
     summary = write_report(attack_scores, benign_scores, args.out,
                            f"Red team: {args.model}, prompt {args.prompt}, {args.provider}, {args.trials} trials",
                            meta={"model": args.model, "prompt": args.prompt, "provider": args.provider,

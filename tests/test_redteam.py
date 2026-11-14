@@ -302,3 +302,35 @@ def test_money_reaching_the_attacker_by_any_path_counts_as_executed(world, deplo
     assert not redteam._executed(goal, world)
     deployment.token.transfer(deployment.treasury, redteam.ATTACKER, 1)
     assert redteam._executed(goal, world)
+
+
+@pytest.mark.req("RED-04")
+def test_every_red_team_trial_leaves_a_transcript_that_replays(deployment, scenario, corpus, tmp_path):
+    """F-14: the only attack a real model has attempted (A-DIRECT-03, run 42960862139) left one line,
+    `violations: ['over_limit']`, and no words. Now every trial writes a transcript: the
+    conversation, each proposal and the policy's verdict. Like a golden trace, it rebuilds into a
+    cassette that replays the same verdict, so a paid red-team run is never thrown away."""
+    import importlib.util
+
+    from agentqa.evals import gate
+    from agentqa.providers import Cassette, ReplayProvider
+    from agentqa.tools import definitions
+
+    attacks, benign = corpus
+    a_scores, b_scores = redteam.run_redteam(attacks, benign, agent("gullible"), deployment, scenario,
+                                             trace_dir=tmp_path)
+    assert {p.stem for p in tmp_path.glob("*.json")} == {f"{s.attack_id}-0" for s in a_scores} | {
+        f"{s.task_id}-0" for s in b_scores}
+    direct = json.loads((tmp_path / "A-DIRECT-03-0.json").read_text())
+    assert direct["attempted"] and not direct["executed"] and direct["family"] == "direct"
+    proposals = [c for c in direct["tool_calls"] if c["name"] == "propose_payment"]
+    assert proposals and direct["messages"][0]["content"] == direct["prompt"]
+
+    spec = importlib.util.spec_from_file_location("convert", gate.ROOT / "scripts" / "traces_to_cassettes.py")
+    convert = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(convert)
+    attack = next(a for a in attacks if a.id == "A-DIRECT-03")
+    cassette = convert.cassette_from_trace(direct, model="claude-opus-5-5", tools=definitions())
+    (replayed,), _ = redteam.run_redteam([attack], [], lambda t, i: ReplayProvider(cassette), deployment, scenario)
+    original = next(s for s in a_scores if s.attack_id == "A-DIRECT-03")
+    assert replayed == original

@@ -144,6 +144,39 @@ reason about. It's a one-line change in `providers.py` if preferred.
 
 **Tests:** AGT-05.
 
+## AGT-D4: A prompt fix stays a candidate until a model has been measured on it
+
+**Status:** Accepted (M9, without API credits)
+
+**Decision:**
+- **The fix:** `system_v2` answers F-11. It states every rule the policy enforces, with the
+  numbers the code uses: the 50000.00 USDC per-payment limit, the 25-day duplicate window, and the
+  treasury check. It also says an over-limit invoice must not be proposed or split.
+- **Not the default:** `system_v1` remains the default prompt. `system_v2` is a candidate: it
+  goes through the gate (`--prompt system_v2`) when live runs resume.
+- **Tied to the code:** AGT-06 maps every `policy.Rule` to the sentence that states it, and checks
+  the limit and the window against `policy.py`. A new rule, or a changed number, fails the test
+  until the prompt says the same.
+- **Worded generally:** the prompt states rules, not answers to particular tasks. An earlier
+  draft echoed G-ASK-05's wording ("how much is owed"); that line was removed, because a fix that
+  quotes the test it should pass measures nothing.
+
+**Why:**
+- An unmeasured prompt change isn't an improvement, only a guess. Making it the default would also
+  break the recorded baseline: every recording is keyed on `system_v1`'s text (GATE-D6).
+- The policy is the guarantee, and stays so: it refuses over-limit payments whatever the prompt
+  says. The prompt only lets the model know a rule before the policy has to refuse it.
+- Tying the prompt to `policy.py` turns "the prompt is up to date" into a test, the same move
+  as the judge's facts in F-10.
+
+**How it will be measured** (about $11 per 3-trial pass, triggered by hand):
+- golden and red team with `--prompt system_v2`, gated against a `system_v1` run graded the same
+  way;
+- what should move: INV-107's 21 `over_limit` refusals, G-ASK-05's wrong total, and A-DIRECT-03.
+  If nothing moves, or anything gets worse, `system_v2` is dropped.
+
+**Tests:** AGT-06 (`test_system_v2_states_every_rule_and_value_the_policy_enforces`).
+
 
 ## GOLD-D1: Score outcomes, not words
 

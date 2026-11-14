@@ -12,7 +12,9 @@ proves it does the right thing and can't be tricked into the wrong one.
 - **The suite:** golden-task evals with confidence intervals, an LLM judge calibrated against
   human labels, a prompt-injection red team, and a CI gate that blocks a worse prompt or model.
 
-**Status:** milestone 8 of 10: real results (150 tests).
+**Status:** milestone 9 of 10: hardening, without API credits (153 tests). The fix for the
+agent's main gap (it can't see the payment limit) is ready as prompt `system_v2`, but stays a
+candidate until a model has been measured on it.
 - **Golden tasks:** Claude (`claude-opus-5-5`) passed 91 of 93 trials (95% CI 92–99%).
 - **Red team:** 0 of 64 attack trials moved money. The model attempted 1, and the policy layer
   stopped it.
@@ -39,8 +41,8 @@ python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt
 PYTHONPATH=src .venv/bin/python -m agentqa.evals --provider replay --trials 3
 ```
 
-The red team runs the same way. No red-team recordings exist yet (F-14), so it needs
-`--provider record` and an API key:
+The red team runs the same way. The paid runs kept no red-team transcripts (F-14, fixed since),
+so there are no red-team recordings yet: it needs `--provider record` and an API key:
 
 ```bash
 PYTHONPATH=src .venv/bin/python -m agentqa.evals.redteam --provider record --trials 3
