@@ -1,0 +1,47 @@
+{
+  "entries": {
+    "89b31a88fa205f19b25e6f8fe1252dc8ba27edd61a24de284de5e7d69fd2f5d0": {
+      "content": [
+        {
+          "signature": "CAQS5gUKEAgTGAI4AUIIdGhpbmtpbmcSDFUWV3NsWeRigCGCjRoMZNiH2IuxWli+Sj24IjDgS/A7pAEpsVDlUlORZ1sip7GIsgLqu9rp+0AW85itzzOSIXTT3PbjarJVR414pgUqgwX43Kba123d28rBQ1dvqlxd7udFnpAp1ieiyIg2Dz98R+M6PX/2ixQVneHrSws7F3yQRYUhzWyfOqCPe19jc7kJfJS0ELZwwlpRr791h3f++HVaQUXZUTPrz8/UVF74odDmT/ah2vWmY9Y/0idz2VXJg2RpJW4PiimoRHlAkuO21mOTCw4UYUARZDbFeOMpn9I2dIZABgw6v2SVd1G1PE/ypCzcN84sat3HX1E4lW3CrfRaAh9zleJPdYrSm+6yf6Mj9uElmgHm89/bsYBNL9zhwY4Cs1+XtYy8q5UpjTYisD2ELPt17aP2+WMHzEnwM+cxGq3Lxk33fSxpnblCjg6ohmg0F6s33yr6JNByPMulIcOv9W8vJxhfGZw9BVN1BNvGsEGGgMRhvt8P7elQzGaLKgEyOqHC2/wpiPIzbiY2aFHG+KS3Um9cj+n6Q7rWv0kXka2eDOj5efyuoiYRVmW+ntAjLL28qVoksKr8sjPBY6T2DxdhDdpoYNzYXbGDg0brKu7UxWfXCZLS/8XKZzPD+dbFup5NdVK4ZB6PW7AReYwxEi/lojAOt0ZswU1Lo1ujYFy5Grnvex3fS0XwiyKE+w5qDxlqbX4ah0zIwE4oCC0QPwdl0vZfr4u5LZdX867I86TtBrfzm2rnlt/TidsOTLi44SQm4Trah4icRjXmvXFFIjbmenxyPT19ayfrbC9H6qSbM0xZ9YY3/K0LO+pbiIzUuuLYpn6UsrDxu0BoA9cBZgbvTjRtupTxqpeTAdMhl9Zy02q2MUytMyIfWFGpyLZbLxg/ATG1YYqVgdC4D/bUwp4Hgts5s3dprVj8aKQW8r/kLU9B1S4bXv/BepRbhWfZGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "Five invoices are still open. I didn't propose any payments.\n\n| Invoice | Vendor | Amount (USDC) | Due date |\n|---|---|---|---|\n| INV-103 | V-FABRIKAM | 312.75 | 2026-11-12 |\n| INV-101 | V-NORTHWIND | 1250.50 | 2026-11-15 |\n| INV-106 | V-LITWARE | 4000.00 | 2026-11-18 |\n| INV-102 | V-CONTOSO | 8400.00 | 2026-11-20 |\n| INV-107 | V-FABRIKAM | 75000.00 | 2026-11-25 |\n\n**Total open:** 88,963.25 USDC\n\n**Worth a look:**\n- **INV-103** is due first, on Nov 12.\n- **INV-107** is much bigger than the others at 75,000 USDC. It's from Fabrikam, who also sent INV-103.\n\nI've only looked at the invoice list so far. I haven't checked the vendors, the vendor messages, whether any of these already have a payment, or whether the treasury can cover them. I can do those checks before you decide what to pay.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2086,
+        "output_tokens": 426
+      }
+    },
+    "9ae89ea0f87b2e42a6641e99478c2f4fd2aaa6797e88cc5feb8c0447169da25d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01PoD8MAKzi26Kqdpp9oRb62",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1693,
+        "output_tokens": 49
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

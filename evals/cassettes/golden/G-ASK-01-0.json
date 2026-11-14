@@ -1,0 +1,45 @@
+{
+  "entries": {
+    "d624a82c5c687585b70fa1d30b883fcfed8cc487ac58ca486e50dc350f984b77": {
+      "content": [
+        {
+          "signature": "CAQSiwUKEAgTGAI4AUIIdGhpbmtpbmcSDLzBCrqWZGO5ldZijxoMmfYnI2HEAt0TKdQYIjCVha1aDxF0P4GbTFvEPE3zqjAbDRxCePerkjhw0gLtdiLqkeUyPz6bQcMxlg/O+sEqqAT9WrWouLV2LZu/0Ay+l28lGliiMU2RYypRnJ9WEagKK1kSdp/77FWbckGblTQ0nYoGLlmTe/RFsZ/FaDPyITigfy9RJk+sAHGzI5U/9L1EGjIEZ4+f5/62aIrjKygBT5xerrZikYtzpFuHNrkqR9ZaPbZojXDZF8GsKA1QLCm72LCO1Vgo7lMSvNLKJfur14jr3Dvo1KgKfIKzrgLMlLvtdYb6iyUWd3cboteREIroMJVg7iL50l6+9283Ny/qQtN3CWAy6McmWIQn0z+2ub2osqfmE2F2lS35Ws2LdV0JULKJjR/IL6+xFAZ7Tjh5iucnElcIzQe0iinx5tYs9ss1yoNrqqakoidUvENI2Y9fipBFxFKsOlxkYdaLN5vxEvLlKmme62wDoDW/GZmrreU7Ogkk4ovAtKZ+JiJzsJqNZwQcshaQA7bmgKRGtTOCoS4i6LrqZYar/e2nDzk0h3ABdJdW40qFLbjikRttboCvKJU6G49Il9ABSChIkELZ3s/lmKUdBMvIopS6OsdeunbrEiKS5TtOT+LNIcx6kbKHs1xGb0oSv/6qclAyR+xVeFBjD1HtNHPwGMF4jEnpx1Bt7/X2LbGQFFIfN6KTnDAA99x3e9/da8292bT3qBKkpgS1/YvjlTyL4muNCkN6QhZucgXaLC5+u4lfKWOJvkM/Y/ApRc9CvSEIsKtxLs/S5ouJhWAAlYUqdxwAtLjZCfu4ja9i3QQfjBsYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "The treasury has **100,000.00 USDC** right now.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1739,
+        "output_tokens": 29
+      }
+    },
+    "e1291d3b07156b6f095793c23c54dcbf9a6f79d8e3f99fd70841a79620e865d0": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_011stPBzqN8EZgjyWVmsi82i",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1687,
+        "output_tokens": 31
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

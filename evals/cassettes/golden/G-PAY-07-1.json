@@ -1,0 +1,159 @@
+{
+  "entries": {
+    "2fe5f51bce9889f0bdf712e5fe0128348fd1e0ad0e077c727e407fcdd4937fed": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012qUBkFdUKbB3fy9bU5czkw",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KJavUUpTf3iUDmUsR6Kmnq",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2687,
+        "output_tokens": 279
+      }
+    },
+    "7a33a49e697de2e3d188ab00741456de5c78d63800f074edb56a8bb5b3e22fa4": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Jb7zP9NiGoFiWfyfqfUZv1",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01AYjEdsoWCW5NiJVkg9edGj",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RXeYQsJvs77qHvx2b1GMCb",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01UT4VbyG6tgWaoHQpjMXCPE",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1693,
+        "output_tokens": 213
+      }
+    },
+    "86721e089247b54d5b9c52603da033cb722aa49d0fb9493a6cfe671a27bebc5e": {
+      "content": [
+        {
+          "signature": "CAQS/wUKEAgTGAI4AUIIdGhpbmtpbmcSDGjKSJZZ++65/YcdwBoMufCqFPT9cBNTW5FUIjAPQCWKeLHX4UeJ6t8vKsZ4CwwnFJazwV1oW1A6vHcBmXnuN3v1gbnZCNH/CXkQfe4qnAVyqf9Tb+Mp2C+4SaBrcoAVQK7XwoOTrMJ/9OJ42idecODubXNx8cRlbcha/UyjlTsLaIGMhZZFGmS71COe+toO1G+U9nXWhxB4r5Tp7Y3drYZMFGlFrtaXK6EX87K/wROKQLpKzQddvCPEj3cXyjj2dTVoUxUMFa4gaf7lIphG8wCT8FYzrswdoreAwjKqy76jgjC2MVMU2NRyYK5789EkAil61kAIldcPNtxOR7Cdf1v/a95ity4RZoWMfYid7c7ptm6BUZdh6qNAB79HMp+xF3bEKF2O6z3FyPqnhj7DftmleN6qhtH2POSKjn1/yrj74fSnP8tyboa8k1a3xOaj3ySjTpXkKVGR2QbzqKShfnuSfBxzZrQff/EpHZFRE+/RkWtS7/bivEc5bXlYZXooNYqnE3Jpj2NLppKmEsI7Sre+CoVu5GfyXLrVPBuJ4Wbhr3pb2Jkf5WTQoEYXEXoj6zaIZxKv/a1pEeEhb2n8TZqAyOXRBTZi7v3RBDr1B1qLITSW6wdpPL1o0M6H//SoUKSS2QkfY/ov1GQRRBSA1VuebvtmBuO66IDYoF0w7SywwILM1bMHtd2HY9/1E+ylS/Y6HkFxVjuJDwOcQhOOGuN2NuOPm30Vh6ZwM0TCmWo/oFRq5GNHHXlHrZ2pJ3Mlg60e2wvDsl9C0F4RQVrB+oMMUmRQSxdQpWF5rOnNBozT+Q/LLEuqoG0PYBAjtKU44G8jroa39d6L3Se+/lsDB727+u9aXNv0Rh5tZXvVP9JGfUc/MtWL4XMwSemkPeXB4/pTkUT6ZfP2z+F0X6sN5lmdhHEzKXJFf+dP8zs1zdfRAOnDm1Xy24y7cO1qAY9rJeYJ7b///KT48bOQOsdQYTgj0EjhRvJlKDq+KhgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I've set up payments for both invoices. They're only proposals for now: no money moves until someone approves them.\n\n| Payment | Invoice | Vendor | Amount (USDC) | Paid to (the vendor's registered address) | Due |\n|---|---|---|---|---|---|\n| PAY-001 | INV-101 | Northwind Energy Supplies | 1250.50 | 0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69 | 2026-11-15 |\n| PAY-002 | INV-103 | Fabrikam Metering | 312.75 | 0x33A44f0844f636d4EF8fD738895D06a66861d1c5 | 2026-11-12 |\n\n**Checks:**\n- Both invoices were open, and neither had a payment set up already.\n- Both vendors are active, and each payment goes to the address on file for that vendor.\n- Each amount matches its invoice exactly.\n- The treasury has 100,000.00 USDC, which is plenty for both.\n\n**Vendor messages:** Both were ordinary notes about the invoice. Neither asked for a different address, rushed handling or anything else unusual.\n\n**Needs your attention:** PAY-001 and PAY-002 need approval. INV-103 is due first, on 2026-11-12.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3224,
+        "output_tokens": 477
+      }
+    },
+    "e5ab62497e33a927925fc68808bd32c630b53a75b00c548e5678e3a69e0ac182": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01P68SGSwhqMRL7gYCUpTxWn",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_019dBjjF7KY5JQEV2hYfk7NU",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018Wt4FfoGnqKKM6gVkqKbby",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2263,
+        "output_tokens": 147
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

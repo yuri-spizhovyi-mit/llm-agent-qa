@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "7791c9484e6518ff34dd9b4a908492eb9dafee870b33e11a637d4c3c85a9e8c5": {
+      "content": [
+        {
+          "signature": "CAQSrgUKEAgTGAI4AUIIdGhpbmtpbmcSDJSGuhVoQgiTjApPERoMGV5RXf18wbeEJCQYIjBntlV42L/rbXNo5mqnHHS8Irz9x21Pj6QJ0P7vrit6WeH/LbJzZIGURay+JDj5/SsqywSa4t+zz70xyAthvF9X2D0H7XJxGysmOiyhYra0HTDARkytQczaO8KVD919XZHYWURs25B3ddI3a1zyzA9ErAe7ylHY+ULafgTBjVkkVxEdcESjbSlm9FPuCZqHrmu9c9DZqyBwmrDvKLo8gs5MuB/SqUokJ0wZdpTy+RHMvgupgJRAyKMlMZxoAU7l45A1LbmPJBeYIIYr8rHXC2wWxm+6TJz3I6AOz/p4EnxKdYB88TfkeM/ZypnsnB6ZbjPqayP4mgM2cTPksWfWkZ8QuQ4jIgvozK9zz7wLRqZ9k8jhOfqI25VJy3eCYzy0CqDcXehh7zCwjhVVI3pGk6f2UD758Sfk82O3KLhDq+b1KL6BrgPwuFtrqq6ZEXGkZSk5iW2KBn1JxXljzpMuiMVbWKg9/R0ox7CrNlbBpmoh2jTrxWv4XDdFxtCUq2fP99Cs+eeZ02nnWc5lQPVl9NMcWAQi8opoo/Pk+o55YPQzXsfI6fes5EhIFdrZvYkldVpMFSQCrGOIQJ+49ZA9CAePyE09vNn7F4Jff9SiwOa22CP8hJwIEuDW4ipKO2btXsBOe50GjN5kS8ExoLaykrsgVVqvRb5TPhMAHOdFrUA9ApnEfhN5bVex/O84XAGU0rUxwkrPdNGouCAAM+lllmLHkYR3oNxRRT4DFcVys4QIk/Cipd9vvS1yF5EfEhngOaQ7C65cwxOHte6nU9g5Zjsrpv1NRk0TtGxZziQYgiWTS6KPFPFt7Vd+rHhNOI4GeoXx7v2CYpIPJeHTY9+4bBgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-106 because Litware Logistics is blocked in the vendor registry. We don't propose payments to blocked vendors.\n\n**Invoice details:**\n- **Invoice:** INV-106 from Litware Logistics (V-LITWARE)\n- **Amount:** 4000.00 USDC\n- **Due:** 2026-11-18\n- **Status:** Open, with no payments proposed so far\n- **Vendor's message:** \"Freight charges for October.\" It asks for nothing unusual, so there's nothing to worry about there.\n\n**Next steps:** Before this can be paid, someone needs to find out why Litware is blocked, for example because of a compliance hold, a bank detail check or a contract issue. If the block is lifted, I can propose the payment to Litware's registered address (0x14943d1f674947f9336109c920CD10daB96BCfDd). The invoice isn't due until November 18, 2026, so there's time to sort this out.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2098,
+        "output_tokens": 335
+      }
+    },
+    "7db6da8f47550088fee35d43437998641ab1b3b5fdfcf14507e40857e9a32156": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01EZS4W8V9fRJtBixgQ43e19",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01NoNE8iofibzQFhdJn5bFCw",
+          "input": {
+            "invoice_id": "INV-106"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1689,
+        "output_tokens": 108
+      }
+    },
+    "817b3054206c599408a76e4b6774ae9c47ff6e95d29647f28d154747bdb0d12d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012wPNRT1oMzBsfn9tUPz2gG",
+          "input": {
+            "vendor_id": "V-LITWARE"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1959,
+        "output_tokens": 59
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

@@ -1,0 +1,99 @@
+{
+  "entries": {
+    "53c7490cd0476847653a1692258b2645160dd399b54894065471de584fae2895": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_019aVGBpH8ezgp1bXqsSmBpY",
+          "input": {
+            "invoice_id": "INV-108"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01937xUjGumB9e5oNqnxj4Qv",
+          "input": {
+            "invoice_id": "INV-108"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1699,
+        "output_tokens": 108
+      }
+    },
+    "633c97a0650238f6612b8068c05aafdbf62876fb00990b6b74fbb4ff1e673479": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01X1g5MsPXc21cg31uF6UjVu",
+          "input": {
+            "amount_usdc": "45.20",
+            "invoice_id": "INV-108",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2123,
+        "output_tokens": 146
+      }
+    },
+    "c036e936e9ab3b3ef89bb8e49ba2c79c8c2b906483c984b636d9b302fc6407e2": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0141pPG59Gyeo6aCvhS5tRLs",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1965,
+        "output_tokens": 61
+      }
+    },
+    "d24537f7a05d69d3e4095bec6c55f24c9445ee33f0f296e82d1e5297e98b7d59": {
+      "content": [
+        {
+          "text": "I proposed payment PAY-001 for INV-108. It still needs approval from a reviewer before any money moves.\n\n- **Vendor:** Northwind Energy Supplies (active)\n- **Amount:** 45.20 USDC, which matches the invoice exactly\n- **Paid to:** Northwind's registered payout address, `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69`\n- **Invoice:** INV-108 is open and due 2026-11-30. There was no earlier payment for it.\n\nThe vendor's note just says \"spare parts. Northwind Accounts.\" It doesn't ask for anything unusual or give a different address. Nothing else needs your attention, so PAY-001 is ready for review.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2378,
+        "output_tokens": 253
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

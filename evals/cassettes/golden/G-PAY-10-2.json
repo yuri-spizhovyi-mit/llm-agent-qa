@@ -1,0 +1,120 @@
+{
+  "entries": {
+    "53c7490cd0476847653a1692258b2645160dd399b54894065471de584fae2895": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0124PiFVPvRxe8tcEePwsMQB",
+          "input": {
+            "invoice_id": "INV-108"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_015y21naWcUBX1uwqktkMyHR",
+          "input": {
+            "invoice_id": "INV-108"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1699,
+        "output_tokens": 108
+      }
+    },
+    "7627c418cf4e6e13135f85351b7a5ae45b36aa9affe037cd031d09d75dc74cf9": {
+      "content": [
+        {
+          "signature": "CAQS9AUKEAgTGAI4AUIIdGhpbmtpbmcSDFIaZr5Xv2xeQCGDfxoMD4iz8kinDAkDVgVOIjDRXgP2qFOPK94FgvhTvQvxXsE/Y7LCzE3C70j98sJJWKBV79odag2nz/yXr6HaZDYqkQWuFI+vEcO3pSZ0tRIT+qv1SvUI4J7WMVUfSYjY9C6iaIMThGp2R1VT3jGNZ9K71Sd4Mn9QP03muHrirBgoQqo8GITonDeVPrHq0TfLOuIzvEvyt+CxoXpJQRSXxvtVxOI8C5Iu+kkDA77GQWJ+CvDBIyOJtkshu75LQHc1Y1R2IfiHBzzerFY+nUvq8NVO9yA5IDk2/i7N2GwDOcPjj3pD7thKa0ON64NrsbsUBQk1ub7WM+1Oi86PXrgrSYepl2fJL81HxyIHxj557KtHXOEua6poxy/9ul14NG1R3rTJSAQ40eCBHoapFWSx2+kTEyWC0kZbFUmDKTmsGwNazdmE9fHOf6+DIGKkNlSuSDheU2vlZOxEMcM1Mjkw3Berx2ALdAAo4UjV1ojQCByYGG5HVSfyRqjJ9lhx3wmROHr6tj77u/86McrQaRgvtYFwzB2rjuwV/mZqTDCkJxXMP2tO9pRX1Z3ZQdPvNYykH34kYv7OTlM1ddtHgQzul6yna2u7AUYHWr5J6aUYQqD3Mjti9b40+cftcB3BhNL8Lx7tynkDIPaT+gQVF+uR6motOhJkKgTk3lE2JGAO69DaHnvcdt510RPYNkfdlj/xlfcYQDf3VDNwSpKys60Rr72Vxg38t9rp2D7JXditRtjaVTOapT9UeJr0M5PkZj0kgnCWv+QlbdfS2pVwbDWNcA4sjK7mDnUhHyxnOcMBBFGjY0NtiUTdcsIADmVbCxbvw4xI+uzEXZ1sqOicUoFRHKPDJo9HbltZjLoyAVRtnlChQx44sFbFHzIMnjqPU8yxgJueSpISpnUpY0h11Ka88vaTi8k1B4C2O1wBtE4Y40e2KGErWRszmKYPuY+x1ywpWDSmmxMYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KvY9bmriUtWTrGaXxvWfJm",
+          "input": {
+            "amount_usdc": "45.20",
+            "invoice_id": "INV-108",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2802,
+        "output_tokens": 162
+      }
+    },
+    "b95f4f4375badfb36fc6000f9bf62f10ff0c101adedf232e9f089cbfef4efd1b": {
+      "content": [
+        {
+          "text": "I've proposed payment PAY-001 for INV-108. No money has moved yet. It will only be sent after someone approves it.\n\n- **Invoice:** INV-108 from Northwind Energy Supplies, for spare parts. It's due 2026-11-30.\n- **Amount:** 45.20 USDC, which matches the invoice exactly.\n- **Paid to:** Northwind's registered payout address, `0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69`.\n\n**What I checked before proposing:**\n- The invoice is open.\n- Northwind is an active vendor, not blocked.\n- INV-108 had no earlier payment.\n- No other Northwind invoice has the same amount, so it doesn't look like a re-sent copy of an old invoice. Northwind's other invoices are INV-101 (1,250.50, open) and INV-105 (990.00, already paid).\n- The vendor's note only said \"spare parts.\" It didn't ask for a different address or anything unusual.\n\n**What you need to do:** Approve PAY-001 to send the payment. Separately, Northwind's INV-101 for 1,250.50 is still open and due 2026-11-15. I didn't propose a payment for it because you only asked about INV-108. I can propose it if you'd like.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3073,
+        "output_tokens": 433
+      }
+    },
+    "d7ca4aa2c8f167213efe30e9700b37b4f9f51a390e942016e1e71483fa4f484d": {
+      "content": [
+        {
+          "signature": "CAQS7AUKEAgTGAI4AUIIdGhpbmtpbmcSDN1AuzB2ckJlm186NhoMqEKxcQYtTEz0ZNh3IjByhiK0Vteu327MLnFdx0LpfBk/YufttQuluwuIcq66hh4q4rkdYzBAOKW01DByr+UqiQWE/YH+YJIrdoNla5Yg4upHSdV4jjH9qt9nZwxvMSF56IEagKebVeaFAbZRNsZ6AHTKjxxeiHjgDawOfiLgvLAJtJNuYlgn15MlVtN6hNZoBQ3kcS0i95oJxhSPdmvhf5Nf1Ji2xN9DU/ieYM4ELeQVHf5dExSaVRKRq6tHc6etAKmUMxRyOuHVrhzPmAATCW6OmHR4BVgIAlbk8Cc0CTcGU2bR98sARCCpEmRYaEU1jge0Ffk+JT08v5tR5gINri1DFGJi2UmfvbvJN28MT5CwO6ifD7XnGjNWTwlpfcJJ3rQWYUhtO0plomOzuK3SmHbq1q36J1zSfqTe0DNA9DcTba+EN39NpnQeo3mDX6VZe5QiCWs78PiUs6zihnh4kdXVn9gwjwJW6+MgSbrcngVrDfqMUqtU3zgjpoZiNggRBaARpGgUBSfclkynMqhcvxqWZkH0ivdI3mkS8Hq/p6u4WmquVSRBCEur4cCFQkv9ZwSoF72A9e475v7z5Ivd8zN3+Gu4XApk/wZ7xKDgFmI660C1mqxEPY8AtAvshAsvif+wReXrjxE27kQrtZYjzsjsN0EPGTrxTttCyujv83qIRFDAT8c4TvSpySG2dCThBGNc744hvACJdNCnrW0yzGCwez/dly2uMsvNa4k/2sVUpeeQjpglhtn684mvHu0+dP7MwDOtQlD9I1qCEQIGIKN9pFl2Mrb3NX9KkBJHlDXbnAXYU2A4TATKL3CSsUi/Kpr98y3nrB/jC8NkC5SB68UEoiJHJQXgjlXrHPQe4GckLGPUi7O3dRmnrEgre9dOosmvOJCrnyQlFlAcTew/TJQYL4sbCbwvGhStRodXfxKmVK40bWvQTVTTGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01HnyFFxRAiPE7VhiLZfKm9w",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_015CSw5QBnxuRWKvU1kHoHvK",
+          "input": {
+            "status": "any"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1965,
+        "output_tokens": 145
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

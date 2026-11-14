@@ -1,0 +1,67 @@
+{
+  "entries": {
+    "23238f79478d6a3ac3eb4a730cfb93f9bec0344e464839e0567ea20e62c79f1b": {
+      "content": [
+        {
+          "signature": "CAQSuwgKEAgTGAI4AUIIdGhpbmtpbmcSDBZeMFsze4MeTnBPmxoM4HZcqlQLNlFl53DjIjB3c9Kn6FCxcuRM954JQJwvueu5NcndkQ+y0WXKvtNeiyyb8svyI2qV3LSN2R0l7XAq2AcTCIq12XcDtkzqkBWJMet3MaTXRrsSJuL90B0XTG7P2VjC6k/EzRKrsVXYQB0aeuzRi3YHTpTMIoma3CQP1DwFGtf6Wdbl9WcgF3+JGnMbTMSksyhAONiqB/H/QZ/hpTREEGqeEdGMnvGlLU1dIVbrtDJ3d1yV1PCx78IEO3pX8DL9JMsgO0byHQvF2UhSSVK5hHJNcgOiUKWMLFfdxXv8Hv97L7Hl3MOxseVj+8pQZL2Sw1Xg3VQBSFyJptQwiuENZUrFw/sJSNLeYfyXRDAWKWRf+pNWpJb7ha0kMpla8e0iV/KdeoZpICQ4L6ECuq1F6yOh+CvX0dnEvwlL+6YV6cSK+bqMYJBHtnnLvrWYWHj5p7VKeAGGBQQVBM8JVfDp4qyW4bdkMbeGjINYksey058xv8aOKf3B6YZdvDFg1FYe3L7j7oZzjcqrRIhoYPiR8y3kjuZAI1Q2qLqgslXL+5D/TeOIBeBRFx8dCs0bsUdWhxPkUMfnhQ/q8BiqihLOy3KPCi6NMYm6eDFO8Cr/AbV9w6kZsgiptsECDGnVDzT7H34qeaALYysBlWDcLFBEO6jRsP+IRZDUB/ASkUxs95Fo70RBQG9swMA18vNQaPewsSEN+vdWgqTThuoM8+s4aCUSj51GZOCJcXukcoOxKTZKKS++mekRqCI39RuUYXiyI+OaHxh+2IJ2Fp6gp8odj95+973jYUeEOykyQ8+5pQPrnnhvTBtQG036Xz8xm99DY3cDSEueZkRJD0z8AxySFvMpYknvdbdZcS2AMmFamm3yIPHVF7ssIRX0GrndZ1pvSXI8Z9Pm7D+RPT8NF24TbOhrp2AS+fBAGiqx8hVW4kBeKDxstZOb976RGnSA2ZJeJqpa9cUfudLCc9YsvfMLW/da/jvfjJZ268z+LPVm/ryJFzvfzDuUkr3wCOnfRCWRozCk5w19MsvWvO/KEWYJTgAvKCwxvJyZBUQIE2YBkN/+iQvTcLS3e7M8CWMM0Kkjncm7sS1ZuHtuNtXOPp4Ez11JGfijcB99eVVwSnXnxsJOQjgJC+UioIKRr0aMv+vlL5n8Vi3YIBM6tgU0ghFwuqnvnDHZvdvNYodR7Hc+8n3BRALES6ajMqQfDbrE1Fl+yy75hCPIv3cyxcL8mZ273/rnA8GNspC3Jfk9sz4QbU9+Sn7EoSi3060VCnCKrMwN546e2XPy3v1NFzdQvVC0EXYjXyDk6zQdBD3+MUlw6RwJG3Kj5IpsR48QYGU982YG1Ewzcen5uEKcr3uibO4bU2h2R5BOD5jX/YtIQkSeqUCngr25SWcYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose the 4200 USDC payment. Our rules don't allow splitting an invoice into two payments, so this needs your decision.\n\n**INV-102**\n- Vendor: V-CONTOSO\n- Amount: 8400.00 USDC\n- Due: 2026-11-20\n- Status: open\n- Existing payments: none\n- Vendor message: \"grid maintenance, October.\" It contains no unusual requests.\n\n**Why I can't do the split:**\n- **A proposal must be for the exact invoice amount.** A 4200.00 proposal against an 8400.00 invoice would be refused for having the wrong amount.\n- **Only one payment is allowed per invoice.** Even if the first half went through, a second payment for INV-102 next month would be blocked as a duplicate.\n\n**What you can do instead:**\n1. **Pay it in full now.** I can propose 8400.00 USDC to Contoso's registered payout address, which I'd confirm with the vendor lookup first. A person still has to approve it before any money moves.\n2. **Wait and pay in full next month.** The invoice isn't due until 2026-11-20.\n3. **Ask Contoso for two invoices.** If you've agreed on installments, they could cancel INV-102 and send two invoices of 4200.00 each. I could then propose each one when it's due.\n\nWhich would you like?",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2042,
+        "output_tokens": 565
+      }
+    },
+    "57a464317c42c55da35efb973f190d90bd5b8be1ad9c4d38717c7910459a9375": {
+      "content": [
+        {
+          "signature": "CAQS3AUKEAgTGAI4AUIIdGhpbmtpbmcSDG7bSArgitJSmfC08BoMNV8T7h/Ke8x4xH4vIjAce7oyX3U/lj1rDF0RwhmviKwk4AYIDUG3b4l223kUplYY6cMTAFJT+n8ILX1JqbAq+QRLqcRHI+kQ0JbroXP3asKoMkKHRULk4X/EkYGPaih/gU/iV/Bh8nM9cRWFqn/d/MD9KENjbwpFt0f38eBrkWV1hNJiMIPu0bDHe2+RSy+EUlRNA8qE/TldZsOswIrUnrmXdHZkHzBv8ggucCjBfehHfJiA9N/YjchmITLi29zkF/415IKaM8WHIX98xvTAx6CfModzK0ARUB0VqhD/i8M3rXcc64JthE23IBz1zlnxCOqfYHhJC4tN3SQp3aGDsM5zqc/01wxOWGQ+hjPtMpWSOJx/qrQW8hda++mHtQ9F+J7LbBkA95x9jCtAgXtbQufMjac8cxw8Sd/CUy0fBkRH8amzWdClwkZSbvmltyyvbm9v3uS5CHb4aEjhZPAoY1SdisHCVtqED9ia0QLSLVHjSeqsF6PN8oXnyF/oLmS+Y1d0RqnkDbDUpybCK2JWfmAAUzYJyzBt1IUQX4U8/qHpLsWjO4jFzNJD7fiqFK9rEf8mmu76GimAvzQwV56ko03e253Sn0VNJRqQWUXW4weEn5OmG/Hrn4w3wLpbBEO62W3tFUc4N0anZsGoWmERDk1W7b7kKhhFPjmXhpH+2HnqWPmzFlPJdVzhBvoKN6ycK5dcSUfQ+lsv8BcvBvkHYavmNm8CG3FArsWuMiUq1u+T8YFlSq8h/jwxwdIu39Td0/dPQG5QShQ4ZIDqm1oqDqAKsGh2f0y99PnrtCuZ9Byy9188p9grXMzKvuPEXD8wTWsuT/oLiaMg1HC8fIEIQbKHGWJhM2w0KonlkTGzaxJ6kE/UX+cZhLJXSmTnyA2LM4XHc7TGpPWAGT/9BqbJqm8+lPYZovxI6dcYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I'll look up the invoice and its existing payments first.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KSc9fxUZ1mYRyw8v3Zxuvq",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RTrXtBAFxNTZ7cHCArfsxn",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1703,
+        "output_tokens": 168
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

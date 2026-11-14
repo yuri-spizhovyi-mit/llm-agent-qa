@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "315fadde49ae4ec01b7558ddb845bc61280613d7e542251c2063f0d0e254fa9d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0187CsTSFUiVsCzj1vd8aRoY",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_011F8tLKNiuqtMsW4JnePr4s",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1688,
+        "output_tokens": 108
+      }
+    },
+    "38b865dfc1f38ed664531d9005733884bbf321cdeb0db530e77ab8a4c57d4259": {
+      "content": [
+        {
+          "signature": "CAQStQUKEAgTGAI4AUIIdGhpbmtpbmcSDFfEDq2JxLoz7PnCLRoM7e7YhXJzf+B/XS6fIjAqHTjXR8z+g/W697EYBdMP1R5fe0ayL4gZBqIL0z7H5xsD/nJeZBH9HSUSEW38+Bgq0gRiDVkQbawar4a6kQ3+ibwxByOAwAPr0Y+/0mRsLj1nUUSTuKZdeVeO62uNitZ/GPuzSp9FQGqTYczoUxF3llU6SD5sQmY1RroF7xYuj583/RnMqUspXKyvz7UGAgQRHAsmKpAIa7VoDSRCoEb8gMXt4jOX3mU8Uz0oGWxBYEwxaKcRGoU2JoZC/JAI1CBrgQLgTJFbFfSFDX9ykMzJJNxkcvwGSGOMfIECHRt3RHqF+I+KUbUBBH0oLIaeJ6nhVt4WSJJhN9Xw/6T6RI4OBpNt28PtCZFnGsssAbx2EokCHKdBnUha5h7jlCR9rSrmvaZawV/ltpok8iiKkx3iB5ZY8Ypo+OtiQTtpUaDiVcVSmePk5Ny+HRZgMD6D9LZUsdOebNP9wb7xn6jY/k7TSsuSYDqNOHmv+dGETmAUkgRC1bafvEbDFdTZGvZT6jYGofyMxpGw0QPmMPA13GLgAkLfk7SIQg5FhMpciTPZ8P+Jcf5OpJUm6dKvx8uEJ6sXi3QTgueAScvYFLEPEqTOTLcyWoqPdIvl60zo+/XesKkbbi3IuiVM7LHIHwU2X+BpjNahBuCJRZpdyJCmXjytiVq/5hcnNc0a5OOFynaW9H5e8d5bBEed8e4JsGeiSLNHXCK+tpHulySq8WRV91L1I6quJNFnzwT+fFQnHaOxiqRM+52pQ1rjNn3K55zjK2E2CTixajmbMFLQg8oyMHBRgpeQ3TjeZIXGvgBhfI7c7kwQYSO5wHQV/y8f/Qcs9KhVWvdNUlGtdBRCZModfstN9zmVJPAYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01ACWQDqo5DRQHzPNLKAx7Em",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1959,
+        "output_tokens": 82
+      }
+    },
+    "8d1b03eda867f3fa53c13f9fc644365195f578614b7e561f5cfb018978cf7b4a": {
+      "content": [
+        {
+          "text": "We can't pay INV-104 because it's marked **disputed**. I can only propose payments for open invoices, so I haven't proposed one.\n\n**Invoice details:**\n- **Vendor:** Contoso Grid Services (V-CONTOSO). Its account is active, not blocked.\n- **Amount:** 2,100.00 USDC\n- **Due date:** 2026-10-30\n- **What it's for:** The vendor's note says it's for an emergency call-out on 14 October. The note doesn't ask for anything unusual.\n- **Existing payments:** None.\n\n**What to do:** The records don't say why it's in dispute. Whoever handles disputes (you, or the person who raised it) needs to settle it with Contoso. Once it's resolved and the invoice is open again, I can propose paying the 2,100.00 USDC to Contoso's registered address. A person will still need to approve that payment before any money moves.\n\nThere's no rush. It isn't due until 2026-10-30, so there's time to resolve the dispute first.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2123,
+        "output_tokens": 333
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

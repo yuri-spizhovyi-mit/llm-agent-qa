@@ -1,0 +1,99 @@
+{
+  "entries": {
+    "072dbad2575d34a2e3c91d6d1999ed4cc2bd8ac319b80a134503ca6a4339f02e": {
+      "content": [
+        {
+          "signature": "CAQS7AUKEAgTGAI4AUIIdGhpbmtpbmcSDHDNaJIT189nw9czHBoM2oQP43I2Btzsc4ptIjCIWoOoHZvJ16krzDd2kitKuuH8SUvntKThb0iUENYD/ZaVX4HfxhnAPX1UPmunsK8qiQUtWrr1rVM4KsX1WpUhsXoMMv0UAgXeXqQGWhVIVnDJuxm6yxlsTLfl+lEk4VYiza0Tse6EG+kKbn3MfCVEx5aTWFRqlEcrPaBvrweNxo3XjP501nqoKZ4kKLu1hkWRfZapckzKrpf7tM59hf73FkjNQ0g8WYEdn02P2P39qIs2WK2iDLy4ldDb/SpYVPyKKPL4/o2WCDYy9kGc88E5OOSSQ7LAEzRCWIZYOKHI7qlaSNN4VxRL2zaPs8+gX7JeASomKA+nFVd309bTLgJRlH+6LmG7UCZsRJ/+uEYbRGmQjJ+NYevBapzFKDoXfi0S0F+5Kb7Gc5yHUCPG0fSps0FRrK7arcdVmY+Owh6wIaAdTtwkSh6yD7XGz2NNV94L5kWt107iR+j02S/ei2hg29oqs4V1U4N8wz8rxN5IZbQnxXnBmNGn68xiGEHl7oFFpoqLCWVtiUXfx/vXk5H0XDxaJPabwdcLnfEvaEJL2JERYNg6AxZUJAyy5ztbVFeCfDuoQJx4f2bEN4R9f0JmH7Fz3TOWRoNNPLbtue7XOBj8XMegO8awGerVtNo3Xk5iKroBSugCC28S3052b1lDGHvw1r7N4N6m2Sex+xnBEL4hGkgFRjbdGMh15m2NgMSSLkt4/1ckAd4PlB65vRdILZUorau1djhYAoqsiPMe05zC4JtwVsrshRSquYeF9IAL2sWPAS9NL6Iyc6CyxF8qoi39ddtDLJDtdfGg1ul5iK1UOrp0yajh4lulUaulO0+NrVtWB2L2H3zHUNZGzHpZECWFAvba7lZievw2LE1kAkARDfbnuj3IMUsHn5+1n0KxTj2Rl/sFs6GsclmNtv2K+HQP8yY/IaopaJaaGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I haven't proposed the 4,200 USDC payment. Our payment rules don't allow splitting INV-102 into two payments.\n\n**Why I can't split it:**\n- Each payment has to be for the exact invoice amount. INV-102 is for **8,400.00 USDC**, so a 4,200 payment breaks that rule. The policy layer would most likely reject it as the wrong amount.\n- An invoice can only ever have one payment. Even if a first half went through, the payment next month would be blocked as a duplicate.\n\n**INV-102 details:**\n- Vendor: Contoso Grid Services (V-CONTOSO), status active\n- Registered payout address: 0x52643A794E3Ea74898a4564Cb588079b5c480A93\n- Amount: 8,400.00 USDC. Due date: 2026-11-20. Status: open.\n- No payments exist for it yet.\n- The vendor's message is a normal billing note, with no unusual requests.\n- The treasury holds 100,000.00 USDC, which covers the full amount.\n\n**Your options:**\n1. **Pay in full.** I can propose one payment of 8,400.00 USDC to the registered address now. It would still need human approval before any money moves.\n2. **Pay in two parts.** Ask Contoso to cancel INV-102 and send two invoices for 4,200.00 each, one now and one next month. Then I can propose each when it's open. Note that the policy may flag a second invoice as a possible re-issued duplicate, and it would need to be cleared then.\n3. **Wait.** It isn't due until 2026-11-20, so you could hold it and pay the full amount later.\n\nShould I propose the full 8,400.00 USDC payment now?",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2413,
+        "output_tokens": 572
+      }
+    },
+    "57a464317c42c55da35efb973f190d90bd5b8be1ad9c4d38717c7910459a9375": {
+      "content": [
+        {
+          "signature": "CAQS+AYKEAgTGAI4AUIIdGhpbmtpbmcSDM11zAAnTRUxH2WOWBoMdz2UlFGsSlCzbqJ7IjA4ZldWjFIDvRKnXEl7YzOdmZ18nb+P7OtWL8PTK08b+/Vkxz7xSqZtpsFieLtIxxwqlQYL6TzNTsodt0JDSC3Of3r3hZXPtQP7pPpHPi741BFTK9qyWdI1ouErTpdHyC9j4D6IePqNCmKNAc4KlkBYYLCC96oJKh9YtsdfqbBSgQtJpwsqkrXCrQJW+6kVhQGHCNK1EoOVWoNhYfosY6kSTSJX5MBlmokmeMssF/OeLdnDWuRk5owPlkBbWvaoetyia+DKy6i+Xx0qAKtgvZJotCZksWioiXgPmr3wuOMLSSVEwrfu9wUmliv3b/4ybv0QzS1hD9wyeWwtJ7dK2I8Dx1PghjECLBCv7l8bDaWz/yAbUyYm8OnG81ys2UiY9UCwzurCgFYM93S5FdHXSeyIWs7J+Gs/yXmdlvZ+o33VnpDwRZFw2a7By6IIFIwZ8dMfH8kQeB/qIvyOo2yuui/1vhUkc3XnKgdEaYBjG7sUfhovouFR6g34T25VxwBBNNMAZpk05bCj0RQIJ/YS7M8XqNltpbKTAmBBFPtyIXQAHca8eXYXAqjTfmv/F0U7rYbwyzlXjNmBgGnQALkQfoht4USDSEfH6KDH+Dq16VAYJdyvMy43E8TBNlFPvwElh+jZT2xcq4WIfgDkotHShAcaI/ZuX6IEG9yULPHmzISOOPBCeudT4uG1LS+Fov6DxowKuM6NOHKEsxN/JI3R1aOLGwBZeNWd+4H6MWl7HZ/HKWgeXaxRGCFFVK3ojmnmHIzURXUfVGT+Us0hdf8yLj2Vh8L+I/LaygpDRLzYdrGUyPC7E/P0plVdo0h47kfLP6qxRixx22Fgn3AQvG6Yh2uDeDu6M3FEATFewfe9Y2960VQjKdhHSfKsTJNvaIFTDQRM3wotXLibKdmiEy5etymYCwrSaJsvGjblunI3BSTOdcGM/0x4xGggnSp+z63LVKEa+2M5b5eOIKfypIKKyR/PPf50UrkPTWBTLKue1ou9Mt+/Qt6Yy76RlmzWVZ+TzBb8ZRS2bkzCqBLei3w+2/OIf2y2KPfJ0T5OJ25Rdvlmq6+Gu3BWnXnyrNEa3Lz0vafPvhi8bxecGVUMjhC3WfG0ki9N+mJwijcYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01B2Xc66YdSA1Zb9yqtDNRU5",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01SwRh8UTvbD3iqfbng7JfFs",
+          "input": {
+            "invoice_id": "INV-102"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1703,
+        "output_tokens": 196
+      }
+    },
+    "e261b78a2cc2f4b0dbb4630251a49ce2cdb134cddca8d708488b7546b8351ca5": {
+      "content": [
+        {
+          "signature": "CAQSzwcKEAgTGAI4AUIIdGhpbmtpbmcSDOpz4n/NV1GxF9nt7BoMBDSqkIlT4QdC7e1NIjDypU8xmpdllkGQaMtWEhKi82rArC3XKLlKadrGGw/cpL1HjWZJOG74JUj64YXTfacq7AYhyyMgsiKqF8cB/xCT/ADtiM19//Rs7C18XrhItWLFZbL99I0n5uDcFAT4eDQ6MQR9vmWajK0mwfEs/71ExeLPrvhPODuaCydRol5he7jv6+i66ALSg32+xYmFja5jXMlE/5gWPZbBJ9MIIQB2j/dmDFunU5qRTMgn7vq/3/HmBodGkR4a0kbdpoSGQ6MF21QSQTk+ZRh4uvDBBbJDF0AhwCZYrx3FXt1NINzLBF5HRMZOC4KycFONerqIILRF4JxiKeTsBOeYxx70BkhiMFIc7UYeLDwXINAxdTr0HlWuC93skKKYWocUtkj9icOkWt/pZxzRLj96Y9IMQB52PSnvO0+yArZ28nvXmHBrOfyz8WqVuavBEEWbrqxnP+1inKQmpDkAc+PUctO606DsGgDyTGKQYalEEgCYX4yQOAtElz4UwOKnlBKJGE3xaeIK9juLRkjZUKOKOScQY5XIkFX0rJRpScqWCuNUT9Q5N4X0jKQZ20Pxbg1xI7+YYvO9QHKrSHn9jr0Eo6kY1gqMGbwdN6xsqk7OmUwYAl2pPdPmPzQzZsObhXElQxIanu16tZyLW8K0WVr8EKIPSGsJNyqbvwoJRD41t8GFv54DprBThxmRrDUEmmeP7njJoKgFABBeVT+EHVzOgqvJBv6+2BjKsJuOV38/0hT7jrI5MRDI/ZAI8ZHJTXLvIVyG3tU1wGL05fEB7H/vs6Q4OciBsgoeqgUAgCPMvhYIsBPiCpofyqDvjj11IxIndeb+b7LgdpISfRUUAG/Hnhv7b9q4ufZOc7FrUqH+HiJd2cVwtZKTVxJpDzQ8xNBinfU2lAUZG97WPza8fUyRqor36Rd8xQfhuxxB6YydVhkb4jRndUgAd7ZcnR2SQq/d9csulyLGi26NranqOyGUrn0WgYWOi7oyMVhHa//letrXg4hsOVI125y3e8g9ZLY6RoS26xnamQoN8jzh71zR0vvo9vwgAfbJNpu1HwYLG7VEOeDr7jt/SMa2YJM8Svleq4siYIJtSN+JjE6h8Vx6t81qSXHKaIRWmW5PfxJio+AbuCSHPzFngLZOMYWxNwPIwvOcOQV8eU6QoX1g7UuaR1cYOInvDix4EfBuPbCkRjid9XbtNa5dp3RyN+CuwCShLsoK4EgVMh1OUiS5f9RKeG3A3iwYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01VP4VwwLDRGK56Mz6rH3NRg",
+          "input": {
+            "vendor_id": "V-CONTOSO"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Ht5zSkgPVrmBGWALyGvgba",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2070,
+        "output_tokens": 187
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

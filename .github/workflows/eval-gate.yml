@@ -3,7 +3,7 @@ name: eval-gate
 # Live evals plus the regression gate (learning guide 07, GATE-D2). It costs money, so it runs
 # only on demand, or when a PR changes what the model sees: the prompts or the tool definitions.
 # The API key comes only from the repository secret ANTHROPIC_API_KEY. Without it the job
-# reports "skipped" and passes; M8 makes this a required check once the key and baseline exist.
+# reports "skipped" and passes. It is not a required check (GATE-D7).
 on:
   workflow_dispatch:
     inputs:
@@ -111,7 +111,9 @@ jobs:
           [ "$code" != 3 ] || { echo "::error::the red team measured nothing: the model's API calls failed (F-13)"; exit 1; }
           [ "$code" = 0 ] || echo "::warning::the red team reported executed attacks; the gate decides"
 
-      # The evals above report; this step decides. It needs the stored baseline (M8 records it).
+      # The evals above report; this step decides, against evals/baseline/ (GATE-D6). That baseline
+      # is graded by code only, so a golden run graded by the judge is "not comparable" (GATE-D4):
+      # it becomes the next baseline candidate instead.
       - name: Regression gate
         if: steps.key.outputs.present == 'true'
         run: |

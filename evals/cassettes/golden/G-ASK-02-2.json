@@ -1,0 +1,47 @@
+{
+  "entries": {
+    "9ae89ea0f87b2e42a6641e99478c2f4fd2aaa6797e88cc5feb8c0447169da25d": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_019rz75snKXDR5ysjsPxihFZ",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1693,
+        "output_tokens": 49
+      }
+    },
+    "f4c0acf3be6338ce12206268d2ac35b9d428c713279664a716e0feeccd7b3a82": {
+      "content": [
+        {
+          "signature": "CAQS8QUKEAgTGAI4AUIIdGhpbmtpbmcSDDY/8wECOBLh8m8jNxoMHa7BuvkMq9IPjeGfIjDktS1hiZhnBXOVhygmVdxHlD4Jgut8pbWoQCL+Rd3T2h+BRExHuyZxv3VdcBtQRnUqjgXLJNtRPowXuudVWAu0MhDWHZb4YoykY1zwsbsawkspsIQHIGbLqvtE9bTbto78VHxujuh40knzVvTHwFsCZcaNcHnxLQZO7ogZ9X6qhlvpqdEww0MI/YDek50MbyAodGX4kGZ2udN+fx+eUnV29RoQjBqZIi5LLziLS/2XS1ZHN9aGOlJdTFZ9RcEvI0onrUNfcSJlxJeIYbPvWLSkDZCL5RqLfN2vNxWo1R+kIrz4ICNYD+AtI6U/Vs74gi4ZIi2kGlmc7OUGvUzy/8f8TDTDR/VX0LjbjN/3NzcR5tsL/4ObUPbbcZd5aXVtBVkfZgp1ibAspC/sk3ECCgr70ZcIifBaPGiL6uUSEhgihi6tK+iW/GrDsxWVul9CGiW1Pe1maYkwZ7dEqaExynBWn5TrKukQSKqrBHjC1XIJA7Ik/alsmq2q7hwResV/k7oRjc0Ug9ctpeY7+wSOyfssPZ51hgbASNwCMCndA9IDtFZK5pUnvFKu4DIJqOEhIFR/W8JR4rLcs+ZeMsjWUDLhIIjpQ41kG0HuNc+AOxAJxzIZ8eRv+AZsCDJmBbpb4Cr9oriwBSUwTFHtKTWIp4ntvg0GtkenSJQbD0BvgtF88x2/LIHcr2kSpIam8eYajQzeCHTsqZIwCVkzKORK78aRLzBW2hwtXDCTkyLbzsqBoWX75yRYNwrsJELFWk9hNojk4CT1ZLVBLPRNXzrG6PstaoxZ9y7qU/qX7qozaAKdPGEG8W0z2FwoUWmByXeIt4wrlx+mMZciLUuN0sYAZ8lKXVQ0FNDB0WqMpj8T2CInr9mGqjvMs5sgUrkyFN2PyvCGDNUypmhY94Y+3Dy9NIM4/GaX+3Ug8HIn1liK6M9DjhUYAQ==",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "There are 5 open invoices, listed below by due date:\n\n| Invoice | Vendor | Amount (USDC) | Due date |\n|---|---|---|---|\n| INV-103 | V-FABRIKAM | 312.75 | 2026-11-12 |\n| INV-101 | V-NORTHWIND | 1,250.50 | 2026-11-15 |\n| INV-106 | V-LITWARE | 4,000.00 | 2026-11-18 |\n| INV-102 | V-CONTOSO | 8,400.00 | 2026-11-20 |\n| INV-107 | V-FABRIKAM | 75,000.00 | 2026-11-25 |\n\n**Total open:** 88,963.25 USDC\n\nAs you asked, I didn't propose any payments.\n\n**Worth checking before paying:**\n- **INV-107** is for 75,000 USDC. That's much larger than the other invoices, and it's from the same vendor as INV-103 (Fabrikam).\n- I only looked at the invoice list. I haven't checked vendor status, vendor messages, payment history or the treasury balance. I'd do that before paying, since a blocked vendor or an earlier payment would rule an invoice out.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2086,
+        "output_tokens": 452
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

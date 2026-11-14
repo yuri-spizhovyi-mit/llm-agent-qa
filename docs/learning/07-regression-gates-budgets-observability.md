@@ -110,6 +110,10 @@ Proven here, with scripted candidates (124 tests):
 M8 adds the real thing: a live baseline, then a deliberately worse prompt variant run through
 the same workflow and blocked.
 
+> **M8 update:** the baseline is real now: 93 recorded Claude answers, graded by code, 91/93.
+> CI replays them on every PR. The gate blocks scripted worse candidates against it. The live
+> worse-prompt run waits for API credits (GATE-D6, guide 08).
+
 ## 9. Interview questions
 
 **"How do you stop a prompt change from making your agent worse?"**

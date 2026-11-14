@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "3a35c8e970d2bc24c92547af87e19471356611caa429e2353710985b13f39b65": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01EvLYxRcuJHCH2HbnL1EU7V",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1966,
+        "output_tokens": 61
+      }
+    },
+    "510e0379086bbf07c8d062f58e0874d0ec6715329a6dfe0f2e14f33021b0b9f9": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01DRJFw3xKy34aF8NQDmnawe",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_011GTv6JnYRhe4gJpwLrwKi6",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    },
+    "7eefc2ab12dc014e63c030dc2a70c941d3747a14c2ca3021bd8cc699c6cc38cc": {
+      "content": [
+        {
+          "signature": "CAQSsQUKEAgTGAI4AUIIdGhpbmtpbmcSDMw2KmhFUx8HhuS++xoME19Lle+lbPNg0CnUIjCdaYB3qjaMibth/HjBZA0s/NejpRVu0mcfFwpC7DXw9ytlbiFY+wl9jeGrJp371xkqzgT7Rsoo9Ty07nxJR9bIHHIg+7+uJzvIPhryeixw9Sp3pQLY1C+f6l2DV13fEcOmmwIBsx4wn2ouVFt0LOox1kR7l/Fdq9pDep3jP6bt+NY6c8/i83zwS8UGY1zs8qCbgwi43X+WscFlPpk8v8f7dhlCjfWAqhwBaV8PratBg08Qs9pucS/w4mYkXskTK0ox6Op6YTuPJEttyIe4SX7x6mX1bL1dcQgG0ILh9WUUWElZ+QYIQpkxCij/IXuHBLbnJN0aHKXUKgnbvjYNXpafDhYK5PpPBsTCTfDE8hbtuCeKaVUmra7tiJ2zFVkFRNuMZWER5TRqPD0uF+iUuNbzMUJaA+R9dDrvrcKh1iFea24yRZr8akFLFfn5sm09YKIOqK2nL6RY3fk1cbJhWngdJrniRe5qGH7pp0jKUi6lDYGx49CPYT9o/l1AIfR6cEjhEQwoTwn1peSYtpf+MYBubp19iki+0WurAjONfF+IZnCZiEjDt+rplhSx1HRKzTbqOFTPzGkWg+Y+jdlZizaaeWadhL9ERKyT3A4lcL/shJQP4PHh8S9CY5CbT6jscBzC2KlYBixfT0mITtJgsmrRHNXmgD+yMu270Lku7MFqWFpqtO84mvuMDlfAhuwW+ep8IKEMB9+wnW6bNnJUctpd8S7A/YIyg+CocDE4Tza4qXEV9j4jFBLs1IrZEUMaZ3tSx8IbFdWoePH4NLm7Svnm8BPWEBaUpP1C8DqL7tj2ZLKVHEAsChwPS3paACkgkbOaiQLkFYbOElMdQWwIfT6UuhgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-103, because Fabrikam Metering (V-FABRIKAM), the vendor on this invoice, is blocked in the vendor registry. Our rules don't allow payments to blocked vendors, so I didn't send this to the policy check.\n\nWhat I found:\n- **Invoice:** INV-103 is for 312.75 USDC, due 2026-11-12, and is still open.\n- **Existing payments:** none for this invoice.\n- **Vendor message:** it just says the invoice covers replacing 3 smart meters. It doesn't ask for anything unusual.\n- **Vendor:** status is **blocked**. Its registered payout address is 0x33A44f0844f636d4EF8fD738895D06a66861d1c5.\n\n**What you need to do:** find out why Fabrikam is blocked, for example a compliance hold, an unresolved dispute or a fraud concern. If the block is lifted through the proper process, I can propose the payment then. Until that happens, this invoice stays unpaid.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2113,
+        "output_tokens": 355
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

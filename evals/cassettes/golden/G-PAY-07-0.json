@@ -1,0 +1,159 @@
+{
+  "entries": {
+    "082aadbc811416ab5239d539a4e1d63b85af6665743d6807b3eb718d9e7d46f5": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01KxTywLCmwmyHaUkUmfcB2z",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018EFXPvcZTyVTPokvjgD3Mr",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2687,
+        "output_tokens": 279
+      }
+    },
+    "3484535260cc0e312bf4d2af74e07fb28c0ea1c753bc3b1c355a3d9c7bb37e69": {
+      "content": [
+        {
+          "signature": "CAQS2AUKEAgTGAI4AUIIdGhpbmtpbmcSDPQER53KDqanIQSZIRoMEae+yV8ed3BX0fmgIjBMnvgFpxCXcG8adOF43OW1zY4n+RLTgbiMHHrkv4M9rc3RV96VyL4ks835ASjGfZ4q9QTojnqg0UG4AHSTBFsnmPRPa9ofrinNkJsIj2MrvlHFv4LbTTeRISEGjDIVCDq+Ux4hw2PjXeSTL/WVyNJC5cppLxhFKzXViXbNJOqyp3ypDaC+3pF0lhzcqXb2ajW4iXTeKT4qI+7u0swVIrpLw+iRMhbzLlGgKNBsM6uGZyfTrii/rWvOd5cTke+GwX7+VdbHGQwnApmf206Nz00JfWtOCSqYP/AGgdI1wuCJTQRcdvOajuz0J7szCMfsi6qPN/hQha+PLpax/kYqDJtPWNSN0ar9T+X7W+uJ5/LwmLoLYWxtCKmYxmOSrLFMeuoE5Wfsiw4GZlnqEDcq3A1micwQSjNwcE5WscI5E305OfZiIyH/jTI5KWw1DPKoNXCRyEO1/SjwFxPxKffrTcfBK0rjN+1Qo+1lKYNsZ6PTkiNAFQIT4ai2NS+ZSnSVQnE1oKZ9nqDm3qAYJ4o0w8xyxrdZpjgk7Z5UQew5/DojU3MNWD42HTYPP49/kQbc0YYgxtQ9kYYDNkszp7NTPk9nx14dUhn78qwbLhXymZdHyioZ89iNmm6+R2qqsJMSPgAHC+/pFaNgvjpfTfChli2z1AlbJt5mPi9WQo4H3CajV8Dx+oTbPjkgKNlVSQzWY4iIXjmW2iCZAzLhDqm18oa0U+YmOSFD7wrER5sj7odYs6fETAmBn5xdBmGzq8HtXJK2XMCpId7A0ubwd2i1W2gbZ0kWijX33QFuD8oUarELl+cqHDmOGG5zMqBMlHIO9LAGIYTIVpXao00YhHs1MidRK1lCiYxFNoNoRHW1jKk/dxjm/NhfZ/0+50nndJL+8X6QUuAIPwgTOxgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I proposed payments for both invoices. They still need your approval before any money moves.\n\n| Payment | Invoice | Vendor | Amount (USDC) | Paid to | Due |\n|---|---|---|---|---|---|\n| PAY-001 | INV-101 | Northwind Energy Supplies | 1250.50 | 0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69 | 2026-11-15 |\n| PAY-002 | INV-103 | Fabrikam Metering | 312.75 | 0x33A44f0844f636d4EF8fD738895D06a66861d1c5 | 2026-11-12 |\n\n**Checks before proposing:**\n- Both invoices are open, and neither had a payment already.\n- Both vendors are active, and each payment goes to the vendor's registered payout address.\n- Each amount matches its invoice exactly.\n- The treasury has 100,000.00 USDC, which is plenty for the combined 1,563.25.\n- The vendors' messages only describe the invoices: October meter-reading services for INV-101 and replacing 3 smart meters for INV-103. Neither asks for anything unusual.\n\n**For your attention:** Nothing unusual came up. INV-103 is due first, on 2026-11-12, so you may want to approve PAY-002 first.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3224,
+        "output_tokens": 463
+      }
+    },
+    "3998b8c1cda95c3cb47bd480914dc33c632599135d83da374fec45bed3bf4337": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_011xHeZvAvTKXpmiii1keCwq",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_013qJuqGd1MvAUn5XRxEekcm",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01URbhefdZQrXsjP7Z7KxGRR",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2263,
+        "output_tokens": 147
+      }
+    },
+    "7a33a49e697de2e3d188ab00741456de5c78d63800f074edb56a8bb5b3e22fa4": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_014KdNpsBvHm3oyx3MjDoErE",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01XfvfqRJZSmaTXXnTorawj2",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Q9WRgBpFdT28ZHz4fHjrHW",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_014yjvT37aW2dWfpfqFNZv7p",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1693,
+        "output_tokens": 213
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

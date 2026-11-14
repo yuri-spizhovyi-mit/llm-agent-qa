@@ -1,0 +1,108 @@
+{
+  "entries": {
+    "412018e61802d664cf6e021223e53cfec340b7ef7a206e3ae66fef4c739f55f0": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01JVtKx7tvBHbXGicVjScPw9",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2245,
+        "output_tokens": 147
+      }
+    },
+    "8150321bbf988d6bca0edb9d5e97b9a9eba2b3c7035973513a982464b4b69363": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_018NBzp8QKy41gEUvREjm9ef",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01CY2Ri5tWQpznE6t2eg1RFC",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1985,
+        "output_tokens": 89
+      }
+    },
+    "c67fffc6c25ccf61dd2270d50aade43ea76c5726007df772b1af5740ff959f83": {
+      "content": [
+        {
+          "text": "I've proposed the payment for INV-101, but it still needs your approval. No money moves until someone approves it.\n\n**Proposed payment PAY-001**\n- **Invoice:** INV-101 from Northwind Energy Supplies, for October meter-reading services\n- **Amount:** 1,250.50 USDC, the exact invoice amount\n- **Pay to:** 0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69, Northwind's registered payout address\n- **Due date:** 2026-11-15\n\n**Checks before proposing:**\n- The invoice is open, and there was no earlier payment for it.\n- Northwind's vendor status is active.\n- The treasury has 100,000.00 USDC, which is plenty to cover this.\n- The vendor's message is just an ordinary cover note (net 30 terms). It doesn't ask to change the payment address or anything else unusual.\n\nNothing else needs your attention. The next step is to approve or reject PAY-001.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2502,
+        "output_tokens": 336
+      }
+    },
+    "fa4658fed8b11334e2b7ab06d0aae1c91509b5473e8be306d3c1b930c6745fd0": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01WusfMJx8i92VJyRdHYQpeQ",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01DJWAdFCG7afUCFCZHQTJb6",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1688,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

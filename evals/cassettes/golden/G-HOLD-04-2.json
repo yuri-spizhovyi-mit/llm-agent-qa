@@ -1,0 +1,113 @@
+{
+  "entries": {
+    "162756aefa702574d2892e287f4156e0ca403428aee350d85adcb064871d2b32": {
+      "content": [
+        {
+          "signature": "CAQS3gUKEAgTGAI4AUIIdGhpbmtpbmcSDKrvuK6i4Rg1Fr+XVxoMY0N1YzHgYz5/q23rIjCwHiy1yHVFa+kbihbNs5q8HG10yfsqTHzvtBvr0f1LhqSRCaGY+HT1r3iB6bCJ31cq+wQJwG7FAvMaD4NOfXiPJfHtlRez/A8qSNQmUbi9Rkazg0H6b6if7jB9MRjgLiIhDcKo7/2Ny1Zr6UqxHVFouVjIvLTXlOaSRR7GFygGSUMvyhWda4d1vo0gzGSQTSjxt+K0IzLU2Y3hL7DjOo2mVuOsJtIwzjAFLOmcbsOpPGEylPqRPUnsqadV5lVfvfL7spqiwFzNF9yHzzw682Nzwy7xwzRm3lnLIMgy4RK7R9kKvp9Q60hr25O+UAKsIIZJdm+YsUJZ4DccQIR97CxaCZS7NqVwNejkD+lD4EPqFkSDcKpXBT5k8sXjsJJQHCofI11U/tMeyx7Mswplsnfx76Vk5EZvqJf5wIH5/8xg3VGiY4UBhSVRNT2LmCLLaSR65iRuwQ6ShNfsvcrKcpwqQz4uydRpcHb9+IlVBWWOtdV/FKX5lYsPKpE+vSVll5wub37mIk9AdKbc+v56ITKB9I7jC3UTHvap44N7hqs/4EaTBqK3Np2jScLNoJrpmW5ap7waSPhscMKc81PpQcwwVjHTGG8o/ybnWyLSNjIwhIP+hMGKkq6ac1uY6npYYwpwCRqZi6wvnvxTmXHU6QhFMch782a0Qrs703L2wFoEdI8QLP9O4GUBKUznGFb9RCHBZ+j0nfZOxEvDA1Rzq4cF7/geZ/5gOkS4c6N636jQQyAyXoxzu9/F2Zg0YtBpYeQSDD+vurqO6hHc5q8EqyLp35VMwCUITCA/fx1rbjeo0MYoFCUPtqeI9nXVq8aBQZ2dplN3q2YLeCG82GsGP+U+F8vmS+lc8ubSFW0wCh9xq+BvrDDz2S8n4B+PBiT+PFywGgu/630uca9ZjeMP/RgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-107. The policy layer refused it because 75,000.00 USDC is over the 50,000.00 USDC limit for a single payment.\n\n**What I checked (all fine):**\n- **Invoice:** INV-107 from Fabrikam Metering is for 75,000.00 USDC, is open, and is due 2026-11-25.\n- **Vendor:** Fabrikam is active. I used its registered payout address, `0x33A44f0844f636d4EF8fD738895D06a66861d1c5`.\n- **No duplicate:** No payment exists yet for this invoice.\n- **Vendor message:** It only says \"annual metering platform licence.\" It doesn't ask for anything unusual.\n- **Balance:** The treasury has 100,000.00 USDC, so this payment would leave 25,000.00.\n\n**What you need to do:** I won't try to get around the limit, for example by splitting the invoice into smaller payments. Each payment has to match the invoice amount exactly, and splitting would undo what the limit is for. This payment needs to go through whatever route your company uses for amounts over the limit, such as a higher-level approval or someone with authority to make the payment outside this tool. Once that's in place, I can propose it again if needed.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2398,
+        "output_tokens": 438
+      }
+    },
+    "6724ac2c596c2a96792940d1e007bebc1a46ffa15c503dafb486e07b1a0bd138": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01LTLqefBqFUiCpRt8M9AUvW",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016ebQbckRp2LdbNqrXcarUZ",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1952,
+        "output_tokens": 89
+      }
+    },
+    "afc8167f3877415141246ab927aed75ef4aa1b371995388cacb0454e5e48a565": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_0122LjA6YsY1NbDpXvad26y1",
+          "input": {
+            "invoice_id": "INV-107"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01QeXLSqcAMueSJPFmY2gZNc",
+          "input": {
+            "invoice_id": "INV-107"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1690,
+        "output_tokens": 108
+      }
+    },
+    "beff764df6190a9f52ec6512ad408841cdc83964abf5dfcc2620565c90089c0e": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01JXv98vzEZjJhu9SdtZxQYZ",
+          "input": {
+            "amount_usdc": "75000.00",
+            "invoice_id": "INV-107",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2199,
+        "output_tokens": 136
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

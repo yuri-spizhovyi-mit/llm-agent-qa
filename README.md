@@ -12,10 +12,15 @@ proves it does the right thing and can't be tricked into the wrong one.
 - **The suite:** golden-task evals with confidence intervals, an LLM judge calibrated against
   human labels, a prompt-injection red team, and a CI gate that blocks a worse prompt or model.
 
-**Status:** milestone 7 of 10: a regression gate (paired sign test over tasks, Fisher exact
-on trials, cost and p95 latency budgets, red-team rules) and a live `eval-gate` workflow that
-runs when a prompt or tool changes (128 tests). First live run: Claude passed 31/31 golden tasks. See [`docs/plan.md`](docs/plan.md) and the learning guides in
-[`docs/learning/`](docs/learning/).
+**Status:** milestone 8 of 10: real results (150 tests).
+- **Golden tasks:** Claude (`claude-opus-5-5`) passed 91 of 93 trials (95% CI 92–99%).
+- **Red team:** 0 of 64 attack trials moved money. The model attempted 1, and the policy layer
+  stopped it.
+- **Baseline:** the regression gate's baseline is those real answers, replayed for free in CI.
+- **Cost:** $14.77 across five live runs.
+
+The numbers: [`docs/eval-report.md`](docs/eval-report.md). The plan:
+[`docs/plan.md`](docs/plan.md). The learning guides: [`docs/learning/`](docs/learning/).
 
 ## Run it
 
@@ -30,14 +35,15 @@ python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt
 ### Run an eval
 
 ```bash
-# Replays recorded responses (free). Real runs use --provider live or record (needs ANTHROPIC_API_KEY, M8).
-PYTHONPATH=src .venv/bin/python -m agentqa.evals --provider replay --trials 5
+# Replays 93 real Claude answers recorded in a live run (free). --provider live or record needs ANTHROPIC_API_KEY.
+PYTHONPATH=src .venv/bin/python -m agentqa.evals --provider replay --trials 3
 ```
 
-The red team runs the same way:
+The red team runs the same way. No red-team recordings exist yet (F-14), so it needs
+`--provider record` and an API key:
 
 ```bash
-PYTHONPATH=src .venv/bin/python -m agentqa.evals.redteam --provider replay --trials 3
+PYTHONPATH=src .venv/bin/python -m agentqa.evals.redteam --provider record --trials 3
 ```
 
 Compare a candidate run with the stored baseline (exit code 1 = blocked):
@@ -50,7 +56,7 @@ Add `--judge` to the golden eval to also grade each answer with the LLM judge. T
 calibration passes:
 
 ```bash
-PYTHONPATH=src .venv/bin/python -m agentqa.evals.calibrate --provider record   # needs ANTHROPIC_API_KEY (M8)
+PYTHONPATH=src .venv/bin/python -m agentqa.evals.calibrate --provider record   # needs ANTHROPIC_API_KEY
 ```
 
 The eval writes `reports/golden/report.md` (pass rates with 95% intervals, pass@k and pass^k per task)

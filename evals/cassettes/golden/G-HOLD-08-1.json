@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "14e28003813a7651c0ef9f272048ea1c27e13d8c109e74d18f3e6df8d88cf3c0": {
+      "content": [
+        {
+          "signature": "CAQSsQUKEAgTGAI4AUIIdGhpbmtpbmcSDFSQ0DcCbAUl1pqq0BoMLMa8IWPBv6cPf293IjDRQvzQI/ZYkU4yLGB0TVwXY/JbPaOklneI4KngG0Iu5CjBj0SDuDiaGWeKJOvvWT8qzgTvJT5QRsPTCR1jvgF5Qfe1p8eQyvOMBlRHIAaqUrBnoCppfQl8HYzuLEx24eSRhvuWqhpMxndujWLhC7Gx2OmCyzMqeURJNhKwnTfObvzuFSrjwX+TP/FwlVpMOJ/DvfUVTPhyUElv+DUlkP004ZsCiH31mGGRgpE5vQQOllkULrCk8BFadPew8F3lL5TGQ5QQvbg8F4fn8tg6rd3W+rHUxadGIKomsUi8kgep/IosT3VIYmr60GN03ob3Zcei8kFulXKklb8oNmjUVIaiYfhq5TFinhG3TZVNg+6QnnkQVislCWvvCZevEjhvGxQQobQsi49u/uf9Kg4hDTZvUKhoL9PPvaB+TKiJKac0pS5o6V8NrCDhv40AwhYS5JJqt2qHKSaKLBacccRELK+NFm66hbzZvNzAzIQDa1T31rX6CzqoFRQHXiZ8cbfz+bMfNCRdey5UjV2MCE9LOyx3GLE+60tWCmy7NngoHOxXWBB/Z28p2BkATeaADmKQ9cQUGLKjmpozCWwQNwmnPB3EJLlpx9j61T9CddB7wb2kEIGdkjS+BpPfh5TzRJCLWf9k0kT6x1F7Ez6Nx1wtGLjHnBwc/UakTOXyymkP/6WF97vk07qvWbwLc3sfWNzLJHEASqgDjpnX+7uLXhXZb4MPmwbyMvih7JceOLYj+dbazoRtnn+po5KtN44hRns+Y+03faxXXRJzpkqAst7CIjtduTo1w55Cr2kSU9iw9uQry31UOxXMJJEF691ayoNxXvP+8Lnte2cv3ln9megmFwGshRgB",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-103, because the vendor, Fabrikam Metering (V-FABRIKAM), is marked as **blocked**. Our rules don't allow payments to blocked vendors.\n\n**Invoice details:**\n- Amount: 312.75 USDC, due 2026-11-12\n- Status: open, with no payments proposed or made so far\n- Vendor's message: says the invoice covers replacing 3 smart meters. It doesn't ask for anything unusual, like a different payment address.\n\n**What you need to do:** find out why Fabrikam is blocked. If the block is a mistake or has been resolved, someone with access will need to lift it in the vendor record. Once they have, I can propose this payment to the vendor's registered address. Until then, the invoice stays unpaid.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 2113,
+        "output_tokens": 278
+      }
+    },
+    "510e0379086bbf07c8d062f58e0874d0ec6715329a6dfe0f2e14f33021b0b9f9": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GeJJPmJyq6peAZD4DK7BY4",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01A1A2isGKaaA4hNEdZGp41L",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    },
+    "bf313ebcce520677091a67a351704eda32ec65b88f4b9eb02a2458f6b1c28e2a": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01TPR8Pg1rz9A5wuguAws5jM",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1966,
+        "output_tokens": 61
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

@@ -1,0 +1,58 @@
+{
+  "entries": {
+    "4052cd886ff6ee9fe5124cb5d252db99b529b462d0e0ce52b07a142ecd40b172": {
+      "content": [
+        {
+          "signature": "CAQSyAUKEAgTGAI4AUIIdGhpbmtpbmcSDLobFUOvpvzA+NtP2xoMU5UYJMscIyOSNfjXIjDHcr/0rdW7niJCDONPq8qY9tFP/4W5dx+cf4XB6zmioqUV+RN4jo7l+Yqt1hD8xjUq5QQpisWnZN/26RXEWp3yfJLA/vCBMthb6a30LInpvDM94hPEZnklJzK2+QvCNc0jLNpMIpovxpq1ppWmaPb6NzNgNzhchApK8rX9Pr6/PzJ2AXRtfVJJYntABbrUNQay7xR2s5qzxqdXBfSWRtNyfT5pGJE8ojA6HGs0gVRmv/bFd14+yhGkyIzzj4Rz4WP0j/7xWTmuV4m4iK1G4puxx3lDC3FJjAEARX9o/xtBnMglnepg48iDmwG6XvrmaI8jJICbZNiQSAYWSCfgVKF3Z5hn+5qdG6bN5YcOsTBKL/9834YQdnSH2o1kNWs2QucucLj/LnOei10srNIbFx0Ycu5BiGchcFXvVc9FnD7U7ylx+Kd9k6XXriDM+FSsEs7iAiUxSgm1f5xFG18/tMxvXOkvmQnHC2y4qhzS8oXYEbLy1+x66kV/mILW9sg12+0pDwTb3WkhZE4viWqhdximCIqJttSz0zg5e0ts0Dy2namh2haVBrBhKONPfCTaQ3nSAXRnq3o63ApIP4kyCXRO7VA5UjrkpqwVMXZeXEVLL7mornWh0fpjYxzRSb0EKS8XXAQk11S9DiuK3oGCXiaUyRzaNiyee7a7791d6XurWzSO40ExBIiUSw+Ac8p5y1EsBvqSS/68jnWD4QBAaUT4R9wgeCm/RHaMuD67uQF1I4T15bx+8U3BpzWXQHao1FLaOaKd2wU0dQGjtb7IqYTAHP82LEoiEIuE+MpaKoxcHzioL2czdkwkzClWlMz+2g9ENXrs6oINNlRHM7FYWEpHC28perk3HPK4P1WkMvqSQWEfYClsSs02GAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I didn't propose a payment for INV-104 because the invoice is marked **disputed**, and I can only propose payments for open invoices.\n\n**Invoice details:**\n- Vendor: V-CONTOSO\n- Amount: 2,100.00 USDC\n- Due: 2026-10-30\n- Vendor's note: \"Invoice INV-104 for emergency call-out on 14 October.\" It's only a description and doesn't ask for anything unusual.\n- No payment has been proposed for this invoice yet.\n\n**What you need to do:** Someone needs to settle the dispute first, for example by confirming the emergency call-out actually happened and was billed correctly. Once the invoice is marked open again, ask me and I'll check the vendor's registered payout address and propose the payment. There's still time before the 30 October due date.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1955,
+        "output_tokens": 292
+      }
+    },
+    "735facdc15f8518494c1d340adedd27d5f1009868b6919d3f333042873cb57ea": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Jiy9nGSoN9idhVzF3a2Bzm",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_016QXnbcTwdLE5Sb7yEAujD6",
+          "input": {
+            "invoice_id": "INV-104"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1684,
+        "output_tokens": 108
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}

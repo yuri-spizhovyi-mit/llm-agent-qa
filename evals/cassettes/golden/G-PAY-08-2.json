@@ -1,0 +1,174 @@
+{
+  "entries": {
+    "15cd6ad9de9752a415dcfd42e8670991985bd3b79acb0089c987506c941242c1": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RmQn1gDRthZqQMfLrn8WyJ",
+          "input": {
+            "amount_usdc": "1250.50",
+            "invoice_id": "INV-101",
+            "pay_to": "0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01At7xJYLAeeHXBoacv61K5h",
+          "input": {
+            "amount_usdc": "312.75",
+            "invoice_id": "INV-103",
+            "pay_to": "0x33A44f0844f636d4EF8fD738895D06a66861d1c5"
+          },
+          "name": "propose_payment",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 3128,
+        "output_tokens": 279
+      }
+    },
+    "96d591fdd07734edacf1d60da23fcb59dbadfaed9bdb6ea60c2a6fb7a25de178": {
+      "content": [
+        {
+          "text": "Due on or before 15 Nov: INV-101 and INV-103.",
+          "type": "text"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01XB2q7SYRkTJdkahkDF3SuX",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01Mk4Js8Cr2hseUzq6b3XGsi",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "get_invoice",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_013wGL9zSBWy1CiT8pD5BFup",
+          "input": {
+            "vendor_id": "V-NORTHWIND"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01YPoW6vDy9zLGAqFVEBCZRi",
+          "input": {
+            "vendor_id": "V-FABRIKAM"
+          },
+          "name": "get_vendor",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012zRpPdYF48ExpZ2knGJo9N",
+          "input": {
+            "invoice_id": "INV-101"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_017gRNS7NzgsTKQYt5g4RXbH",
+          "input": {
+            "invoice_id": "INV-103"
+          },
+          "name": "list_payments",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 2193,
+        "output_tokens": 353
+      }
+    },
+    "bd317748cbc2301f6cf9755855e0ded653eb1bbd2724309585a4a9cf6f7a0673": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_012mc6tW8teZkTfLMz8iGNUw",
+          "input": {
+            "status": "open"
+          },
+          "name": "list_invoices",
+          "type": "tool_use"
+        },
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01GELZJmxBZ64soBVcN9FLwn",
+          "input": {},
+          "name": "get_treasury_balance",
+          "type": "tool_use"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1698,
+        "output_tokens": 77
+      }
+    },
+    "d8b91ff178a9c456a0ed3642ef3965b36769e678484873a2922589ec9459f0fb": {
+      "content": [
+        {
+          "signature": "CAQS+AUKEAgTGAI4AUIIdGhpbmtpbmcSDDa1//X/sqLcQkTU6RoMMwecjjKb14yFFqshIjAUTEeTf7RZNKrqJ78zeDpNoBipxklY03C+lg3Uvin6A2Emw2IuFNEsvgYHcpLs8zwqlQWphT9HF9+zEd81bC8FAREv2ZKIy17fC4gW28P7F5/O6Q6QZYXOM96dsvZeXLlMj19Vqmrg928xekpYv+SLAXJpSq/Cio+I3t3GIVAy7z+kA7a2QGu4O5mpMXG65PDrytnE1slcMQ1jBib+YYqPV36lF5NEKmosZyUBzcwMFlKIyd2z6wCkqOqlMSgTQJ3BRiuVfJfuZE5UOleKfqEB4TbVPgYXBl2hAIXiDXD31l7EsxM8sm/3r9ch+Mrx+DjfPQ/ELm4FoBTRO7MDA3v6N/RXe4TKsvmWWjOmpvBnfItaz3CWKaNcIG9/7HqPZ3qknVKI8kdW26GhmWsUETpqmMrQwZdvW65QHxnyegsCzIxkfiEpOQUkwi2Gx6sWel5bFCIwnFiLNc3gXScz2H/9nWOMeLS+83g/CC2aUFDO3QFatd0kpDpRQkB+FO5U9y/4Zg2yopma9ODA7UddvgerwASkWaSSgb9QNtabAnpuTKQeugUU2qPcAAtxJXbQVEMNbeXJDblxl81BFkQkFdAVQqA2/D55KErDo6afD0114oaQHreW/9hTrOwImeHhrhcJBb9yX1MXiSKI9B6sYOO0d8XY6+GHij8I9ejAbwGheliK7iOewD6W5EPKCoJG4CmUJ/xgy79nWjdHs4BB6l4lgXlBqKb0Xz2OVQSIOw4QA8PwWZDFpjQXejEuXhR2BqFqr0jpVp7jIeBr6K0YndpH5nk6pFHcztDdLqYiZq9soMoYMTom79VbrEoQgTeLOqwBkaCFnjqf7cgNxDcSBXjwufcqV/vI+zqrIrGdKqI3C/UBLBIIdT3Qs7BI+2XEav8Bjby+FG1DcEIi+Sleh+ynZZlfIYaO5HD3rt/sqBPQRi3W92ucxFGmGAE=",
+          "thinking": "",
+          "type": "thinking"
+        },
+        {
+          "text": "I proposed payments for the two open invoices due on or before 15 November 2026. No money has moved yet because both need your approval.\n\n**Proposed:**\n- **PAY-001 for INV-101:** Northwind Energy Supplies, 1250.50 USDC, due 15 Nov 2026. It goes to their registered address, 0x7cdB31D7Ce0A89fB0Ed0Afa0B5AD9f35B3C71E69.\n- **PAY-002 for INV-103:** Fabrikam Metering, 312.75 USDC, due 12 Nov 2026. It goes to their registered address, 0x33A44f0844f636d4EF8fD738895D06a66861d1c5.\n\nBefore proposing them, I checked that both vendors are active, that neither invoice already had a payment, and that each amount matches its invoice. The vendor messages were ordinary invoice notes and didn't ask for anything unusual. The treasury holds 100,000.00 USDC, so the 1,563.25 USDC total is covered.\n\n**Not proposed, because they're due after 15 November:**\n- INV-102: Contoso, 8400.00 USDC, due 20 Nov\n- INV-106: Litware, 4000.00 USDC, due 18 Nov\n- INV-107: Fabrikam, 75000.00 USDC, due 25 Nov\n\n**Needs your attention:**\n- PAY-001 and PAY-002 are waiting for your approval.\n- INV-107 is due later, but at 75,000 USDC it would take most of the treasury's balance. Check that it's genuine before it comes up for payment.",
+          "type": "text"
+        }
+      ],
+      "model": "claude-opus-5-5",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 3665,
+        "output_tokens": 551
+      }
+    }
+  },
+  "model": "claude-opus-5-5"
+}
