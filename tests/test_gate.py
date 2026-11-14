@@ -13,11 +13,13 @@ import copy
 import dataclasses
 import importlib.util
 import json
+import random
 from pathlib import Path
 
 import pytest
 
 from agentqa.evals import gate, redteam, runner, stats
+from agentqa.evals.scoring import TrialScore
 from agentqa.providers import Cassette, ReplayProvider
 from agentqa.tools import definitions
 from test_golden import TASKS, flaky, over_eager, solver
@@ -221,6 +223,8 @@ def test_the_eval_gate_workflow_is_manual_or_prompt_triggered_and_keeps_the_key_
     assert text.index("agentqa.evals.calibrate") < text.index("python -m agentqa.evals --provider live")
     # F-13: each live step keeps its exit code; 3 ("measured nothing") fails the job, 1 only warns.
     assert text.count("|| code=$?") == 3 and text.count('[ "$code" != 3 ] || {') == 3
+    # F-14: both model-facing evals keep a transcript of every paid trial.
+    assert "--traces reports/golden/traces" in text and "--traces reports/redteam/traces" in text
 
 
 class _Outage:
@@ -370,3 +374,31 @@ def test_a_trace_becomes_a_cassette_that_replays_the_same_trial(deployment, scen
     trace["steps"][0]["fallback"] = True
     with pytest.raises(ValueError, match="fallback"):
         convert.cassette_from_trace(trace, model="claude-opus-5-5", tools=definitions())
+
+
+def _resampled(results: dict, rng: random.Random) -> dict:
+    """A "fresh run" made of real answers: each task's trials redrawn, with replacement, from its
+    recorded ones (a bootstrap). Same prompt, same model, only the luck of the draw differs."""
+    by_task: dict[str, list[dict]] = {}
+    for t in results["trials"]:
+        by_task.setdefault(t["task_id"], []).append(t)
+    names = {f.name for f in dataclasses.fields(TrialScore)}
+    scores = [TrialScore(**{k: v for k, v in rng.choice(group).items() if k in names} | {"trial": i})
+              for group in by_task.values() for i in range(len(group))]
+    return {"meta": dict(results["meta"], provider="resampled"), "summary": runner.summarise(scores),
+            "trials": [dataclasses.asdict(s) | {"passed": s.passed} for s in scores]}
+
+
+@pytest.mark.req("GATE-02")
+def test_fresh_runs_resampled_from_the_real_answers_are_never_blocked():
+    """The neutral half of M8's condition 3, without the API: 500 runs redrawn from the real
+    baseline's own trials. They are the baseline prompt by construction, so every block would be a
+    false alarm. Honest limit: the real agent varied on one task only (G-ASK-05, 1 pass in 3), so
+    this exercises the gate's tolerance of that noise, not of a flakier model; the scripted
+    neutral test (another seed, 5% failures) covers that."""
+    golden = json.loads((BASELINE / "golden.json").read_text())
+    runs = [_resampled(golden, random.Random(seed)) for seed in range(500)]
+    blocked = [r for r in runs if failed(gate.compare_golden(golden, r, CONFIG))]
+    assert blocked == []
+    moved = {r["summary"]["tasks"]["G-ASK-05"]["passed"] for r in runs}
+    assert moved == {0, 1, 2, 3}, "the draws should cover every outcome of the noisy task"

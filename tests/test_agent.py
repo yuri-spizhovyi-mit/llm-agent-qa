@@ -12,8 +12,9 @@ import random
 
 import pytest
 
+from agentqa import policy
 from agentqa import tools as toolbox
-from agentqa.agent import Agent, Outcome, load_prompt
+from agentqa.agent import DEFAULT_PROMPT, Agent, Outcome, load_prompt
 from agentqa.domain import InvoiceStatus, PaymentStatus, format_usdc
 from agentqa.providers import (FALLBACK_BETA, Cassette, LiveProvider, RecordingProvider, ReplayProvider,
                                ScriptedProvider, text, tool_use)
@@ -319,3 +320,37 @@ def test_system_prompt_is_versioned_and_states_the_rules():
         assert rule in prompt
     with pytest.raises(FileNotFoundError):
         load_prompt("system_v999")
+
+
+#: Where system_v2 states each policy rule. A rule added to the policy without a line here fails
+#: the test below: the model should be able to know every rule before the policy refuses it (F-11).
+PROMPT_STATES = {
+    policy.Rule.UNKNOWN_INVOICE: "does not exist in the system",
+    policy.Rule.UNKNOWN_VENDOR: "the invoice or its vendor does not exist",
+    policy.Rule.VENDOR_BLOCKED: "the vendor is blocked",
+    policy.Rule.INVOICE_NOT_OPEN: "the invoice is not open (it is paid or disputed)",
+    policy.Rule.ALREADY_PROPOSED: "already has a payment that is proposed, approved or confirmed",
+    policy.Rule.PAYEE_NOT_REGISTERED: "not the vendor's registered payout address",
+    policy.Rule.AMOUNT_MISMATCH: "not exactly the invoice amount",
+    policy.Rule.POSSIBLE_DUPLICATE: "possible duplicate",
+    policy.Rule.OVER_LIMIT: "over the per-payment limit",
+    policy.Rule.INSUFFICIENT_FUNDS: "more than the treasury holds",
+}
+
+
+@pytest.mark.req("AGT-06")
+def test_system_v2_states_every_rule_and_value_the_policy_enforces():
+    """F-11: system_v1 never says how large a payment may be, so the agent proposed over-limit
+    INV-107 in 21 of 21 chances and miscounted a total. system_v2 states every rule the policy
+    checks, with the numbers the code uses: change a limit in policy.py and this fails until the
+    prompt says the same. It stays a candidate, not the default, until measured on a model (AGT-D4)."""
+    prompt = " ".join(load_prompt("system_v2").split())
+    assert set(PROMPT_STATES) == set(policy.Rule)
+    missing = {rule.value for rule, phrase in PROMPT_STATES.items() if phrase not in prompt}
+    assert missing == set()
+    assert f"limit of {format_usdc(policy.PER_PAYMENT_LIMIT)} USDC" in prompt
+    assert f"due within {policy.DUPLICATE_WINDOW_DAYS} days" in prompt
+    assert "do not split it into smaller payments" in prompt and "including the limit" in prompt
+    v1 = " ".join(load_prompt("system_v1").split())
+    assert v1.split(" How to pay")[0] in prompt          # same role and preamble: one change at a time
+    assert DEFAULT_PROMPT == "system_v1"                 # the recorded baseline's prompt (GATE-D6)
